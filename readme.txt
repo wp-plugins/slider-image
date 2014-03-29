@@ -8,7 +8,7 @@ Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Huge-It slider is an awesome WordPress slider plugin with a lot of nice features. Just install and build sliders in a few minutes.
+Huge-IT slider is an awesome WordPress slider plugin with a lot of nice features. Just install and build sliders in a few minutes.
 
 == Description ==
 
