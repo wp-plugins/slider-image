@@ -45,8 +45,6 @@ Now you can set your slider options, images and use our slider.
 
 ==Wordpress Slider step by step guide==
 
-### Wordpress Slider step by step guide
-
 ### Step 1. Adding Slider
 
 To add a Slider, go to Huge IT Slider>Slider>Add New Slider.
@@ -55,71 +53,70 @@ To add a Slider, go to Huge IT Slider>Slider>Add New Slider.
 
 Lets have a look at the individual features of the images.
 
-    Title. Here you can provide a title for the slider image.
-    Description. Provide the details for the image. This will be visible above the image, so it is advised to make it as short as possible.
-    URL. This is an optional feature. You can provide a link on the slider to take to specific location on your website or another website. The URL should be provided in http:// form.
+Title. Here you can provide a title for the slider image.
+Description. Provide the details for the image. This will be visible above the image, so it is advised to make it as short as possible.
+URL. This is an optional feature. You can provide a link on the slider to take to specific location on your website or another website. The URL should be provided in http:// form.
 
 ### Step 2. General Options
 
-    Width. Specify the width of the slider in pixels.
-    Height. Specify the height of the slider in pixels.
-    Pause on Hover. Choose whether to pause the slider on mouse or leave it changing to the further image.
-    Effects. Select the effect which will be applied to the slider.
-    Pause time. Specify the pause time for the slider in miliseconds.
-    Change speed. Specify the change speed in miliseconds.
+Width. Specify the width of the slider in pixels.
+Height. Specify the height of the slider in pixels.
+Pause on Hover. Choose whether to pause the slider on mouse or leave it changing to the further image.
+Effects. Select the effect which will be applied to the slider.
+Pause time. Specify the pause time for the slider in miliseconds.
+Change speed. Specify the change speed in miliseconds.
 
 ### Step 3. Editing Slider Options
 
 To change the styles and colors fo the slider you should got to Huge IT Slider> Slider Options.
 3.1 Image styles and colors
 
-    Slider background Color . Select the background color for the image. The color will be visible with during the slide change within specific effects.
-    Crop image. Choose whether to crop the image to fit the slider dimension or to downsize it to the required dimensions.
+Slider background Color . Select the background color for the image. The color will be visible with during the slide change within specific effects.
+Crop image. Choose whether to crop the image to fit the slider dimension or to downsize it to the required dimensions.
 
 3.2 Title styles and colors
 
-    Title Color. Set the color for the title.
-    Title background color. Choose the color for the cell containing the title.
-    Title font size. Specify the font size for the image title.
-    Title border size. Set the border for the title.
-    Title border color. Select the border for the title.
-    Title border radius. Set the border radius for the title.
-    Title position. Define the position of the title using the view graph.
+Title Color. Set the color for the title.
+Title background color. Choose the color for the cell containing the title.
+Title font size. Specify the font size for the image title.
+Title border size. Set the border for the title.
+Title border color. Select the border for the title.
+Title border radius. Set the border radius for the title.
+Title position. Define the position of the title using the view graph.
 
 3.3 Description styles and colors
 
-    Description Color. Set the color for the image description.
-    Description background color. Choose the color for the cell containing the image description.
-    Description font size. Specify the font size for the image description.
-    Description border size. Specify the border for the image description.
-    Description border color. Select the border color for the image description.
-    Description border radius. Set the border radius for the image description cell.
-    Description position. Select the positioning of the description. Please make sure it does not coincide with the title position avoiding overloading.
+Description Color. Set the color for the image description.
+Description background color. Choose the color for the cell containing the image description.
+Description font size. Specify the font size for the image description.
+Description border size. Specify the border for the image description.
+Description border color. Select the border color for the image description.
+Description border radius. Set the border radius for the image description cell.
+Description position. Select the positioning of the description. Please make sure it does not coincide with the title position avoiding overloading.
 
 3.4 Slideshow styles and colors
 
-    Slideshow border size . Set the border for the slideshow.
-    Slideshow Border color. Select the border color for the slideshow.
-    Slideshow Border radius. Set the border radious for the slideshow.
+Slideshow border size . Set the border for the slideshow.
+Slideshow Border color. Select the border color for the slideshow.
+Slideshow Border radius. Set the border radious for the slideshow.
 
 3.5 Navigation styles and colors
 
-    Navigation Dots position. Set the position for the navigation arrows.
-    Navigation Dots Color. Select the dot color for the navigation.
-    Navigation Active Dot Color. Specify the color for the dot for the currently displayed image.
-    Navigation type. Select the type of the navigation arrows to be used for the website.
+Navigation Dots position. Set the position for the navigation arrows.
+Navigation Dots Color. Select the dot color for the navigation.
+Navigation Active Dot Color. Specify the color for the dot for the currently displayed image.
+Navigation type. Select the type of the navigation arrows to be used for the website.
 
 ### Step 4. Inserting the Slider
 4.1 Inserting the Slider into the Post or Page.
 
-You should use the automatically generated code into the the Post or Page. The shortcodes takes the following form:
+You should use the automatically generated code into the the Post or Page.
 
-insert numerical or `ALL_CAT` shortcode in `id`, where N is the number ID of the created Slider.
 4.2 Inserting the Slider into the template.
 
 The shortcode can be easily inserted into a template/theme which corresponds to the WordPress standards.
-
 To do so you should insert the following shorcode:
 
-<?php echo do_shortcode(«insert numerical or `ALL_CAT` shortcode in `id`»); ?>
+    <?php echo do_shortcode(«insert numerical or `ALL_CAT` shortcode in `id`»); ?>
+
 Where N is the number ID of the created Slider.
