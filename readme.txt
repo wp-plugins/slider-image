@@ -111,6 +111,7 @@ Navigation Active Dot Color. Specify the color for the dot for the currently dis
 Navigation type. Select the type of the navigation arrows to be used for the website.
 
 ### Step 4. Inserting the Slider
+
 4.1 Inserting the Slider into the Post or Page.
 
 You should use the automatically generated code into the the Post or Page.
@@ -120,6 +121,6 @@ You should use the automatically generated code into the the Post or Page.
 The shortcode can be easily inserted into a template/theme which corresponds to the WordPress standards.
 To do so you should insert the following shorcode:
 
-    <?php echo do_shortcode(«insert numerical or `ALL_CAT` shortcode in `id`»); ?>
+    <?php echo do_shortcode(«insert numerical in `id`»); ?>
 
 Where N is the number ID of the created Slider.
