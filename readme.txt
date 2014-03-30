@@ -112,15 +112,16 @@ Navigation type. Select the type of the navigation arrows to be used for the web
 
 ### Step 4. Inserting the Slider
 
-4.1 Inserting the Slider into the Post or Page.
+4.1 Inserting the Slider into the Post or Page. 
 
-You should use the automatically generated code into the the Post or Page.
+You should use the automatically generated code into the the Post or Page. The shortcodes takes the following form:
+insert numerical or `ALL_CAT` shortcode in `id`, where N is the number ID of the created Slider.
 
 4.2 Inserting the Slider into the template.
 
 The shortcode can be easily inserted into a template/theme which corresponds to the WordPress standards.
 To do so you should insert the following shorcode:
 
-    <?php echo do_shortcode(«insert numerical in `id`»); ?>
+    <?php echo do_shortcode(«insert numerical or `ALL_CAT` shortcode in `id`‘»); ?>
 
 Where N is the number ID of the created Slider.
