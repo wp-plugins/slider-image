@@ -40,9 +40,9 @@ Now you can set your slider options, images and use our slider.
 
 == Screenshots ==
 
-1.  WordPress slider - Slider Frontend
-2.  WordPress slider - Slides page    
-3.  WordPress slider - Sliders page   
+1.  WordPress slider - Slider Frontend    
+2.  WordPress slider - Slides admin page  
+3.  WordPress slider - Sliders admin page 
 
 ==Wordpress Slider step by step guide==
 
