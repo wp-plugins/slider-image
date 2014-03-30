@@ -60,7 +60,7 @@ Title. Here you can provide a title for the slider image.
 Description. Provide the details for the image. This will be visible above the image, so it is advised to make it as short as possible.
 URL. This is an optional feature. You can provide a link on the slider to take to specific location on your website or another website. The URL should be provided in http:// form.
 
-### Step 2. General Options
+### Step 2. Current Slider Options
 
 Width. Specify the width of the slider in pixels.
 Height. Specify the height of the slider in pixels.
@@ -69,13 +69,13 @@ Effects. Select the effect which will be applied to the slider.
 Pause time. Specify the pause time for the slider in miliseconds.
 Change speed. Specify the change speed in miliseconds.
 
-### Step 3. Editing Slider Options
+### Step 3. Editing Slider General Options
 
-To change the styles and colors fo the slider you should got to Huge IT Slider> Slider Options.
+To change the styles and colors fo the slider you should got to Huge IT Slider > General Options.
+
 3.1 Image styles and colors
 
 Slider background Color . Select the background color for the image. The color will be visible with during the slide change within specific effects.
-Crop image. Choose whether to crop the image to fit the slider dimension or to downsize it to the required dimensions.
 
 3.2 Title styles and colors
 
