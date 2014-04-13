@@ -177,10 +177,10 @@
 	position: relative;
 	z-index: 11;
 	display: inline-block;
-	max-width: 33%;
-	word-break: break-all;   
+	max-width: 33%;  
 	padding:10px;
 	border-style:solid;
+	text-align:justify;
 	margin:10px;
 	font-weight:bold;
   }
@@ -192,10 +192,10 @@
 	z-index: 11;
 	margin: 5px;
 	border-style:solid;
+	text-align:justify;
 	padding:10px;
 	display: inline-block;
-	max-width: 33%;
-	word-break: break-all;   
+	max-width: 33%;   
 	margin:10px;
   }
   
