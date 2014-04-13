@@ -252,7 +252,7 @@ function change_select()
 				<?php
 				}
 				else{ ?>
-					<li class="active" style="background-image:url(<?php echo plugins_url('images/edit.gif', __FILE__) ;?>)">
+					<li class="active" style="background-image:url(<?php echo plugins_url('images/edit.png', __FILE__) ;?>)">
 						<input class="text_area" onfocus="this.style.width = ((this.value.length + 1) * 8) + 'px'" type="text" name="name" id="name" maxlength="250" value="<?php echo esc_html(stripslashes($row->name));?>" />
 					</li>
 				<?php	
@@ -275,9 +275,16 @@ function change_select()
 						<h3>Slides</h3>
 						
 						<input type="hidden" name="imagess" value="" />
-						<a href="" class="button button-primary add-new-image"  id="slideup" class value="ker aziz">
-							<span class="wp-media-buttons-icon"></span>Add Image
+						<a href="" class="button button-primary add-new-image"  id="slideup">
+							<span class="wp-media-buttons-icon"></span>Add Image Slide
 						</a>
+				
+						<a href="admin.php?page=sliders_huge_it_slider&task=popup_posts&id=<?php echo $_GET['id']; ?>&TB_iframe=1" class="button button-primary add-post-slide thickbox"  id="slideup2s" value="iframepop">
+							<input  title="Add Post" class="thickbox" type="button" value="Add Post" />
+							<span class="wp-media-buttons-icon"></span>Add Post Slide
+						</a>
+						
+						
 						<script>
 								jQuery(document).ready(function ($) {
 										
@@ -297,7 +304,7 @@ function change_select()
 									});
 									
 						</script>
-					<!--<a class="button button-primary" href="admin.php?page=sliders_huge_it_slider&id=<?php echo $row->id; ?>&task=apply&addslide=1">Add Image</a>-->
+
 				
 					</div>
 					<ul id="images-list">
@@ -331,7 +338,7 @@ function change_select()
 													
 										</script>
 										<input type="hidden" name="imagess<?php echo $rowimages->id; ?>" value="<?php echo $rowimages->image_url; ?>" />
-										<a href="" class="edit-image"  id="slideup<?php echo $key; ?>" class value="ker aziz">Edit Image</a>
+										<a href="" class="edit-image"  id="slideup<?php echo $key; ?>">Edit Image</a>
 									</div>
 							</div>
 							<div class="image-options">
@@ -447,4 +454,162 @@ function change_select()
 
 }
 
+
+
+function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $rowsld, $paramssld, $rowsposts, $rowsposts8, $postsbycat){
+	global $wpdb;
+?>
+			<style>
+				html.wp-toolbar {
+					padding:0px !important;
+				}
+				#wpadminbar,#adminmenuback,#screen-meta, .update-nag,#dolly {
+					display:none;
+				}
+				#wpbody-content {
+					padding-bottom:30px;
+				}
+				#adminmenuwrap {display:none !important;}
+				.auto-fold #wpcontent, .auto-fold #wpfooter {
+					margin-left: 0px;
+				}
+				#wpfooter {display:none;}
+			</style>
+			<script type="text/javascript">
+				jQuery(document).ready(function() {
+				
+					jQuery('.huge-it-insert-post-button').on('click', function() {
+						var ID1 = jQuery('#huge-it-add-posts-params').val();
+						if(ID1==""){alert("Please select images to insert into slider.");return false;}
+						alert("Add Post Slide feature is disabled in free version. If you need this functionality, you need to buy the commercial version.");
+						return false;
+					});
+				
+						
+					jQuery('.huge-it-post-checked').change(function(){
+
+						if(jQuery(this).is(':checked')){
+							jQuery(this).addClass('active');
+							jQuery(this).parent().addClass('active');
+						}else {
+							jQuery(this).removeClass('active');
+							jQuery(this).parent().removeClass('active');
+						}
+						
+						var inputval="";
+						jQuery('#huge-it-add-posts-params').val("");
+						jQuery('.huge-it-post-checked').each(function(){
+							if(jQuery(this).is(':checked')){
+								inputval+=jQuery(this).val()+";";
+							}
+						});
+						jQuery('#huge-it-add-posts-params').val(inputval);
+					});
+	
+										
+					jQuery('#huge_it_slider_add_posts_wrap .view-type-block a').click(function(){
+						jQuery('#huge_it_slider_add_posts_wrap .view-type-block a').removeClass('active');
+						jQuery(this).addClass('active');
+						var strtype=jQuery(this).attr('href').replace('#','');
+						jQuery('#huge-it-posts-list').removeClass('list').removeClass('thumbs');
+						jQuery('#huge-it-posts-list').addClass(strtype);
+						return false;
+					});
+					
+					
+					jQuery('.updated').css({"display":"none"});
+				<?php	if($_GET["closepop"] == 1){ ?>
+					jQuery("#closepopup").click();
+					self.parent.location.reload();
+				<?php	} ?>
+				});
+				
+			</script>
+			<a id="closepopup"  onclick=" parent.eval('tb_remove()')" style="display:none;" > [X] </a>
+	
+	
+	<div id="huge_it_slider_add_posts">
+					<div id="huge_it_slider_add_posts_wrap">
+						<h2>Add post</h2>
+						<span class="buy-pro">This feature is disabled in free version. </br>If you need this functionality, you need to <a href="http://huge-it.com/slider/" target="_blank">buy the commercial version</a>.</span>
+						<form method="post"  onkeypress="doNothing()" action="admin.php?page=sliders_huge_it_slider&task=popup_posts&id=<?php echo $_GET['id']; ?>" id="huge-it-category-form" name="admin_form">
+							<label for="huge-it-categories-list">Select Category <select id="huge-it-categories-list" name="iframecatid" onchange="this.form.submit()">
+
+							 <?php $categories = get_categories( $args ); ?>
+
+							<?php	 foreach ($categories as $strcategories){
+?>
+								 <option value="<?php echo $strcategories->cat_ID; ?>" <?php if($strcategories->cat_ID == $_POST["iframecatid"]){echo 'selected="selected"';} ?>><?php echo $strcategories->cat_name; ?></option>';
+								
+							<?php	}
+							?> 
+							</select></label>
+						</form>
+						<form method="post"  onkeypress="doNothing()" action="admin.php?page=sliders_huge_it_slider&task=popup_posts&id=<?php echo $_GET['id']; ?>&closepop=1" id="admin_form" name="admin_form">
+							<button class='save-slider-options button-primary huge-it-insert-post-button' id='huge-it-insert-post-button-top'>Insert Posts</button>
+							<label for="huge-it-description-length">Description Length: <input id="huge-it-description-length" type="text" name="posthuge-it-description-length" value="300" placeholder="Description length" /></label>
+							<div class="view-type-block">
+								<a class="view-type list active" href="#list">View List</a>
+								<a class="view-type thumbs" href="#thumbs">View List</a>
+							</div>
+						<div style="clear:both;"></div>
+						<ul id="huge-it-posts-list" class="list">
+							<li id="huge-it-posts-list-heading" class="hascolor">
+								<div class="huge-it-posts-list-image">Image</div>
+								<div class="huge-it-posts-list-title">Title</div>
+								<div class="huge-it-posts-list-description">
+									Description
+									
+								</div>
+								<div class="huge-it-posts-list-link">Link</div>
+								<div class="huge-it-posts-list-category">Category</div>
+							</li>
+							<?php 
+
+
+
+							$strx=1;
+							foreach($rowsposts8 as $rowspostspop1){
+								 $query=$wpdb->prepare("SELECT * FROM ".$wpdb->prefix."posts where post_type = 'post' and post_status = 'publish' and ID = '".$rowspostspop1->object_id."'  order by ID ASC",$id);
+							$rowspostspop=$wpdb->get_results($query);
+							//print_r($rowspostspop);
+							
+							
+								$post_categories =  wp_get_post_categories( $rowspostspop[0]->ID, $rowspostspop[0]->ID ); 
+								$cats = array();
+								
+								
+								foreach($post_categories as $c){
+									$cat = get_category( $c );
+									$cats[] = array( 'name' => $cat->name, 'slug' => $cat->slug, 'id' => $cat->term_id );
+									//echo	$cat->slug;
+								}
+								if(get_the_post_thumbnail($rowspostspop[0]->ID, 'thumbnail') != ''){
+									$strx++;
+									$hascolor="";
+									if($strx%2==0){$hascolor='class="hascolor"';}
+							?>
+								
+								<li <?php echo $hascolor; ?>>
+									<input type="checkbox" class="huge-it-post-checked"  value="<?php echo $rowspostspop[0]->ID; ?>">
+									<div class="huge-it-posts-list-image"><?php echo get_the_post_thumbnail($rowspostspop[0]->ID, 'thumbnail'); ?></div>
+									<div class="huge-it-posts-list-title"><?php echo $rowspostspop[0]->post_title;	?></div>
+									<div class="huge-it-posts-list-description"><?php echo	$rowspostspop[0]->post_content;	?></div>
+									<div class="huge-it-posts-list-link"><?php echo	$rowspostspop[0]->guid; ?></div>
+									<div class="huge-it-posts-list-category"><?php echo	$cat->slug;	?></div>
+								</li>
+							<?php }
+								}	?>
+						</ul>
+						<input id="huge-it-add-posts-params" type="hidden" name="popupposts" value="" />
+						<div class="clear"></div>
+						<button class='save-slider-options button-primary huge-it-insert-post-button' id='huge-it-insert-post-button-bottom'>Insert Posts</button>
+						</form>
+						
+					</div>
+				</div>		
+			
+
+	<?php
+}
 ?>

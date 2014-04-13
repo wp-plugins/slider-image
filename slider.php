@@ -2,9 +2,9 @@
 
 /*
 Plugin Name: Huge IT slider
-Plugin URI: http://huge-it.com/slider/
+Plugin URI: http://huge-it.com/slider
 Description: Huge IT slider is a convenient tool for organizing the images represented on your website into sliders. Each product on the slider is assigned with a relevant slider, which makes it easier for the customers to search and identify the needed images within the slider.
-Version: 2.0
+Version: 2.1
 Author: http://huge-it.com/
 License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -300,6 +300,14 @@ function sliders_huge_it_slider()
         case 'add_cat':
             add_slider();
             break;
+			case 'popup_posts':
+            if ($id)
+                popup_posts($id);
+            else {
+                $id = $wpdb->get_var("SELECT MAX( id ) FROM " . $wpdb->prefix . "huge_itslider_sliders");
+                popup_posts($id);
+            }
+            break;
         case 'edit_cat':
             if ($id)
                 editslider($id);
@@ -485,6 +493,37 @@ INSERT INTO `$table_name` (`id`, `name`, `sl_height`, `sl_width`, `pause_on_hove
 
 register_activation_hook(__FILE__, 'huge_it_slider_activate');
 
+
+
+
+if (get_bloginfo('version') >= 3.1) {
+
+    add_action('plugins_loaded', 'slider');
+
+} else {
+    slider();
+}
+
+function slider()
+{
+    global $wpdb;
+	
+	
+
+	$product = $wpdb->get_results("DESCRIBE " . $wpdb->prefix . "huge_itslider_sliders", ARRAY_A);
+    $isUpdate = 0;
+	foreach ($product as $prod) {
+        if ($prod['Field'] == 'published' && $prod['Type'] == 'tinyint(4) unsigned') {
+            $isUpdate = 1;
+            break;
+        }
+    }
+	if ($isUpdate) {
+	$wpdb->query("ALTER TABLE `wp_huge_itslider_sliders` MODIFY `published` text");
+	$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET published = '300' WHERE id = 1 ");
+	}
+
+	}
 
 
 

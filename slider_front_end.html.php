@@ -31,10 +31,13 @@ function front_end_slider($images, $paramssld, $slider)
 			
 			
 			$strdesription=str_replace('"',"'",$images[$i]->description);
+			$strdesription=preg_replace( "/\r|\n/", "<br />", $strdesription );
+			
 			echo 'sliderdata["'.$i.'"]["description"]="'.$strdesription.'";';
 			$current_image_description = $textarea_array[$i];
 			
 			$stralt=str_replace('"',"'",$images[$i]->name);
+			$stralt=preg_replace( "/\r|\n/", "<br />", $stralt );
 			echo 'sliderdata["'.$i.'"]["alt"]="'.$stralt.'";';
 			$current_image_alt=$title_array[$i];
 		}

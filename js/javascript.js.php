@@ -447,8 +447,8 @@
 		  jQuery("#huge_it_slideshow_image").attr('image_id', sliderdata[key]["id"]);
 		  
 		  
-		  jQuery(".huge_it_slideshow_title_text").text(sliderdata[key]["alt"]);
-		  jQuery(".huge_it_slideshow_description_text").text(sliderdata[key]["description"]);
+		  jQuery(".huge_it_slideshow_title_text").html(sliderdata[key]["alt"]);
+		  jQuery(".huge_it_slideshow_description_text").html(sliderdata[key]["description"]);
 			
 			
 		  var current_image_class = "#image_id_" + sliderdata[current_key]["id"];
