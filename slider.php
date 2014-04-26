@@ -4,7 +4,7 @@
 Plugin Name: Huge IT slider
 Plugin URI: http://huge-it.com/slider
 Description: Huge IT slider is a convenient tool for organizing the images represented on your website into sliders. Each product on the slider is assigned with a relevant slider, which makes it easier for the customers to search and identify the needed images within the slider.
-Version: 2.1
+Version: 2.2
 Author: http://huge-it.com/
 License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -20,6 +20,7 @@ License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
 	add_action( 'admin_enqueue_scripts', 'hugeit_header' );
     function hugeit_header() {
         wp_enqueue_style( 'prefix-style',plugins_url('style/admin.style.css', __FILE__) );
+        wp_enqueue_style( 'prefix-style',plugins_url('style/admin.js', __FILE__) );
     }
 	
 
@@ -212,7 +213,7 @@ function   huge_it_cat_images_list($id)
 
 function huge_itbox_scripts_method()
 {
-    wp_enqueue_style('huge_it_cat_main', plugins_url("style/huge_itslider_main.css", __FILE__));
+  
 }
 
 add_action('wp_head', 'huge_itbox_scripts_method', 1);
@@ -352,6 +353,97 @@ function Options_slider_styles()
 
 }
 
+/**
+ * Huge IT Widget
+ */
+class Huge_it_Widget extends WP_Widget {
+
+
+	public function __construct() {
+		parent::__construct(
+	 		'Huge_it_Widget', 
+			'Huge IT Slider', 
+			array( 'description' => __( 'Huge IT Slider', 'huge_it_slider' ), ) 
+		);
+	}
+
+	
+	public function widget( $args, $instance ) {
+		extract($args);
+
+		if (isset($instance['slider_id'])) {
+			$slider_id = $instance['slider_id'];
+
+			$title = apply_filters( 'widget_title', $instance['title'] );
+
+			echo $before_widget;
+			if ( ! empty( $title ) )
+				echo $before_title . $title . $after_title;
+
+			echo do_shortcode("[huge_it_slider id={$slider_id}]");
+			echo $after_widget;
+		}
+	}
+
+
+	public function update( $new_instance, $old_instance ) {
+		$instance = array();
+		$instance['slider_id'] = strip_tags( $new_instance['slider_id'] );
+		$instance['title'] = strip_tags( $new_instance['title'] );
+
+		return $instance;
+	}
+
+
+	public function form( $instance ) {
+		$selected_slider = 0;
+		$title = "";
+		$sliders = false;
+
+		if (isset($instance['slider_id'])) {
+			$selected_slider = $instance['slider_id'];
+		}
+
+		if (isset($instance['title'])) {
+			$title = $instance['title'];
+		}
+
+        
+
+        
+		?>
+		<p>
+			
+				<p>
+					<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
+					<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+				</p>
+				<label for="<?php echo $this->get_field_id('slider_id'); ?>"><?php _e('Select Slider:', 'huge_it_slider'); ?></label> 
+				<select id="<?php echo $this->get_field_id('slider_id'); ?>" name="<?php echo $this->get_field_name('slider_id'); ?>">
+				
+				<?php
+				 global $wpdb;
+				$query=$wpdb->prepare("SELECT * FROM ".$wpdb->prefix."huge_itslider_sliders ");
+				$rowwidget=$wpdb->get_results($query);
+				foreach($rowwidget as $rowwidgetecho){
+				
+				selected
+				?>
+					<option <?php if($rowwidgetecho->id == $instance['slider_id']){ echo 'selected'; } ?> value="<?php echo $rowwidgetecho->id; ?>"><?php echo $rowwidgetecho->name; ?></option>
+
+					<?php } ?>
+				</select>
+
+		</p>
+		<?php 
+	}
+}
+
+add_action('widgets_init', 'register_Huge_it_Widget');  
+
+function register_Huge_it_Widget() {  
+    register_widget('Huge_it_Widget'); 
+}
 
 //////////////////////////////////////////////////////                                             ///////////////////////////////////////////////////////
 //////////////////////////////////////////////////////               Activate Slider                     ///////////////////////////////////////////////////////
