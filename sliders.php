@@ -265,7 +265,7 @@ function add_slider()
 INSERT INTO 
 
 `" . $table_name . "` ( `name`, `sl_height`, `sl_width`, `pause_on_hover`, `slider_list_effects_s`, `description`, `param`, `ordering`, `published`) VALUES
-( 'New slider', '500', '300', 'true', '2', '2900', '1000', '1', '300')";
+( 'New slider', '300', '500', 'on', 'cubeH', '4000', '1000', '1', '300')";
 
     $wpdb->query($sql_huge_itslider_sliders);
 
