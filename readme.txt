@@ -49,8 +49,8 @@ Now you can set your slider options, images and use our slider.
 1.  WordPress slider - Slider Frontend    
 2.  WordPress slider - Slides admin page  
 3.  WordPress slider - Sliders admin page 
-4.  WordPress slider - Widget Slider      
-5.  WordPress slider - Post Slider        
+4.  WordPress slider - Post Slider        
+5.  WordPress slider - Widget Slider      
 
 ==Wordpress Slider step by step guide==
 
