@@ -189,7 +189,18 @@
 	padding:10px 5px 10px 5px;
 }
 
-#images-list li.has-background {background:#f9f9f9;}
+#images-list li.has-background {background-color:#f9f9f9;}
+
+#images-list li:hover {
+	cursor:move;
+	background-image:url(../images/dragable.gif);
+	background-position:right top;
+	background-repeat:repeat-y;
+}
+
+#images-list li.ui-sortable-helper {
+	opacity:0.8;
+}
 
 #images-list .image-container {
 	width:200px;
@@ -197,7 +208,6 @@
 	/*max-height:280px;
 	overflow:hidden;*/
 }
-
 
 #images-list .image-container  img {
 	width:200px;

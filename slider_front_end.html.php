@@ -20,7 +20,7 @@ function front_end_slider($images, $paramssld, $slider)
 	var data_<?php echo $sliderID; ?> = [];      
 	var event_stack_<?php echo $sliderID; ?> = [];
 	<?php
-		$images=array_reverse($images);
+	//	$images=array_reverse($images);
 		for($i=0;$i<count($images);$i++){
 			echo 'data_'.$sliderID.'["'.$i.'"]=[];';
 			
@@ -1452,12 +1452,12 @@ function front_end_slider($images, $paramssld, $slider)
 	   
         <a id="huge_it_slideshow_left_<?php echo $sliderID; ?>" href="#" onclick="huge_it_change_image_<?php echo $sliderID; ?>(parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()), (parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()) - iterator_<?php echo $sliderID; ?>()) >= 0 ? (parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()) - iterator_<?php echo $sliderID; ?>()) % data_<?php echo $sliderID; ?>.length : data_<?php echo $sliderID; ?>.length - 1, data_<?php echo $sliderID; ?>);return false;">
 			<span id="huge_it_slideshow_left-ico_<?php echo $sliderID; ?>">
-			<span><i class="huge_it_slideshow_prev_btn_<?php echo $sliderID; ?> fa <?php echo $theme_row->slideshow_rl_btn_style; ?>-left"></i></span></span>
+			<span><i class="huge_it_slideshow_prev_btn_<?php echo $sliderID; ?> fa "></i></span></span>
 		</a>
         
 		<a id="huge_it_slideshow_right_<?php echo $sliderID; ?>" href="#" onclick="huge_it_change_image_<?php echo $sliderID; ?>(parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()), (parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()) + iterator_<?php echo $sliderID; ?>()) % data_<?php echo $sliderID; ?>.length, data_<?php echo $sliderID; ?>);return false;">
 			<span id="huge_it_slideshow_right-ico_<?php echo $sliderID;?> , data_<?php echo $sliderID;?>">
-			<span><i class="huge_it_slideshow_next_btn_<?php echo $sliderID; ?> fa <?php echo $theme_row->slideshow_rl_btn_style; ?>-right"></i></span></span>
+			<span><i class="huge_it_slideshow_next_btn_<?php echo $sliderID; ?> fa "></i></span></span>
 		</a>
           <?php
           }

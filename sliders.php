@@ -210,7 +210,7 @@ function editslider($id)
 	   	  $query="SELECT name,ordering FROM ".$wpdb->prefix."huge_itslider_sliders WHERE sl_width=".$row->sl_width."  ORDER BY `ordering` ";
 	   $ord_elem=$wpdb->get_results($query);
 	   
-	    $query=$wpdb->prepare("SELECT * FROM ".$wpdb->prefix."huge_itslider_images where slider_id = '".$row->id."' order by id ASC  ",$id);
+	    $query=$wpdb->prepare("SELECT * FROM ".$wpdb->prefix."huge_itslider_images where slider_id = '".$row->id."' order by ordering ASC  ",$id);
 			   $rowim=$wpdb->get_results($query);
 			   
 			   if($_GET["addslide"] == 1){
@@ -265,7 +265,7 @@ function add_slider()
 INSERT INTO 
 
 `" . $table_name . "` ( `name`, `sl_height`, `sl_width`, `pause_on_hover`, `slider_list_effects_s`, `description`, `param`, `ordering`, `published`) VALUES
-( 'New slider', '300', '500', 'on', 'cubeH', '4000', '1000', '1', '300')";
+( 'New slider', '375', '600', 'on', 'cubeH', '4000', '1000', '1', '300')";
 
     $wpdb->query($sql_huge_itslider_sliders);
 
@@ -535,6 +535,7 @@ function apply_cat($id)
 			   
 			   foreach ($rowim as $key=>$rowimages){
 			
+$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_images SET  ordering = '".$_POST["order_by_".$rowimages->id.""]."'  WHERE ID = ".$rowimages->id." ");
 $wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_images SET  sl_url = '".$_POST["sl_url".$rowimages->id.""]."' WHERE ID = ".$rowimages->id." ");
 $wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_images SET  name = '".$_POST["titleimage".$rowimages->id.""]."'  WHERE ID = ".$rowimages->id." ");
 $wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_images SET  description = '".$_POST["im_description".$rowimages->id.""]."'  WHERE ID = ".$rowimages->id." ");
@@ -554,6 +555,13 @@ if (isset($_POST['params'])) {
     }
 	
 				   if($_POST["imagess"] != ''){
+				   
+				   $query=$wpdb->prepare("SELECT * FROM ".$wpdb->prefix."huge_itslider_images where slider_id = '".$row->id."' order by id ASC",$id);
+			   $rowim=$wpdb->get_results($query);
+	  foreach ($rowim as $key=>$rowimages){
+	  $orderingplus = $rowimages->ordering+1;
+	  $wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_images SET  ordering = '".$orderingplus."'  WHERE ID = ".$rowimages->id." ");
+	  }
 	
 $table_name = $wpdb->prefix . "huge_itslider_images";
     $sql_2 = "
@@ -566,6 +574,7 @@ INSERT INTO
 	
 
       $wpdb->query($sql_2);
+	  
 	
 	   }
 	

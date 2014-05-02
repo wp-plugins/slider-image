@@ -4,7 +4,7 @@
 Plugin Name: Huge IT slider
 Plugin URI: http://huge-it.com/slider
 Description: Huge IT slider is a convenient tool for organizing the images represented on your website into sliders. Each product on the slider is assigned with a relevant slider, which makes it easier for the customers to search and identify the needed images within the slider.
-Version: 2.2
+Version: 2.3
 Author: http://huge-it.com/
 License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -12,15 +12,26 @@ License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
 
 
 /*ADDING to HEADER of FRONT END */
+/*ADDING to HEADER of FRONT END */
 	function init_jquery() {
 			wp_enqueue_script('jquery');
 	}
 	add_action('init', 'init_jquery');
+	
+	function hugeit_header_ordering() {
+		?>
+			<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+			<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+			<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+		<?php
+	}
+	add_action('admin_enqueue_scripts','hugeit_header_ordering');
+	
 		
 	add_action( 'admin_enqueue_scripts', 'hugeit_header' );
     function hugeit_header() {
         wp_enqueue_style( 'prefix-style',plugins_url('style/admin.style.css', __FILE__) );
-        wp_enqueue_style( 'prefix-style',plugins_url('style/admin.js', __FILE__) );
+        wp_enqueue_script( 'prefix-style',plugins_url('js/admin.js', __FILE__) );
     }
 	
 
@@ -614,6 +625,56 @@ function slider()
 	$wpdb->query("ALTER TABLE `wp_huge_itslider_sliders` MODIFY `published` text");
 	$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET published = '300' WHERE id = 1 ");
 	}
+	
+	$product2 = $wpdb->get_results("DESCRIBE " . $wpdb->prefix . "huge_itslider_images", ARRAY_A);
+    $isUpdate2 = 0;
+	foreach ($product2 as $prod2) {
+
+			if($product2[6]['Field'] == 'sl_type')
+			{
+			echo '';
+			}
+			else
+			{
+			$wpdb->query("ALTER TABLE  `wp_huge_itslider_images` ADD  `sl_type` TEXT NOT NULL AFTER  `sl_url`");
+			$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_images SET sl_type = 'image' ");
+			$wpdb->query("ALTER TABLE  `wp_huge_itslider_images` ADD  `link_target` TEXT NOT NULL AFTER  `sl_type`");
+			$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_images SET link_target = '_blank' ");
+			
+	$query=$wpdb->prepare("SELECT * FROM ".$wpdb->prefix."huge_itslider_images order by id ASC",$id);
+			   $rowim=$wpdb->get_results($query);
+	  foreach ($rowim as $key=>$rowimages){
+	  $wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_images SET  ordering = '".$rowimages->id."'  WHERE ID = ".$rowimages->id." ");
+	  }
+			
+			}
+			
+
+    }
+	
+	if($product2[6]['Field'] == 'sl_type')
+			{
+			echo '';
+			}
+			else
+			{
+
+		    $table_name = $wpdb->prefix . "huge_itslider_params";
+    $sql_update2 = <<<query1
+INSERT INTO `$table_name` (`name`, `title`,`description`, `value`) VALUES
+( 'slider_description_width', 'Slider description width', 'Slider description width', '50'),
+( 'slider_description_height', 'Slider description height', 'Slider description height', '40'),
+( 'slider_description_background_transparency', 'slider description background transparency', 'slider description background transparency', '1'),
+( 'slider_description_text_align', 'description text-align', 'description text-align', 'left'),
+( 'slider_title_width', 'slider title width', 'slider title width', '100'),
+( 'slider_title_height', 'slider title height', 'slider title height', '100'),
+( 'slider_title_background_transparency', 'slider title background transparency', 'slider title background transparency', '1'),
+( 'slider_title_text_align', 'title text-align', 'title text-align', 'left');
+
+query1;
+			 $wpdb->query($sql_update2);
+	}
+
 
 	}
 

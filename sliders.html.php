@@ -311,9 +311,10 @@ function change_select()
 					
 					<?php
 					$i=2;
-					$rowim = array_reverse($rowim);
+					//$rowim = array_reverse($rowim);
 					foreach ($rowim as $key=>$rowimages){ ?>
 						<li <?php if($i%2==0){echo "class='has-background'";}$i++?>>
+						<input class="order_by" type="hidden" name="order_by_<?php echo $rowimages->id; ?>" value="<?php echo $rowimages->ordering; ?>" />
 							<div class="image-container">
 								<img src="<?php echo $rowimages->image_url; ?>" />
 								<div>
