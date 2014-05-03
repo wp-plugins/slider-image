@@ -38,7 +38,7 @@ Upgrade to [WordPress Slider Pro](http://huge-it.com/slider) to add some feature
 * 9 different positions for Slider Title and Description
 * Ability to change text and description colors of Slider Title and Description easily 
 * Ability to change font size of Slider Title and Description
-* Fully design management
+* Full Design Management
 * Support upon request in 24 hours
 
 ### If you think, that you found a bug in our Slider plugin or have any question contact us at [info@huge-it.com](mailto:info@huge-it.com).
