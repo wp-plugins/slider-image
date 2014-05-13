@@ -45,8 +45,9 @@ function html_showsliders( $rows,  $pageNav,$sort,$cat_row){
 			}
 		}
 	</script>
-		<?php $path_site = plugins_url("images", __FILE__); ?>
+
 <div class="wrap">
+	<?php $path_site2 = plugins_url("images", __FILE__); ?>
 	<div class="slider-options-head">
 		<div style="float: left;">
 			<div><a href="http://huge-it.com/wordpress-plugins-slider-user-manual/" target="_blank">User Manual</a></div>
@@ -54,7 +55,7 @@ function html_showsliders( $rows,  $pageNav,$sort,$cat_row){
 		</div>
 		<div style="float: right;">
 			<a class="header-logo-text" href="http://huge-it.com/slider/" target="_blank" >
-				<div><img width="250px" src="<?php echo $path_site; ?>/huge-it1.png" /></div>
+				<div><img width="250px" src="<?php echo $path_site2; ?>/huge-it1.png" /></div>
 				<div>Get the full version</div>
 			</a>
 		</div>
@@ -190,12 +191,15 @@ function html_showsliders( $rows,  $pageNav,$sort,$cat_row){
     <?php
 
 }
-function Html_editslider($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $rowsld, $paramssld)
+function Html_editslider($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $rowsld, $paramssld, $rowsposts, $rowsposts8, $postsbycat)
 
 {
+ global $wpdb;
 	
+	if(isset($_GET["addslide"])){
 	if($_GET["addslide"] == 1){
 	header('Location: admin.php?page=sliders_huge_it_slider&id='.$row->id.'&task=apply');
+	}
 	}
 		
 	
@@ -221,8 +225,7 @@ function change_select()
 </script>
 
 <!-- GENERAL PAGE, ADD IMAGES PAGE -->
-<?php $path_site = plugins_url("images", __FILE__); ?>
-	
+<?php $path_site2 = plugins_url("images", __FILE__); ?>
 <div class="wrap">
 	<div class="slider-options-head">
 		<div style="float: left;">
@@ -231,7 +234,7 @@ function change_select()
 		</div>
 		<div style="float: right;">
 			<a class="header-logo-text" href="http://huge-it.com/slider/" target="_blank" >
-				<div><img width="250px" src="<?php echo $path_site; ?>/huge-it1.png" /></div>
+				<div><img width="250px" src="<?php echo $path_site2; ?>/huge-it1.png" /></div>
 				<div>Get the full version</div>
 			</a>
 		</div>
@@ -267,24 +270,29 @@ function change_select()
 		<div id="post-body" class="metabox-holder columns-2">
 			<!-- Content -->
 			<div id="post-body-content">
-					
-				
+
+
+			<?php add_thickbox(); ?>
 
 				<div id="post-body">
 					<div id="post-body-heading">
 						<h3>Slides</h3>
 						
-						<input type="hidden" name="imagess" value="" />
+					<input type="hidden" name="imagess" value="" />
 						<a href="" class="button button-primary add-new-image"  id="slideup">
 							<span class="wp-media-buttons-icon"></span>Add Image Slide
 						</a>
-				
+
+
+
+						
+						
 						<a href="admin.php?page=sliders_huge_it_slider&task=popup_posts&id=<?php echo $_GET['id']; ?>&TB_iframe=1" class="button button-primary add-post-slide thickbox"  id="slideup2s" value="iframepop">
 							<input  title="Add Post" class="thickbox" type="button" value="Add Post" />
 							<span class="wp-media-buttons-icon"></span>Add Post Slide
 						</a>
-						
-						
+	
+
 						<script>
 								jQuery(document).ready(function ($) {
 										
@@ -305,6 +313,7 @@ function change_select()
 									
 						</script>
 
+					<!--<a class="button button-primary" href="admin.php?page=sliders_huge_it_slider&id=<?php echo $row->id; ?>&task=apply&addslide=1">Add Image</a>-->
 				
 					</div>
 					<ul id="images-list">
@@ -313,7 +322,7 @@ function change_select()
 					$i=2;
 					//$rowim = array_reverse($rowim);
 					foreach ($rowim as $key=>$rowimages){ ?>
-						<li <?php if($i%2==0){echo "class='has-background'";}$i++?>>
+						<li <?php if($i%2==0){echo "class='has-background'";}$i++; ?>>
 						<input class="order_by" type="hidden" name="order_by_<?php echo $rowimages->id; ?>" value="<?php echo $rowimages->ordering; ?>" />
 							<div class="image-container">
 								<img src="<?php echo $rowimages->image_url; ?>" />
@@ -344,18 +353,23 @@ function change_select()
 							</div>
 							<div class="image-options">
 								<div>
-									<label>Title:</label>
-									<input class="text_area" type="text" name="titleimage<?php echo $rowimages->id; ?>" id="titleimage<?php echo $rowimages->id; ?>"  value="<?php echo $rowimages->name; ?>">
+									<label for="titleimage<?php echo $rowimages->id; ?>">Title:</label>
+									<input  class="text_area" type="text" id="titleimage<?php echo $rowimages->id; ?>" name="titleimage<?php echo $rowimages->id; ?>" id="titleimage<?php echo $rowimages->id; ?>"  value="<?php echo $rowimages->name; ?>">
 								</div>
 								<div class="description-block">
-									<label>Description:</label>
-									<textarea name="im_description<?php echo $rowimages->id; ?>" ><?php echo $rowimages->description; ?></textarea>
+									<label for="im_description<?php echo $rowimages->id; ?>">Description:</label>
+									<textarea id="im_description<?php echo $rowimages->id; ?>" name="im_description<?php echo $rowimages->id; ?>" ><?php echo $rowimages->description; ?></textarea>
 								</div>
-								<div>
-									<label>URL:</label>
-									<input class="text_area" type="text" name="sl_url<?php echo $rowimages->id; ?>"  value="<?php echo $rowimages->sl_url; ?>" >
+								<div class="link-block">
+									<label for="sl_url<?php echo $rowimages->id; ?>">URL:</label>
+									<input class="text_area url-input" type="text" id="sl_url<?php echo $rowimages->id; ?>" name="sl_url<?php echo $rowimages->id; ?>"  value="<?php echo $rowimages->sl_url; ?>" >
+									<label class="long" for="sl_link_target<?php echo $rowimages->id; ?>">Open in new tab</label>
+									<input type="hidden" name="sl_link_target<?php echo $rowimages->id; ?>" value="" />
+									<input  <?php if($rowimages->link_target == 'on'){ echo 'checked="checked"'; } ?>  class="link_target" type="checkbox" id="sl_link_target<?php echo $rowimages->id; ?>" name="sl_link_target<?php echo $rowimages->id; ?>" />
+									
+									<!--<input type="checkbox" name="pause_on_hover" id="pause_on_hover"  <?php if($row->pause_on_hover == 'on'){ echo 'checked="checked"'; } ?>  class="link_target"/>-->
 								</div>
-								<div>
+								<div class="remove-image-container">
 									<a class="button remove-image" href="admin.php?page=sliders_huge_it_slider&id=<?php echo $row->id; ?>&task=apply&removeslide=<?php echo $rowimages->id; ?>">Remove Image</a>
 								</div>
 							</div>
@@ -384,7 +398,8 @@ function change_select()
 						</li>
 						<li>
 							<label for="pause_on_hover">Pause on hover</label>
-							<input type="checkbox" name="pause_on_hover" id="pause_on_hover"  <?php if($row->pause_on_hover == 'on'){ echo 'checked="checked"'; } ?> />
+							<input type="hidden" value="off" name="pause_on_hover" />					
+							<input type="checkbox" name="pause_on_hover"  value="on" id="pause_on_hover"  <?php if($row->pause_on_hover  == 'on'){ echo 'checked="checked"'; } ?> />
 						</li>
 						<li>
 							<label for="slider_effects_list">Effects</label>
@@ -415,6 +430,14 @@ function change_select()
 						<li>
 							<label for="sl_changespeed">Change speed</label>
 							<input type="text" name="sl_changespeed" id="sl_changespeed" value="<?php echo $row->param; ?>" class="text_area" />
+						</li>
+						<li>
+							<label for="slider_position">Slider Position</label>
+							<select name="sl_position" id="slider_position">
+									<option <?php if($row->sl_position == 'left'){ echo 'selected'; } ?>  value="left">Left</option>
+									<option <?php if($row->sl_position == 'right'){ echo 'selected'; } ?>   value="right">Right</option>
+									<option <?php if($row->sl_position == 'center'){ echo 'selected'; } ?>  value="center">Center</option>
+							</select>
 						</li>
 
 					</ul>
@@ -456,9 +479,9 @@ function change_select()
 }
 
 
-
 function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $rowsld, $paramssld, $rowsposts, $rowsposts8, $postsbycat){
 	global $wpdb;
+
 ?>
 			<style>
 				html.wp-toolbar {
@@ -479,34 +502,41 @@ function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $
 			<script type="text/javascript">
 				jQuery(document).ready(function() {
 				
+		
 					jQuery('.huge-it-insert-post-button').on('click', function() {
-						var ID1 = jQuery('#huge-it-add-posts-params').val();
-						if(ID1==""){alert("Please select images to insert into slider.");return false;}
 						alert("Add Post Slide feature is disabled in free version. If you need this functionality, you need to buy the commercial version.");
 						return false;
 					});
-				
+			
 						
-					jQuery('.huge-it-post-checked').change(function(){
-
-						if(jQuery(this).is(':checked')){
-							jQuery(this).addClass('active');
-							jQuery(this).parent().addClass('active');
+					$('.huge-it-post-checked').change(function(){
+						if($(this).is(':checked')){
+							$(this).addClass('active');
+							$(this).parent().addClass('active');
 						}else {
-							jQuery(this).removeClass('active');
-							jQuery(this).parent().removeClass('active');
+							$(this).removeClass('active');
+							$(this).parent().removeClass('active');
 						}
 						
 						var inputval="";
-						jQuery('#huge-it-add-posts-params').val("");
-						jQuery('.huge-it-post-checked').each(function(){
-							if(jQuery(this).is(':checked')){
-								inputval+=jQuery(this).val()+";";
+						$('#huge-it-add-posts-params').val("");
+						$('.huge-it-post-checked').each(function(){
+							if($(this).is(':checked')){
+								inputval+=$(this).val()+";";
 							}
 						});
-						jQuery('#huge-it-add-posts-params').val(inputval);
+						$('#huge-it-add-posts-params').val(inputval);
 					});
 	
+					
+					jQuery("#huge-it-categories-list").change(function(){
+						var currentCategoryID=jQuery(this).val();
+					
+						jQuery('#huge-it-posts-list li').not("#huge-it-posts-list-heading").css({"display":"none"});
+						jQuery('li[data-id*="'+currentCategoryID+'"]').css({"display":"block"});
+						
+					});
+					//jQuery("#huge-it-categories-list").change();
 										
 					jQuery('#huge_it_slider_add_posts_wrap .view-type-block a').click(function(){
 						jQuery('#huge_it_slider_add_posts_wrap .view-type-block a').removeClass('active');
@@ -520,7 +550,7 @@ function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $
 					
 					jQuery('.updated').css({"display":"none"});
 				<?php	if($_GET["closepop"] == 1){ ?>
-					jQuery("#closepopup").click();
+					$("#closepopup").click();
 					self.parent.location.reload();
 				<?php	} ?>
 				});
@@ -533,26 +563,35 @@ function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $
 					<div id="huge_it_slider_add_posts_wrap">
 						<h2>Add post</h2>
 						<span class="buy-pro">This feature is disabled in free version. </br>If you need this functionality, you need to <a href="http://huge-it.com/slider/" target="_blank">buy the commercial version</a>.</span>
+						<div class="control-panel">
 						<form method="post"  onkeypress="doNothing()" action="admin.php?page=sliders_huge_it_slider&task=popup_posts&id=<?php echo $_GET['id']; ?>" id="huge-it-category-form" name="admin_form">
 							<label for="huge-it-categories-list">Select Category <select id="huge-it-categories-list" name="iframecatid" onchange="this.form.submit()">
 
-							 <?php $categories = get_categories( $args ); ?>
+							 <?php $categories = get_categories( ); ?>
 
 							<?php	 foreach ($categories as $strcategories){
+							if(isset($_POST["iframecatid"])){
 ?>
 								 <option value="<?php echo $strcategories->cat_ID; ?>" <?php if($strcategories->cat_ID == $_POST["iframecatid"]){echo 'selected="selected"';} ?>><?php echo $strcategories->cat_name; ?></option>';
 								
-							<?php	}
+							<?php }
+else
+{
+?>
+								<option value="<?php echo $strcategories->cat_ID; ?>"><?php echo $strcategories->cat_name; ?></option>';
+<?php
+}							}
 							?> 
 							</select></label>
-						</form>
-						<form method="post"  onkeypress="doNothing()" action="admin.php?page=sliders_huge_it_slider&task=popup_posts&id=<?php echo $_GET['id']; ?>&closepop=1" id="admin_form" name="admin_form">
+							</form>
+							<form method="post"  onkeypress="doNothing()" action="admin.php?page=sliders_huge_it_slider&task=popup_posts&id=<?php echo $_GET['id']; ?>&closepop=1" id="admin_form" name="admin_form">
 							<button class='save-slider-options button-primary huge-it-insert-post-button' id='huge-it-insert-post-button-top'>Insert Posts</button>
-							<label for="huge-it-description-length">Description Length: <input id="huge-it-description-length" type="text" name="posthuge-it-description-length" value="300" placeholder="Description length" /></label>
+							<label for="huge-it-description-length">Description Length <input id="huge-it-description-length" type="text" name="posthuge-it-description-length" value="<?php echo $row->published; ?>" placeholder="Description length" /></label>
 							<div class="view-type-block">
 								<a class="view-type list active" href="#list">View List</a>
 								<a class="view-type thumbs" href="#thumbs">View List</a>
 							</div>
+						</div>
 						<div style="clear:both;"></div>
 						<ul id="huge-it-posts-list" class="list">
 							<li id="huge-it-posts-list-heading" class="hascolor">
@@ -571,7 +610,7 @@ function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $
 
 							$strx=1;
 							foreach($rowsposts8 as $rowspostspop1){
-								 $query=$wpdb->prepare("SELECT * FROM ".$wpdb->prefix."posts where post_type = 'post' and post_status = 'publish' and ID = '".$rowspostspop1->object_id."'  order by ID ASC",$id);
+								 $query=$wpdb->prepare("SELECT * FROM ".$wpdb->prefix."posts where post_type = 'post' and post_status = 'publish' and ID = %d  order by ID ASC", $rowspostspop1->object_id);
 							$rowspostspop=$wpdb->get_results($query);
 							//print_r($rowspostspop);
 							
@@ -612,5 +651,11 @@ function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $
 			
 
 	<?php
+	
+	
+	
+	
 }
 ?>
+
+

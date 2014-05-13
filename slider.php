@@ -4,7 +4,7 @@
 Plugin Name: Huge IT slider
 Plugin URI: http://huge-it.com/slider
 Description: Huge IT slider is a convenient tool for organizing the images represented on your website into sliders. Each product on the slider is assigned with a relevant slider, which makes it easier for the customers to search and identify the needed images within the slider.
-Version: 2.4
+Version: 2.4.1
 Author: http://huge-it.com/
 License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -12,28 +12,25 @@ License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
 
 
 /*ADDING to HEADER of FRONT END */
-/*ADDING to HEADER of FRONT END */
-	function init_jquery() {
-			wp_enqueue_script('jquery');
-	}
-	add_action('init', 'init_jquery');
-	
-	function hugeit_header_ordering() {
+	function hugeit_header() {
 		?>
+			<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 			<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 			<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 			<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+
+			<!-- Include Simple Slider JavaScript and CSS -->
+			<script src="<?php echo plugins_url('js/simple-slider.js', __FILE__);?>"></script>
+			<link href="<?php echo plugins_url('style/simple-slider.css', __FILE__);?>" rel="stylesheet" type="text/css" />
+			
+
+			<link rel="stylesheet" href="<?php echo plugins_url('style/admin.style.css', __FILE__);?>" type="text/css" media="all" />			
+			<script type='text/javascript' src='<?php echo plugins_url('js/admin.js', __FILE__);?>'></script>
+			
 		<?php
 	}
-	add_action('admin_enqueue_scripts','hugeit_header_ordering');
-	
-		
-	add_action( 'admin_enqueue_scripts', 'hugeit_header' );
-    function hugeit_header() {
-        wp_enqueue_style( 'prefix-style',plugins_url('style/admin.style.css', __FILE__) );
-        wp_enqueue_script( 'prefix-style',plugins_url('js/admin.js', __FILE__) );
-    }
-	
+	add_action('admin_enqueue_scripts','hugeit_header');
 
 add_action('media_buttons_context', 'add_my_custom_button');
 
@@ -66,6 +63,7 @@ function add_inline_popup_content() {
 				jQuery(document).ready(function() {
 				  jQuery('#hugeitsliderinsert').on('click', function() {
 				  	var id = jQuery('#huge_it_slider-select option:selected').val();
+			
 				  	window.send_to_editor('[huge_it_slider id="' + id + '"]');
 					tb_remove();
 				  })
@@ -76,7 +74,7 @@ function add_inline_popup_content() {
   <h3>Select Huge IT Slider to insert into post</h3>
   <?php 
   	  global $wpdb;
-	  $query=$wpdb->prepare("SELECT * FROM ".$wpdb->prefix."huge_itslider_sliders order by id ASC",$id);
+	  $query="SELECT * FROM ".$wpdb->prefix."huge_itslider_sliders order by id ASC";
 			   $shortcodesliders=$wpdb->get_results($query);
 			   ?>
 
@@ -146,7 +144,6 @@ function slider_after_search_results($query)
     global $wpdb;
     if (isset($_REQUEST['s']) && $_REQUEST['s']) {
         $serch_word = htmlspecialchars(($_REQUEST['s']));
-
         $query = str_replace($wpdb->prefix . "posts.post_content", gen_string_slider_search($serch_word, $wpdb->prefix . 'posts.post_content') . " " . $wpdb->prefix . "posts.post_content", $query);
     }
     return $query;
@@ -171,15 +168,14 @@ function gen_string_slider_search($serch_word, $wordpress_query_post)
         for ($i = 0; $i < $count_cat_rows; $i++) {
             $string_search .= $wordpress_query_post . ' LIKE \'%[huge_it_slider id="' . $rows_slider[$i]->id . '" details="1" %\' OR ' . $wordpress_query_post . ' LIKE \'%[huge_it_slider id="' . $rows_slider[$i]->id . '" details="1"%\' OR ';
         }
-
-
-        $rows_slider = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "huge_itslider_sliders WHERE (name LIKE '%" . $serch_word . "%')");
+		
+        $rows_slider = $wpdb->get_results($wpdb->prepare("SELECT * FROM " . $wpdb->prefix . "huge_itslider_sliders WHERE (name LIKE %s)","'%" . $serch_word . "%'"));
         $count_cat_rows = count($rows_slider);
         for ($i = 0; $i < $count_cat_rows; $i++) {
             $string_search .= $wordpress_query_post . ' LIKE \'%[huge_it_slider id="' . $rows_slider[$i]->id . '" details="0"%\' OR ' . $wordpress_query_post . ' LIKE \'%[huge_it_slider id="' . $rows_slider[$i]->id . '" details="0"%\' OR ';
         }
 
-        $rows_single = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "huge_itslider_images WHERE name LIKE '%" . $serch_word . "%'");
+        $rows_single = $wpdb->get_results($wpdb->prepare("SELECT * FROM " . $wpdb->prefix . "huge_itslider_images WHERE name LIKE %s","'%" . $serch_word . "%'"));
 
         $count_sing_rows = count($rows_single);
         if ($count_sing_rows) {
@@ -222,13 +218,6 @@ function   huge_it_cat_images_list($id)
 
 
 
-function huge_itbox_scripts_method()
-{
-  
-}
-
-add_action('wp_head', 'huge_itbox_scripts_method', 1);
-
 
 add_filter('admin_head', 'huge_it_cat_ShowTinyMCE');
 function huge_it_cat_ShowTinyMCE()
@@ -254,13 +243,14 @@ function huge_it_slider_options_panel()
 {
     $page_cat = add_menu_page('Theme page title', 'Huge IT slider', 'manage_options', 'sliders_huge_it_slider', 'sliders_huge_it_slider', plugins_url('images/huge_it_sliderLogoHover -for_menu.png', __FILE__));
     add_submenu_page('sliders_huge_it_slider', 'Sliders', 'Sliders', 'manage_options', 'sliders_huge_it_slider', 'sliders_huge_it_slider');
-    $page_option = add_submenu_page('sliders_huge_it_slider', 'General options', 'General options', 'manage_options', 'Options_slider_styles', 'Options_slider_styles');
-    add_submenu_page( 'sliders_huge_it_slider', 'Licensing', 'Licensing', 'manage_options', 'huge_it_slider_Licensing', 'huge_it_slider_Licensing');
+    $page_option = add_submenu_page('sliders_huge_it_slider', 'General Options', 'General Options', 'manage_options', 'Options_slider_styles', 'Options_slider_styles');
+	add_submenu_page( 'sliders_huge_it_slider', 'Licensing', 'Licensing', 'manage_options', 'huge_it_slider_Licensing', 'huge_it_slider_Licensing');
+
+
+
+
+    add_action('admin_print_styles-' . $page_option, 'huge_it_option_admin_script');
 }
-
-
-/////////////////////             huge_it_slider print styles
-
 //////////////////////////////////////////
 //           LICENS
 /////////////////////////////////////
@@ -289,6 +279,18 @@ Purchasing a license will add possibility to customize the slider options of the
 	
 	}
 
+/////////////////////             huge_it_slider print styles
+
+
+
+
+function huge_it_option_admin_script()
+{
+   wp_enqueue_script('param_block2', plugins_url("elements/jscolor/jscolor.js", __FILE__));
+}
+
+
+
 function sliders_huge_it_slider()
 {
 
@@ -312,7 +314,8 @@ function sliders_huge_it_slider()
         case 'add_cat':
             add_slider();
             break;
-			case 'popup_posts':
+
+		case 'popup_posts':
             if ($id)
                 popup_posts($id);
             else {
@@ -363,6 +366,8 @@ function Options_slider_styles()
 
 
 }
+
+
 
 /**
  * Huge IT Widget
@@ -434,7 +439,7 @@ class Huge_it_Widget extends WP_Widget {
 				
 				<?php
 				 global $wpdb;
-				$query=$wpdb->prepare("SELECT * FROM ".$wpdb->prefix."huge_itslider_sliders ");
+				$query="SELECT * FROM ".$wpdb->prefix."huge_itslider_sliders ";
 				$rowwidget=$wpdb->get_results($query);
 				foreach($rowwidget as $rowwidgetecho){
 				
@@ -455,6 +460,8 @@ add_action('widgets_init', 'register_Huge_it_Widget');
 function register_Huge_it_Widget() {  
     register_widget('Huge_it_Widget'); 
 }
+
+
 
 //////////////////////////////////////////////////////                                             ///////////////////////////////////////////////////////
 //////////////////////////////////////////////////////               Activate Slider                     ///////////////////////////////////////////////////////
@@ -511,7 +518,7 @@ CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "huge_itslider_sliders` (
   `description` text,
   `param` text,
   `ordering` int(11) NOT NULL,
-  `published` tinyint(4) unsigned DEFAULT NULL,
+  `published` text,
   
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
@@ -525,27 +532,27 @@ CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "huge_itslider_sliders` (
     $sql_1 = <<<query1
 INSERT INTO `$table_name` (`name`, `title`,`description`, `value`) VALUES
 ( 'slider_crop_image', 'Slider crop image', 'Slider crop image', 'resize'),
-( 'slider_title_color', 'Slider title color', 'Slider title color', 'ffffff'),
-( 'slider_title_font_size', 'Slider title font size', 'Slider title font size', '14'),
+( 'slider_title_color', 'Slider title color', 'Slider title color', '000000'),
+( 'slider_title_font_size', 'Slider title font size', 'Slider title font size', '13'),
 ( 'slider_description_color', 'Slider description color', 'Slider description color', 'ffffff'),
 ( 'slider_description_font_size', 'Slider description font size', 'Slider description font size', '13'),
 ( 'slider_title_position', 'Slider title position', 'Slider title position', 'right-top'),
 ( 'slider_description_position', 'Slider description position', 'Slider description position', 'right-bottom'),
 ( 'slider_title_border_size', 'Slider Title border size', 'Slider Title border size', '0'),
 ( 'slider_title_border_color', 'Slider title border color', 'Slider title border color', 'ffffff'),
-( 'slider_title_border_radius', 'Slider title border radius', 'Slider title border radius', '5'),
+( 'slider_title_border_radius', 'Slider title border radius', 'Slider title border radius', '4'),
 ( 'slider_description_border_size', 'Slider description border size', 'Slider description border size', '0'),
 ( 'slider_description_border_color', 'Slider description border color', 'Slider description border color', 'ffffff'),
-( 'slider_description_border_radius', 'Slider description border radius', 'Slider description border radius', '5'),
-( 'slider_slideshow_border_size', 'Slider slideshow border size', 'Slider slideshow border size', '0'),
-( 'slider_slideshow_border_color', 'Slider slideshow border color', 'Slider slideshow border color', 'ffffff'),
-( 'slider_slideshow_border_radius', 'Slider slideshow border radius', 'Slider slideshow border radius', '0'),
+( 'slider_description_border_radius', 'Slider description border radius', 'Slider description border radius', '0'),
+( 'slider_slideshow_border_size', 'Slider border size', 'Slider border size', '0'),
+( 'slider_slideshow_border_color', 'Slider border color', 'Slider border color', 'ffffff'),
+( 'slider_slideshow_border_radius', 'Slider border radius', 'Slider border radius', '0'),
 ( 'slider_navigation_type', 'Slider navigation type', 'Slider navigation type', '1'),
 ( 'slider_navigation_position', 'Slider navigation position', 'Slider navigation position', 'bottom'),
-( 'slider_title_background_color', 'Slider title background color', 'Slider title background color', '000000'),
+( 'slider_title_background_color', 'Slider title background color', 'Slider title background color', 'ffffff'),
 ( 'slider_description_background_color', 'Slider description background color', 'Slider description background color', '000000'),
-( 'slider_title_transparent', 'Slider title has background', 'Slider title has background', 'checked'),
-( 'slider_description_transparent', 'Slider description has background', 'Slider description has background', 'checked'),
+( 'slider_title_transparent', 'Slider title has background', 'Slider title has background', 'on'),
+( 'slider_description_transparent', 'Slider description has background', 'Slider description has background', 'on'),
 ( 'slider_slider_background_color', 'Slider slider background color', 'Slider slider background color', 'ffffff'),
 ( 'slider_dots_position', 'slider dots position', 'slider dots position', 'top'),
 ( 'slider_active_dot_color', 'slider active dot color', '', 'ffffff'),
@@ -570,7 +577,7 @@ INSERT INTO
     $sql_3 = "
 
 INSERT INTO `$table_name` (`id`, `name`, `sl_height`, `sl_width`, `pause_on_hover`, `slider_list_effects_s`, `description`, `param`, `ordering`, `published`) VALUES
-(1, 'My First Slider', '375', '600', 'on', 'random', '4000', '700', '1', '1')";
+(1, 'My First Slider', '375', '600', 'on', 'random', '4000', '1000', '1', '300')";
 
 
 
@@ -590,13 +597,12 @@ INSERT INTO `$table_name` (`id`, `name`, `sl_height`, `sl_width`, `pause_on_hove
       $wpdb->query($sql_3);
     }
 
+	
 
 }
 
 
 register_activation_hook(__FILE__, 'huge_it_slider_activate');
-
-
 
 
 if (get_bloginfo('version') >= 3.1) {
@@ -636,48 +642,65 @@ function slider()
 			}
 			else
 			{
-			$wpdb->query("ALTER TABLE  `wp_huge_itslider_images` ADD  `sl_type` TEXT NOT NULL AFTER  `sl_url`");
-			$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_images SET sl_type = 'image' ");
-			$wpdb->query("ALTER TABLE  `wp_huge_itslider_images` ADD  `link_target` TEXT NOT NULL AFTER  `sl_type`");
-			$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_images SET link_target = '_blank' ");
-			
-	$query=$wpdb->prepare("SELECT * FROM ".$wpdb->prefix."huge_itslider_images order by id ASC",$id);
+			$query="SELECT * FROM ".$wpdb->prefix."huge_itslider_images order by id ASC";
 			   $rowim=$wpdb->get_results($query);
 	  foreach ($rowim as $key=>$rowimages){
 	  $wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_images SET  ordering = '".$rowimages->id."'  WHERE ID = ".$rowimages->id." ");
 	  }
+	
 			
 			}
 			
 
     }
 	
-	if($product2[6]['Field'] == 'sl_type')
+	
+		if($product2[6]['Field'] == 'sl_type')
 			{
 			echo '';
 			}
 			else
 			{
+			$wpdb->query("ALTER TABLE  `wp_huge_itslider_images` ADD  `sl_type` TEXT NOT NULL AFTER  `sl_url`");
+			$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_images SET sl_type = 'image' ");
+			$wpdb->query("ALTER TABLE  `wp_huge_itslider_images` ADD  `link_target` TEXT NOT NULL AFTER  `sl_type`");
+			$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_images SET link_target = 'on' ");
 
 		    $table_name = $wpdb->prefix . "huge_itslider_params";
     $sql_update2 = <<<query1
 INSERT INTO `$table_name` (`name`, `title`,`description`, `value`) VALUES
-( 'slider_description_width', 'Slider description width', 'Slider description width', '50'),
-( 'slider_description_height', 'Slider description height', 'Slider description height', '40'),
-( 'slider_description_background_transparency', 'slider description background transparency', 'slider description background transparency', '1'),
-( 'slider_description_text_align', 'description text-align', 'description text-align', 'left'),
-( 'slider_title_width', 'slider title width', 'slider title width', '100'),
-( 'slider_title_height', 'slider title height', 'slider title height', '100'),
-( 'slider_title_background_transparency', 'slider title background transparency', 'slider title background transparency', '1'),
-( 'slider_title_text_align', 'title text-align', 'title text-align', 'left');
+( 'slider_description_width', 'Slider description width', 'Slider description width', '70'),
+( 'slider_description_height', 'Slider description height', 'Slider description height', '50'),
+( 'slider_description_background_transparency', 'slider description background transparency', 'slider description background transparency', '70'),
+( 'slider_description_text_align', 'description text-align', 'description text-align', 'justify'),
+( 'slider_title_width', 'slider title width', 'slider title width', '30'),
+( 'slider_title_height', 'slider title height', 'slider title height', '50'),
+( 'slider_title_background_transparency', 'slider title background transparency', 'slider title background transparency', '70'),
+( 'slider_title_text_align', 'title text-align', 'title text-align', 'right');
 
 query1;
 			 $wpdb->query($sql_update2);
 	}
+	$product3 = $wpdb->get_results("DESCRIBE " . $wpdb->prefix . "huge_itslider_sliders", ARRAY_A);
+	if($product3[8]['Field'] == 'sl_position'){
+		echo '';
+	}
+	else
+	{
+	$wpdb->query("ALTER TABLE  `wp_huge_itslider_sliders` ADD  `sl_position` TEXT NOT NULL AFTER  `param`");
+	$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET `sl_position` = 'center' ");
+	$table_name = $wpdb->prefix . "huge_itslider_params";
+    $sql_update3 = <<<query1
+INSERT INTO `$table_name` (`name`, `title`,`description`, `value`) VALUES
+( 'slider_title_has_margin', 'title has margin', 'title has margin', 'on'),
+( 'slider_description_has_margin', 'description has margin', 'description has margin', 'on'),
+( 'slider_show_arrows', 'Slider show left right arrows', 'Slider show left right arrows', 'on');
 
+query1;
+	 $wpdb->query($sql_update3);
 
 	}
-
+}
 
 
 
