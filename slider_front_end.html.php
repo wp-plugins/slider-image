@@ -760,7 +760,7 @@ function front_end_slider($images, $paramssld, $slider)
 			
 		background:<?php 			
 				list($r,$g,$b) = array_map('hexdec',str_split($paramssld['slider_title_background_color'],2));
-				$titleopacity=$paramssld["slider_title_background_transparency"]/100;						
+				$titleopacity='0.7';						
 				echo 'rgba('.$r.','.$g.','.$b.','.$titleopacity.')'; 		
 		?>;
 		border-style:solid;
@@ -797,7 +797,7 @@ function front_end_slider($images, $paramssld, $slider)
 		
 		background:<?php 
 			list($r,$g,$b) = array_map('hexdec',str_split($paramssld['slider_description_background_color'],2));	
-			$descriptionopacity=$paramssld["slider_description_background_transparency"]/100;
+			$descriptionopacity='0.7';
 			echo 'rgba('.$r.','.$g.','.$b.','.$descriptionopacity.')';
 		?>;
 		border-style:solid;
