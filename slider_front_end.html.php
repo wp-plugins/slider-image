@@ -740,31 +740,18 @@ function front_end_slider($images, $paramssld, $slider)
 		position: relative;
 		z-index: 11;
 		display: inline-block;
-		<?php  if($paramssld['slider_title_has_margin']=='on'){
-				$slider_title_width=($paramssld['slider_title_width']-6);
-				$slider_title_height=($paramssld['slider_title_height']-6);
-				$slider_title_margin="3";
-			}else{
-				$slider_title_width=($paramssld['slider_title_width']);
-				$slider_title_height=($paramssld['slider_title_height']);
-				$slider_title_margin="0";
-			}  ?>
+
 		
-		width:<?php echo $slider_title_width; ?>%;
-		/*height:<?php echo $slider_title_height; ?>%;*/
-		margin:<?php echo $slider_title_margin; ?>%;
+		width:30%;
+		margin:3%;
 		padding:2%;
-		text-align:<?php echo $paramssld['slider_title_text_align']; ?>;  
+		text-align:right;  
 		font-weight:bold;
-		color:#<?php echo $paramssld['slider_title_color']; ?>;
+		color:#000;
 			
-		background:<?php 			
-				list($r,$g,$b) = array_map('hexdec',str_split($paramssld['slider_title_background_color'],2));
-				$titleopacity='0.7';						
-				echo 'rgba('.$r.','.$g.','.$b.','.$titleopacity.')'; 		
-		?>;
+		background:rgba(256,256,256,0.7);
 		border-style:solid;
-		font-size:<?php echo $paramssld['slider_title_font_size']; ?>px;
+		font-size:13px;
 		border-width:<?php echo $paramssld['slider_title_border_size']; ?>px;
 		border-color:#<?php echo $paramssld['slider_title_border_color']; ?>;
 		border-radius:<?php echo $paramssld['slider_title_border_radius']; ?>px;
@@ -774,34 +761,18 @@ function front_end_slider($images, $paramssld, $slider)
 		text-decoration: none;
 		position: relative;
 		z-index: 11;
-		margin: 5px;
 		border-style:solid;
-		padding:10px;
 		display: inline-block;
-		<?php  if($paramssld['slider_description_has_margin']=='on'){
-				$slider_description_width=($paramssld['slider_description_width']-6);
-				$slider_description_height=($paramssld['slider_description_height']-6);
-				$slider_description_margin="3";
-			}else{
-				$slider_description_width=($paramssld['slider_description_width']);
-				$slider_descriptione_height=($paramssld['slider_description_height']);
-				$slider_description_margin="0";
-			}  ?>
-		
-		width:<?php echo $slider_description_width; ?>%;
-		/*height:<?php echo $slider_description_height; ?>%;*/
-		margin:<?php echo $slider_description_margin; ?>%;
-		padding:3%;
-		text-align:<?php echo $paramssld['slider_description_text_align']; ?>;  
-		color:#<?php echo $paramssld['slider_description_color']; ?>;
-		
-		background:<?php 
-			list($r,$g,$b) = array_map('hexdec',str_split($paramssld['slider_description_background_color'],2));	
-			$descriptionopacity='0.7';
-			echo 'rgba('.$r.','.$g.','.$b.','.$descriptionopacity.')';
-		?>;
+				width:70%;
+		margin:3%;
+		padding:2%;
+		text-align:center;  
+		font-weight:bold;
+		color:#fff;
+			
+		background:rgba(0,0,0,0.7);
 		border-style:solid;
-		font-size:<?php echo $paramssld['slider_description_font_size']; ?>px;
+		font-size:13px;
 		border-width:<?php echo $paramssld['slider_description_border_size']; ?>px;
 		border-color:#<?php echo $paramssld['slider_description_border_color']; ?>;
 		border-radius:<?php echo $paramssld['slider_description_border_radius']; ?>px;
