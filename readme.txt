@@ -66,13 +66,13 @@ Now you can set your slider options, images and use our slider.
 == Changelog ==
 
 = 2.4.2 =
-*  added Drag and Drop functionality.
+*  enabled debug's bugs fixed.
 
 = 2.4.1 =
-*  bug fixed in slider.
+*  added slider positioning setting.
 
 = 2.4 =
-*  added HTML support in the titles and descriptions.
+*  added Drag and Drop functionality.
 
 = 2.3 =
 *  added smart target feature.
