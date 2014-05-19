@@ -63,6 +63,32 @@ Now you can set your slider options, images and use our slider.
 4.  WordPress slider - Post Slider        
 5.  WordPress slider - Widget Slider      
 
+== Changelog ==
+
+= 2.4.2 =
+*  added Drag and Drop functionality.
+
+= 2.4.1 =
+*  bug fixed in slider.
+
+= 2.4 =
+*  added HTML support in the titles and descriptions.
+
+= 2.3 =
+*  added smart target feature.
+
+= 2.2 =
+*  added possibility to use unlimited sliders in one page.
+
+= 2.1 =
+*  bug fixed in slider.
+
+= 2.0 =
+*  added widget slider.
+
+= 1.0 =
+*  Initial version.
+
 ==Wordpress Slider step by step guide==
 
 ### Step 1. Adding Slider
