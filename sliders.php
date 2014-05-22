@@ -512,31 +512,15 @@ function apply_cat($id)
 	if(isset($_POST["content"])){
 	$script_cat = preg_replace('#<script(.*?)>(.*?)</script>#is', '', stripslashes($_POST["content"]));
 	}
-	$savedd=$wpdb->update($wpdb->prefix.'huge_itslider_sliders', array(
-					'name'   				 => esc_js($_POST["name"]),
-					'sl_width'   				 => $_POST["sl_width"],
-					'sl_height'   				 => $_POST['sl_height'],
-					'pause_on_hover'   				 => $_POST['pause_on_hover'],
-					'slider_list_effects_s'     => $_POST['slider_effects_list'],
-					'description'				=> $_POST['sl_pausetime'],
-					'param'  				 =>$_POST["sl_changespeed"],
-					'sl_position'  				 =>$_POST["sl_position"],
-					'ordering' 				 => '1',
-					
-              ), 
-              array('id'=>$id),
-			  array( 
-			    '%s',
-				'%d',
-				'%s',
-				'%s',
-				'%s',
-				'%s',
-				'%s',
-				'%s',
-				'%s',
-				'%d', )
-			  );
+			$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  name = '".$_POST["name"]."'  WHERE id = '".$id."' ");
+			$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  sl_width = '".$_POST["sl_width"]."'  WHERE id = '".$id."' ");
+			$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  sl_height = '".$_POST["sl_height"]."'  WHERE id = '".$id."' ");
+			$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  pause_on_hover = '".$_POST["pause_on_hover"]."'  WHERE id = '".$id."' ");
+			$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  slider_list_effects_s = '".$_POST["slider_effects_list"]."'  WHERE id = '".$id."' ");
+			$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  description = '".$_POST["sl_pausetime"]."'  WHERE id = '".$id."' ");
+			$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  param = '".$_POST["sl_changespeed"]."'  WHERE id = '".$id."' ");
+			$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  sl_position = '".$_POST["sl_position"]."'  WHERE id = '".$id."' ");
+			$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  ordering = '1'  WHERE id = '".$id."' ");
 
 		
 	$query=$wpdb->prepare("SELECT * FROM ".$wpdb->prefix."huge_itslider_sliders WHERE id = %d", $id);
