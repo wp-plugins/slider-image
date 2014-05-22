@@ -1,5 +1,5 @@
 === Slider ===
-Contributors: hugeit
+Contributors: Huge-IT
 Donate link: http://huge-it.com/slider/
 Tags: slider, slideshow, wordpress slider, content slider, posts slider,image slider, responsive slideshow, image Rotator, jquery slider, Photo Slider, nivo slider, slider plugin, javascript slider, coin slider, responsive slider, featured-content-slider, Horizontal slider, carousel slider, wp slider, vertical slider, best slider plugin, content slideshow, javascript slideshow, slideshow manager, slideshow plugin, image slideshow, jquery slideshow, wordpress slideshow, vertical slides, responsive, nivoslider, flex slider, coinslider, carousel, post, posts, plugin, slider widget, widget slider, widget slideshow, widget, widgets, seo, wordpress seo, media, page,
 Requires at least: 3.0.1
