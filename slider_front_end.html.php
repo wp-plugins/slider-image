@@ -685,7 +685,6 @@ function front_end_slider($images, $paramssld, $slider)
 		z-index: 11;
 		display: inline-block;
 		width:30%;
-		max-height:50%;
 		overflow:hidden;
 		margin:3%;
 		padding:2%;
@@ -707,7 +706,6 @@ function front_end_slider($images, $paramssld, $slider)
 		border-style:solid;
 		display: inline-block;
 		width:70%;
-		max-height:50%;
 		overflow:hidden;
 		margin:3%;
 		padding:2%;

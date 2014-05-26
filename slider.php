@@ -4,7 +4,7 @@
 Plugin Name: Huge IT slider
 Plugin URI: http://huge-it.com/slider
 Description: Huge IT slider is a convenient tool for organizing the images represented on your website into sliders. Each product on the slider is assigned with a relevant slider, which makes it easier for the customers to search and identify the needed images within the slider.
-Version: 2.4.3
+Version: 2.4.4
 Author: http://huge-it.com/
 License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -597,28 +597,6 @@ INSERT INTO `$table_name` (`id`, `name`, `sl_height`, `sl_width`, `pause_on_hove
       $wpdb->query($sql_3);
     }
 
-	
-
-}
-
-
-register_activation_hook(__FILE__, 'huge_it_slider_activate');
-
-
-if (get_bloginfo('version') >= 3.1) {
-
-    add_action('plugins_loaded', 'slider');
-
-} else {
-    slider();
-}
-
-function slider()
-{
-    global $wpdb;
-	
-	
-
 	$product = $wpdb->get_results("DESCRIBE " . $wpdb->prefix . "huge_itslider_sliders", ARRAY_A);
     $isUpdate = 0;
 	foreach ($product as $prod) {
@@ -700,7 +678,13 @@ query1;
 	 $wpdb->query($sql_update3);
 
 	}
+
 }
+
+
+register_activation_hook(__FILE__, 'huge_it_slider_activate');
+
+
 
 
 
