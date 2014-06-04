@@ -181,9 +181,6 @@ function html_showsliders( $rows,  $pageNav,$sort,$cat_row){
 
 			 <?php
 			?>
-			
-			
-		   
 			</form>
 		</div>
 	</div>

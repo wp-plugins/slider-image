@@ -1,3 +1,4 @@
+
 <?php
 
 function front_end_slider($images, $paramssld, $slider)
@@ -13,8 +14,12 @@ function front_end_slider($images, $paramssld, $slider)
 	$sliderpauseonhover=$slider[0]->pause_on_hover;
 	$sliderposition=$slider[0]->sl_position;
 	$slidechangespeed=$slider[0]->param;
+	
+	$slideshow_title_position = explode('-', trim($paramssld['slider_title_position']));
+	$slideshow_description_position = explode('-', trim($paramssld['slider_description_position']));
 
 ?>
+
 
 
 
@@ -40,24 +45,23 @@ function front_end_slider($images, $paramssld, $slider)
 			$stralt=str_replace('"',"'",$images[$i]->name);
 			$stralt=preg_replace( "/\r|\n/", " ", $stralt );
 			echo 'data_'.$sliderID.'["'.$i.'"]["alt"]="'.$stralt.'";';
-			
-			
 		}
 	?>
-	  var huge_it_trans_in_progress_<?php echo $sliderID; ?> = false;
+	
+	
+
+      var huge_it_trans_in_progress_<?php echo $sliderID; ?> = false;
       var huge_it_transition_duration_<?php echo $sliderID; ?> = <?php echo $slidechangespeed;?>;
       var huge_it_playInterval_<?php echo $sliderID; ?>;
       // Stop autoplay.
       window.clearInterval(huge_it_playInterval_<?php echo $sliderID; ?>);
-      
-
-      var huge_it_current_key_<?php echo $sliderID; ?> = '<?php echo (isset($current_key) ? $current_key : ''); ?>';
-       function huge_it_move_dots_<?php echo $sliderID; ?>() {
+	  
+     var huge_it_current_key_<?php echo $sliderID; ?> = '<?php echo (isset($current_key) ? $current_key : ''); ?>';
+	 function huge_it_move_dots_<?php echo $sliderID; ?>() {
         var image_left = jQuery(".huge_it_slideshow_dots_active_<?php echo $sliderID; ?>").position().left;
         var image_right = jQuery(".huge_it_slideshow_dots_active_<?php echo $sliderID; ?>").position().left + jQuery(".huge_it_slideshow_dots_active_<?php echo $sliderID; ?>").outerWidth(true);
        
       }
-
       function huge_it_testBrowser_cssTransitions_<?php echo $sliderID; ?>() {
         return huge_it_testDom_<?php echo $sliderID; ?>('Transition');
       }
@@ -77,7 +81,7 @@ function front_end_slider($images, $paramssld, $slider)
         }
         return false;
       }
-     function huge_it_cube_<?php echo $sliderID; ?>(tz, ntx, nty, nrx, nry, wrx, wry, current_image_class, next_image_class, direction) {
+		function huge_it_cube_<?php echo $sliderID; ?>(tz, ntx, nty, nrx, nry, wrx, wry, current_image_class, next_image_class, direction) {
         /* If browser does not support 3d transforms/CSS transitions.*/
         if (!huge_it_testBrowser_cssTransitions_<?php echo $sliderID; ?>()) {
 			jQuery(".huge_it_slideshow_dots_<?php echo $sliderID; ?>").removeClass("huge_it_slideshow_dots_active_<?php echo $sliderID; ?>").addClass("huge_it_slideshow_dots_deactive_<?php echo $sliderID; ?>");
@@ -97,7 +101,7 @@ function front_end_slider($images, $paramssld, $slider)
           backfaceVisibility : 'hidden'
         });
 		
-		 jQuery(".huge_it_slideshow_image_wrap_<?php echo $sliderID; ?>,.huge_it_slide_bg_<?php echo $sliderID; ?>,.huge_it_slideshow_image_span_<?php echo $sliderID; ?>,.huge_it_slideshow_image_second_span_<?php echo $sliderID; ?> ").css('overflow', 'visible');
+		 jQuery(".huge_it_slideshow_image_wrap_<?php echo $sliderID; ?>,.huge_it_slide_bg_<?php echo $sliderID; ?>,.huge_it_slideshow_image_item_<?php echo $sliderID; ?>,.huge_it_slideshow_image_second_item_<?php echo $sliderID; ?> ").css('overflow', 'visible');
 		
         jQuery(next_image_class).css({
           opacity : 1,
@@ -123,7 +127,7 @@ function front_end_slider($images, $paramssld, $slider)
             huge_it_from_focus_<?php echo $sliderID; ?> = false;
             return;
           }*/
-		  jQuery(".huge_it_slide_bg_<?php echo $sliderID; ?>,.huge_it_slideshow_image_span_<?php echo $sliderID; ?>,.huge_it_slideshow_image_second_span_<?php echo $sliderID; ?> ").css('overflow', 'hidden');
+		  jQuery(".huge_it_slide_bg_<?php echo $sliderID; ?>,.huge_it_slideshow_image_item_<?php echo $sliderID; ?>,.huge_it_slideshow_image_second_item_<?php echo $sliderID; ?> ").css('overflow', 'hidden');
 		  jQuery(".huge_it_slide_bg_<?php echo $sliderID; ?>").removeAttr('style');
           jQuery(current_image_class).removeAttr('style');
           jQuery(next_image_class).removeAttr('style');
@@ -177,8 +181,9 @@ function front_end_slider($images, $paramssld, $slider)
         jQuery("#huge_it_dots_" + huge_it_current_key_<?php echo $sliderID; ?> + "_<?php echo $sliderID; ?>").removeClass("huge_it_slideshow_dots_deactive_<?php echo $sliderID; ?>").addClass("huge_it_slideshow_dots_active_<?php echo $sliderID; ?>");
       }
       function huge_it_fade_<?php echo $sliderID; ?>(current_image_class, next_image_class, direction) {
-        if (huge_it_testBrowser_cssTransitions_<?php echo $sliderID; ?>()) {
+		if (huge_it_testBrowser_cssTransitions_<?php echo $sliderID; ?>()) {
           jQuery(next_image_class).css('transition', 'opacity ' + huge_it_transition_duration_<?php echo $sliderID; ?> + 'ms linear');
+		  jQuery(current_image_class).css('transition', 'opacity ' + huge_it_transition_duration_<?php echo $sliderID; ?> + 'ms linear');
           jQuery(current_image_class).css({'opacity' : 0, 'z-index': 1});
           jQuery(next_image_class).css({'opacity' : 1, 'z-index' : 2});
         }
@@ -395,8 +400,8 @@ function front_end_slider($images, $paramssld, $slider)
         var iterator = 1;
 
         return iterator;
-      }
-	  
+     }
+	 
      function huge_it_change_image_<?php echo $sliderID; ?>(current_key, key, data_<?php echo $sliderID; ?>, from_effect) {
         if (data_<?php echo $sliderID; ?>[key]) {
          
@@ -422,39 +427,42 @@ function front_end_slider($images, $paramssld, $slider)
             return false;
           }
 
-			 
-			  // Set active thumbnail position.
+         
+          // Set active thumbnail position.
+      
+          huge_it_current_key_<?php echo $sliderID; ?> = key;
+          //Change image id, title, description.
+          jQuery("#huge_it_slideshow_image_<?php echo $sliderID; ?>").attr('image_id', data_<?php echo $sliderID; ?>[key]["id"]);
 		  
-			  huge_it_current_key_<?php echo $sliderID; ?> = key;
-			  //Change image id, title, description.
-			  jQuery("#huge_it_slideshow_image_<?php echo $sliderID; ?>").attr('image_id', data_<?php echo $sliderID; ?>[key]["id"]);
-			  
-			  jQuery(".huge_it_slideshow_title_text_<?php echo $sliderID; ?>").html(data_<?php echo $sliderID; ?>[key]["alt"]);
-			  jQuery(".huge_it_slideshow_description_text_<?php echo $sliderID; ?>").html(data_<?php echo $sliderID; ?>[key]["description"]);
-			
-			  var current_image_class = "#image_id_<?php echo $sliderID; ?>_" + data_<?php echo $sliderID; ?>[current_key]["id"];
-			  var next_image_class = "#image_id_<?php echo $sliderID; ?>_" + data_<?php echo $sliderID; ?>[key]["id"];
-			  
-			  huge_it_<?php echo $slidereffect; ?>_<?php echo $sliderID; ?>(current_image_class, next_image_class, direction);
-			  
-			  
-			jQuery('.huge_it_slideshow_title_text_<?php echo $sliderID; ?>').removeClass('none');
-			if(jQuery('.huge_it_slideshow_title_text_<?php echo $sliderID; ?>').html()==""){jQuery('.huge_it_slideshow_title_text_<?php echo $sliderID; ?>').addClass('none');}
+		  jQuery(".huge_it_slideshow_title_text_<?php echo $sliderID; ?>").html(data_<?php echo $sliderID; ?>[key]["alt"]);
+          jQuery(".huge_it_slideshow_description_text_<?php echo $sliderID; ?>").html(data_<?php echo $sliderID; ?>[key]["description"]);
+        
+		  var current_image_class = "#image_id_<?php echo $sliderID; ?>_" + data_<?php echo $sliderID; ?>[current_key]["id"];
+          var next_image_class = "#image_id_<?php echo $sliderID; ?>_" + data_<?php echo $sliderID; ?>[key]["id"];
+          
+		  huge_it_<?php echo $slidereffect; ?>_<?php echo $sliderID; ?>(current_image_class, next_image_class, direction);
+		  
+		  
+		jQuery('.huge_it_slideshow_title_text_<?php echo $sliderID; ?>').removeClass('none');
+		if(jQuery('.huge_it_slideshow_title_text_<?php echo $sliderID; ?>').html()==""){jQuery('.huge_it_slideshow_title_text_<?php echo $sliderID; ?>').addClass('none');}
 
-			jQuery('.huge_it_slideshow_description_text_<?php echo $sliderID; ?>').removeClass('none');
-			if(jQuery('.huge_it_slideshow_description_text_<?php echo $sliderID; ?>').html()==""){jQuery('.huge_it_slideshow_description_text_<?php echo $sliderID; ?>').addClass('none');}
+		jQuery('.huge_it_slideshow_description_text_<?php echo $sliderID; ?>').removeClass('none');
+		if(jQuery('.huge_it_slideshow_description_text_<?php echo $sliderID; ?>').html()==""){jQuery('.huge_it_slideshow_description_text_<?php echo $sliderID; ?>').addClass('none');}
+	  
+		  
+		  
+		  jQuery(current_image_class).find('.huge_it_slideshow_title_text_<?php echo $sliderID; ?>').addClass('none');
+		  jQuery(current_image_class).find('.huge_it_slideshow_description_text_<?php echo $sliderID; ?>').addClass('none');
+		
+		
 
-			  
-			  //errorlogjQuery(".huge_it_slideshow_image_wrap_<?php echo $sliderID; ?>").after("--cur-key="+current_key+" --cur-img-class="+current_image_class+" nxt-img-class="+next_image_class+"--");
+		  
+		  //errorlogjQuery(".huge_it_slideshow_image_wrap_<?php echo $sliderID; ?>").after("--cur-key="+current_key+" --cur-img-class="+current_image_class+" nxt-img-class="+next_image_class+"--");
 			huge_it_move_dots_<?php echo $sliderID; ?>();
-			
-		window.clearInterval(huge_it_playInterval_<?php echo $sliderID; ?>);
-		play_<?php echo $sliderID; ?>();
-		
-
+			window.clearInterval(huge_it_playInterval_<?php echo $sliderID; ?>);
+			play_<?php echo $sliderID; ?>();
         }
-		
-		
+
       }
 	  
       function huge_it_popup_resize_<?php echo $sliderID; ?>() {
@@ -474,20 +482,25 @@ function front_end_slider($images, $paramssld, $slider)
 		jQuery(".huge_it_slideshow_image_wrap_<?php echo $sliderID; ?>").css({height: ((sliderwidth) * str)});
 		jQuery(".huge_it_slideshow_image_container_<?php echo $sliderID; ?>").css({width: (sliderwidth)});
 		jQuery(".huge_it_slideshow_image_container_<?php echo $sliderID; ?>").css({height: ((sliderwidth) * str)});
-
+			
+		if("<?php echo $slideshow_title_position[1]; ?>"=="middle"){var titlemargintopminus=jQuery(".huge_it_slideshow_title_text_<?php echo $sliderID; ?>").outerHeight()/2;}		
+		if("<?php echo $slideshow_title_position[0]; ?>"=="center"){var titlemarginleftminus=jQuery(".huge_it_slideshow_title_text_<?php echo $sliderID; ?>").outerWidth()/2;}		
+		jQuery(".huge_it_slideshow_title_text_<?php echo $sliderID; ?>").css({cssText: "margin-top:-" + titlemargintopminus + "px; margin-left:-"+titlemarginleftminus+"px;"});
 		
-
+		if("<?php echo $slideshow_description_position[1]; ?>"=="middle"){var descriptionmargintopminus=jQuery(".huge_it_slideshow_description_text_<?php echo $sliderID; ?>").outerHeight()/2;}	
+		if("<?php echo $slideshow_description_position[0]; ?>"=="center"){var descriptionmarginleftminus=jQuery(".huge_it_slideshow_description_text_<?php echo $sliderID; ?>").outerWidth()/2;}
+		jQuery(".huge_it_slideshow_description_text_<?php echo $sliderID; ?>").css({cssText: "margin-top:-" + descriptionmargintopminus + "px; margin-left:-"+descriptionmarginleftminus+"px;"});		
+		
 		
 		if("<?php echo $paramssld['slider_crop_image']; ?>"=="resize"){
-			jQuery(".huge_it_slideshow_image_<?php echo $sliderID; ?>, .huge_it_slideshow_image_span1_<?php echo $sliderID; ?> img, .huge_it_slideshow_image_container_<?php echo $sliderID; ?> img").css({
+			jQuery(".huge_it_slideshow_image_<?php echo $sliderID; ?>, .huge_it_slideshow_image_item1_<?php echo $sliderID; ?> img, .huge_it_slideshow_image_container_<?php echo $sliderID; ?> img").css({
 				cssText: "width:" + sliderwidth + "px; height:" + ((sliderwidth) * str)	+"px;"
 			});
 		}else {
-			jQuery(".huge_it_slideshow_image_<?php echo $sliderID; ?>,.huge_it_slideshow_image_span1_<?php echo $sliderID; ?>,.huge_it_slideshow_image_span2_<?php echo $sliderID; ?>").css({
+			jQuery(".huge_it_slideshow_image_<?php echo $sliderID; ?>,.huge_it_slideshow_image_item1_<?php echo $sliderID; ?>,.huge_it_slideshow_image_item2_<?php echo $sliderID; ?>").css({
 			cssText: "max-width: " + sliderwidth + "px !important; max-height: " + (sliderwidth * str) + "px !important;"
 		  });
 		}
-		
       }
       
       jQuery(window).load(function () {
@@ -500,7 +513,7 @@ function front_end_slider($images, $paramssld, $slider)
         jQuery('div[id^="huge_it_container"]').bind("contextmenu", function () {
           return false;
         });
-     
+        			
 		/*HOVER SLIDESHOW*/
 		jQuery("#huge_it_slideshow_image_container_<?php echo $sliderID; ?>, .huge_it_slideshow_image_container_<?php echo $sliderID; ?>, .huge_it_slideshow_dots_container_<?php echo $sliderID; ?>,#huge_it_slideshow_right_<?php echo $sliderID; ?>,#huge_it_slideshow_left_<?php echo $sliderID; ?>").hover(function(){
 			//errorlogjQuery(".huge_it_slideshow_image_wrap_<?php echo $sliderID; ?>").after(" -- hover -- <br /> ");
@@ -518,18 +531,14 @@ function front_end_slider($images, $paramssld, $slider)
 				window.clearInterval(huge_it_playInterval_<?php echo $sliderID; ?>);
 				play_<?php echo $sliderID; ?>();
 			});		
-		}
-		
-		
+		}	
           play_<?php echo $sliderID; ?>();        
       });
 
-       function play_<?php echo $sliderID; ?>() {
-	   
+      function play_<?php echo $sliderID; ?>() {	   
         /* Play.*/
 		//errorlogjQuery(".huge_it_slideshow_image_wrap_<?php echo $sliderID; ?>").after(" -- paly  ---- ");
-		huge_it_playInterval_<?php echo $sliderID; ?> = null;
-        huge_it_playInterval_<?php echo $sliderID; ?> = window.setInterval(function () {
+        huge_it_playInterval_<?php echo $sliderID; ?> = setInterval(function () {
 			//errorlogjQuery(".huge_it_slideshow_image_wrap_<?php echo $sliderID; ?>").after(" -- time left ---- ");
           var iterator = 1;
           huge_it_change_image_<?php echo $sliderID; ?>(parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()), (parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()) + iterator) % data_<?php echo $sliderID; ?>.length, data_<?php echo $sliderID; ?>)
@@ -538,12 +547,8 @@ function front_end_slider($images, $paramssld, $slider)
 	  
       jQuery(window).focus(function() {
        /*event_stack_<?php echo $sliderID; ?> = [];*/
-        if (!jQuery(".huge_it_ctrl_btn_<?php echo $sliderID; ?>").hasClass("fa-play")) {
-          window.clearInterval(huge_it_playInterval_<?php echo $sliderID; ?>);
-          play_<?php echo $sliderID; ?>();
-        }
         var i_<?php echo $sliderID; ?> = 0;
-        jQuery(".huge_it_slider_<?php echo $sliderID; ?>").children("span").each(function () {
+        jQuery(".huge_it_slider_<?php echo $sliderID; ?>").children("div").each(function () {
           if (jQuery(this).css('opacity') == 1) {
             jQuery("#huge_it_current_image_key_<?php echo $sliderID; ?>").val(i_<?php echo $sliderID; ?>);
           }
@@ -555,30 +560,29 @@ function front_end_slider($images, $paramssld, $slider)
         window.clearInterval(huge_it_playInterval_<?php echo $sliderID; ?>);
       });      
     </script>
-	<style>
-	
-				
-		 .huge_it_slideshow_image_wrap_<?php echo $sliderID; ?> {
-			height:<?php echo $sliderheight; ?>px;
-			width:<?php  echo $sliderwidth; ?>px;
-			position:relative;
-			display: block;
-			text-align: center;
-			/*HEIGHT FROM HEADER.PHP*/
-			clear:both;
-			<?php if($sliderposition=="left"){ $position='float:left;';}elseif($sliderposition=="right"){$position='float:right;';}else{$position='float:none; margin:0px auto;';} ?>
-			<?php echo $position;  ?>
-			border-style:solid;
-			border-left:0px !important;
-			border-right:0px !important;
-		}
+	<style>				
+	 .huge_it_slideshow_image_wrap_<?php echo $sliderID; ?> {
+		height:<?php echo $sliderheight; ?>px;
+		width:<?php  echo $sliderwidth; ?>px;
+		position:relative;
+		display: block;
+		text-align: center;
+		/*HEIGHT FROM HEADER.PHP*/
+		clear:both;
+		<?php if($sliderposition=="left"){ $position='float:left;';}elseif($sliderposition=="right"){$position='float:right;';}else{$position='float:none; margin:0px auto;';} ?>
+		<?php echo $position;  ?>
+		
+		border-style:solid;
+		border-left:0px !important;
+		border-right:0px !important;
+	}
 
 
-		.huge_it_slideshow_image_wrap_<?php echo $sliderID; ?> * {
-			box-sizing: border-box;
-			-moz-box-sizing: border-box;
-			-webkit-box-sizing: border-box;
-		}
+	.huge_it_slideshow_image_wrap_<?php echo $sliderID; ?> * {
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+	}
 		 
 
 	  .huge_it_slideshow_image_<?php echo $sliderID; ?> {
@@ -590,30 +594,18 @@ function front_end_slider($images, $paramssld, $slider)
 		cursor: pointer;
 		display:none;
 		display: block;
+		
 		height: 100%;
 		outline: medium none;
 		position: absolute;
+
 		/*z-index: 10130;*/
 		z-index: 13;
 		bottom:25px;
 		top:50%;		
 	  }
 	 
-	  
-	  #huge_it_slideshow_left_<?php echo $sliderID; ?>:hover span {
-		left: 20px;
-	  }
 
-	  #huge_it_slideshow_right_<?php echo $sliderID; ?>:hover span {
-		right: 20px;
-	  }
-	  #huge_it_slideshow_left-ico_<?php echo $sliderID; ?> span,
-	  #huge_it_slideshow_right-ico_<?php echo $sliderID; ?> span {
-		display: table-cell;
-		text-align: center;
-		vertical-align: middle;
-		z-index: 13;
-	  }
 	  #huge_it_slideshow_left-ico_<?php echo $sliderID; ?>,
 	  #huge_it_slideshow_right-ico_<?php echo $sliderID; ?> {
 		z-index: 13;
@@ -641,89 +633,97 @@ function front_end_slider($images, $paramssld, $slider)
 		text-align: center;
 		vertical-align: middle;
 		width:100%;
-	  }
-	  
-	  .huge_it_none_selectable_<?php echo $sliderID; ?> {
-		-webkit-touch-callout: none;
-		-webkit-user-select: none;
-		-khtml-user-select: none;
-		-moz-user-select: none;
-		-ms-user-select: none;
-		user-select: none;
-	  }
-	  
-	  .huge_it_slideshow_title_container_<?php echo $sliderID; ?>,.huge_it_slideshow_description_container_<?php echo $sliderID; ?> {
-		display: table-cell;
-		margin: 0 auto;
-		position: relative;
-
-	  }
-	  
-	   .huge_it_slideshow_title_container_<?php echo $sliderID; ?> > div, .huge_it_slideshow_description_container_<?php echo $sliderID; ?> > div {
-		 display:block;
-		 width:100%;
-	   }
-	   
-	  .huge_it_slideshow_title_span_<?php echo $sliderID; ?> {
-		display: table-cell;
-		overflow: hidden;
-		position: relative;
-		/*text-align FROM HEADER.PHP*/
-		/*vertical-align FROM HEADER.PHP*/
-	  }
-	  .huge_it_slideshow_description_span_<?php echo $sliderID; ?> {
-		display: table-cell !important;
-		overflow: hidden;
-		position: relative;
-		/*text-align FROM HEADER.PHP*/
-		/*vertical-align FROM HEADER.PHP*/
-	  }
-  
+	  }	  
+		
 	  .huge_it_slideshow_title_text_<?php echo $sliderID; ?> {
 		text-decoration: none;
-		position: relative;
+		position: absolute;
 		z-index: 11;
 		display: inline-block;
-		width:30%;
-		overflow:hidden;
-		margin:3%;
+		<?php  if($paramssld['slider_title_has_margin']=='on'){
+				$slider_title_width=($paramssld['slider_title_width']-6);
+				$slider_title_height=($paramssld['slider_title_height']-6);
+				$slider_title_margin="3";
+			}else{
+				$slider_title_width=($paramssld['slider_title_width']);
+				$slider_title_height=($paramssld['slider_title_height']);
+				$slider_title_margin="0";
+			}  ?>
+		
+		width:<?php echo $slider_title_width; ?>%;
+		/*height:<?php echo $slider_title_height; ?>%;*/
+		
+		<?php 
+			if($slideshow_title_position[0]=="left"){echo 'left:'.$slider_title_margin.'%;';}
+			elseif($slideshow_title_position[0]=="center"){echo 'left:50%;';}
+			elseif($slideshow_title_position[0]=="right"){echo 'right:'.$slider_title_margin.'%;';}
+			
+			if($slideshow_title_position[1]=="top"){echo 'top:'.$slider_title_margin.'%;';}
+			elseif($slideshow_title_position[1]=="middle"){echo 'top:50%;';}
+			elseif($slideshow_title_position[1]=="bottom"){echo 'bottom:'.$slider_title_margin.'%;';}
+		 ?>
 		padding:2%;
-		text-align:center;  
+		text-align:<?php echo $paramssld['slider_title_text_align']; ?>;  
 		font-weight:bold;
-		color:#000;
-		background:rgba(256,256,256,0.7);
+		color:#<?php echo $paramssld['slider_title_color']; ?>;
+			
+		background:<?php 			
+				list($r,$g,$b) = array_map('hexdec',str_split($paramssld['slider_title_background_color'],2));
+				$titleopacity=$paramssld["slider_title_background_transparency"]/100;						
+				echo 'rgba('.$r.','.$g.','.$b.','.$titleopacity.')  !important'; 		
+		?>;
 		border-style:solid;
-		font-size:13px;
+		font-size:<?php echo $paramssld['slider_title_font_size']; ?>px;
 		border-width:<?php echo $paramssld['slider_title_border_size']; ?>px;
 		border-color:#<?php echo $paramssld['slider_title_border_color']; ?>;
 		border-radius:<?php echo $paramssld['slider_title_border_radius']; ?>px;
 	  }
-	  
+	  	  
 	  .huge_it_slideshow_description_text_<?php echo $sliderID; ?> {
 		text-decoration: none;
-		position: relative;
+		position: absolute;
 		z-index: 11;
 		border-style:solid;
 		display: inline-block;
-		width:70%;
-		overflow:hidden;
-		margin:3%;
-		padding:2%;
-		text-align:center;  
-		color:#fff;
+		<?php  if($paramssld['slider_description_has_margin']=='on'){
+				$slider_description_width=($paramssld['slider_description_width']-6);
+				$slider_description_height=($paramssld['slider_description_height']-6);
+				$slider_description_margin="3";
+			}else{
+				$slider_description_width=($paramssld['slider_description_width']);
+				$slider_descriptione_height=($paramssld['slider_description_height']);
+				$slider_description_margin="0";
+			}  ?>
+		
+		width:<?php echo $slider_description_width; ?>%;
+		/*height:<?php echo $slider_description_height; ?>%;*/
+		<?php 
+			if($slideshow_description_position[0]=="left"){echo 'left:'.$slider_description_margin.'%;';}
+			elseif($slideshow_description_position[0]=="center"){echo 'left:50%;';}
+			elseif($slideshow_description_position[0]=="right"){echo 'right:'.$slider_description_margin.'%;';}
 			
-		background:rgba(0,0,0,0.7);
+			if($slideshow_description_position[1]=="top"){echo 'top:'.$slider_description_margin.'%;';}
+			elseif($slideshow_description_position[1]=="middle"){echo 'top:50%;';}
+			elseif($slideshow_description_position[1]=="bottom"){echo 'bottom:'.$slider_description_margin.'%;';}
+		 ?>
+		padding:3%;
+		text-align:<?php echo $paramssld['slider_description_text_align']; ?>;  
+		color:#<?php echo $paramssld['slider_description_color']; ?>;
+		
+		background:<?php 
+			list($r,$g,$b) = array_map('hexdec',str_split($paramssld['slider_description_background_color'],2));	
+			$descriptionopacity=$paramssld["slider_description_background_transparency"]/100;
+			echo 'rgba('.$r.','.$g.','.$b.','.$descriptionopacity.') !important';
+		?>;
 		border-style:solid;
-		font-size:13px;
+		font-size:<?php echo $paramssld['slider_description_font_size']; ?>px;
 		border-width:<?php echo $paramssld['slider_description_border_size']; ?>px;
 		border-color:#<?php echo $paramssld['slider_description_border_color']; ?>;
 		border-radius:<?php echo $paramssld['slider_description_border_radius']; ?>px;
 	  }
 	  
 	   .huge_it_slideshow_title_text_<?php echo $sliderID; ?>.none, .huge_it_slideshow_description_text_<?php echo $sliderID; ?>.none {display:none;}
-	   
-	   
-	   
+	      
 	   .huge_it_slideshow_title_text_<?php echo $sliderID; ?> h1, .huge_it_slideshow_description_text_<?php echo $sliderID; ?> h1,
 	   .huge_it_slideshow_title_text_<?php echo $sliderID; ?> h2, .huge_it_slideshow_title_text_<?php echo $sliderID; ?> h2,
 	   .huge_it_slideshow_title_text_<?php echo $sliderID; ?> h3, .huge_it_slideshow_title_text_<?php echo $sliderID; ?> h3,
@@ -733,8 +733,8 @@ function front_end_slider($images, $paramssld, $slider)
 	   .huge_it_slideshow_title_text_<?php echo $sliderID; ?> span, .huge_it_slideshow_title_text_<?php echo $sliderID; ?> span,
 	   .huge_it_slideshow_title_text_<?php echo $sliderID; ?> ul, .huge_it_slideshow_title_text_<?php echo $sliderID; ?> ul,
 	   .huge_it_slideshow_title_text_<?php echo $sliderID; ?> li, .huge_it_slideshow_title_text_<?php echo $sliderID; ?> li {
-		padding:2px;
-		margin:0px;
+			padding:2px;
+			margin:0px;
 	   }
 
 	  .huge_it_slide_container_<?php echo $sliderID; ?> {
@@ -757,12 +757,16 @@ function front_end_slider($images, $paramssld, $slider)
 	  .huge_it_slider_<?php echo $sliderID; ?> {
 		width:100%;
 		height:100%;
+		display:table;
+		padding:0px;
+		margin:0px;
+		
 	  }
-	  .huge_it_slideshow_image_span_<?php echo $sliderID; ?> {
+	  .huge_it_slideshow_image_item_<?php echo $sliderID; ?> {
 		width:100%;
 		height:100%;
-		_width: inherit;
-		_height: inherit;
+		width: inherit;
+		height: inherit;
 		display: table-cell;
 		filter: Alpha(opacity=100);
 		opacity: 1;
@@ -771,10 +775,12 @@ function front_end_slider($images, $paramssld, $slider)
 		left:0px;
 		vertical-align: middle;
 		z-index: 2;
+		margin:0px !important;
+		padding:0px;
 		overflow:hidden;
 		border-radius: <?php echo $paramssld['slider_slideshow_border_radius']; ?>px !important;
 	  }
-	  .huge_it_slideshow_image_second_span_<?php echo $sliderID; ?> {
+	  .huge_it_slideshow_image_second_item_<?php echo $sliderID; ?> {
 		width:100%;
 		height:100%;
 		_width: inherit;
@@ -788,6 +794,8 @@ function front_end_slider($images, $paramssld, $slider)
 		vertical-align: middle;
 		z-index: 1;
 		overflow:hidden;
+		margin:0px !important;
+		padding:0px;
 		border-radius: <?php echo $paramssld['slider_slideshow_border_radius']; ?>px !important;
 	  }
 	  .huge_it_grid_<?php echo $sliderID; ?> {
@@ -803,14 +811,12 @@ function front_end_slider($images, $paramssld, $slider)
 		position: absolute;
 	  }
 	  
-		  
 					
 	  .huge_it_slideshow_dots_container_<?php echo $sliderID; ?> {
 		display: table;
 		position: absolute;
 		width:100% !important;
 		height:100% !important;
-		/*width FROM HEADER.PHP*/
 	  }
 	  .huge_it_slideshow_dots_thumbnails_<?php echo $sliderID; ?> {
 		margin: 0 auto;
@@ -843,39 +849,25 @@ function front_end_slider($images, $paramssld, $slider)
 	  
 	  }
 	  
-	  .huge_it_slideshow_image_span1_<?php echo $sliderID; ?> {
+	  .huge_it_slideshow_image_item1_<?php echo $sliderID; ?> {
 		 display: table; 
 		 width: inherit; 
 		 height: inherit;
 	  }
-	  .huge_it_slideshow_image_span2_<?php echo $sliderID; ?> {
+	  .huge_it_slideshow_image_item2_<?php echo $sliderID; ?> {
 		 display: table-cell; 
 		 vertical-align: middle; 
 		 text-align: center;
 	  }
 	  
-	 .huge_it_slideshow_image_span_<?php echo $sliderID; ?> a {
+	  .huge_it_slideshow_image_item2_<?php echo $sliderID; ?> a {
 		display:block;
 		vertical-align:middle;
 		width:100%;
 		height:100%;
 	  }
 		
-		<?php		
-			$slideshow_title_position = explode('-', trim($paramssld['slider_title_position']));
-			$slideshow_description_position = explode('-', trim($paramssld['slider_description_position']));
-		 ?>
-
-		.huge_it_slideshow_title_container_<?php echo $sliderID; ?> {
-			text-align: <?php echo $slideshow_title_position[0]; ?>;
-			vertical-align: <?php echo $slideshow_title_position[1]; ?>;
-		}
 		
-		.huge_it_slideshow_description_container_<?php echo $sliderID; ?> {
-			text-align: <?php echo $slideshow_description_position[0]; ?>;
-			vertical-align: <?php echo $slideshow_description_position[1]; ?>;
-		}
-
 		.huge_it_slideshow_image_wrap_<?php echo $sliderID; ?> {
 			background:#<?php echo $paramssld['slider_slider_background_color']; ?>;
 			border-width:<?php echo $paramssld['slider_slideshow_border_size']; ?>px;
@@ -924,6 +916,333 @@ function front_end_slider($images, $paramssld, $slider)
 					}
 				<?php
 				break;
+			case 2:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:-25px;
+						height:50px;
+						width:50px;
+						background:url(<?php echo $arrowfolder;?>/arrows.circle.shadow.png) left  top no-repeat; 
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:-25px;
+						height:50px;
+						width:50px;
+						background:url(<?php echo $arrowfolder;?>/arrows.circle.shadow.png) right top no-repeat; 
+					}
+
+					#huge_it_slideshow_left_<?php echo $sliderID; ?>:hover {
+						background-position:left -50px;
+					}
+
+					#huge_it_slideshow_right_<?php echo $sliderID; ?>:hover {
+						background-position:right -50px;
+					}
+				<?php
+				break;
+			case 3:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:-22px;
+						height:44px;
+						width:44px;
+						background:url(<?php echo $arrowfolder;?>/arrows.circle.simple.dark.png) left  top no-repeat; 
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:-22px;
+						height:44px;
+						width:44px;
+						background:url(<?php echo $arrowfolder;?>/arrows.circle.simple.dark.png) right top no-repeat; 
+					}
+
+					#huge_it_slideshow_left_<?php echo $sliderID; ?>:hover {
+						background-position:left -44px;
+					}
+
+					#huge_it_slideshow_right_<?php echo $sliderID; ?>:hover {
+						background-position:right -44px;
+					}
+				<?php
+				break;
+			case 4:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:-33px;
+						height:65px;
+						width:59px;
+						background:url(<?php echo $arrowfolder;?>/arrows.cube.dark.png) left  top no-repeat; 
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:-33px;
+						height:65px;
+						width:59px;
+						background:url(<?php echo $arrowfolder;?>/arrows.cube.dark.png) right top no-repeat; 
+					}
+
+					#huge_it_slideshow_left_<?php echo $sliderID; ?>:hover {
+						background-position:left -66px;
+					}
+
+					#huge_it_slideshow_right_<?php echo $sliderID; ?>:hover {
+						background-position:right -66px;
+					}
+				<?php
+				break;
+			case 5:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:-18px;
+						height:37px;
+						width:40px;
+						background:url(<?php echo $arrowfolder;?>/arrows.light.blue.png) left  top no-repeat; 
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:-18px;
+						height:37px;
+						width:40px;
+						background:url(<?php echo $arrowfolder;?>/arrows.light.blue.png) right top no-repeat; 
+					}
+
+				<?php
+				break;
+			case 6:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:-25px;
+						height:50px;
+						width:50px;
+						background:url(<?php echo $arrowfolder;?>/arrows.light.cube.png) left  top no-repeat; 
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:-25px;
+						height:50px;
+						width:50px;
+						background:url(<?php echo $arrowfolder;?>/arrows.light.cube.png) right top no-repeat; 
+					}
+
+					#huge_it_slideshow_left_<?php echo $sliderID; ?>:hover {
+						background-position:left -50px;
+					}
+
+					#huge_it_slideshow_right_<?php echo $sliderID; ?>:hover {
+						background-position:right -50px;
+					}
+				<?php
+				break;
+			case 7:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						right:0px;
+						margin-top:-19px;
+						height:38px;
+						width:38px;
+						background:url(<?php echo $arrowfolder;?>/arrows.light.transparent.circle.png) left  top no-repeat; 
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:-19px;
+						height:38px;
+						width:38px;
+						background:url(<?php echo $arrowfolder;?>/arrows.light.transparent.circle.png) right top no-repeat; 
+					}
+				<?php
+				break;
+			case 8:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:-22px;
+						height:45px;
+						width:45px;
+						background:url(<?php echo $arrowfolder;?>/arrows.png) left  top no-repeat; 
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:-22px;
+						height:45px;
+						width:45px;
+						background:url(<?php echo $arrowfolder;?>/arrows.png) right top no-repeat; 
+					}
+				<?php
+				break;
+			case 9:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:-22px;
+						height:45px;
+						width:45px;
+						background:url(<?php echo $arrowfolder;?>/arrows.circle.blue.png) left  top no-repeat; 
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:-22px;
+						height:45px;
+						width:45px;
+						background:url(<?php echo $arrowfolder;?>/arrows.circle.blue.png) right top no-repeat; 
+					}
+				<?php
+				break;
+			case 10:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:-24px;
+						height:48px;
+						width:48px;
+						background:url(<?php echo $arrowfolder;?>/arrows.circle.green.png) left  top no-repeat; 
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:-24px;
+						height:48px;
+						width:48px;
+						background:url(<?php echo $arrowfolder;?>/arrows.circle.green.png) right top no-repeat; 
+					}
+
+					#huge_it_slideshow_left_<?php echo $sliderID; ?>:hover {
+						background-position:left -48px;
+					}
+
+					#huge_it_slideshow_right_<?php echo $sliderID; ?>:hover {
+						background-position:right -48px;
+					}
+				<?php
+				break;
+			case 11:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:-29px;
+						height:58px;
+						width:55px;
+						background:url(<?php echo $arrowfolder;?>/arrows.blue.retro.png) left  top no-repeat; 
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:-29px;
+						height:58px;
+						width:55px;
+						background:url(<?php echo $arrowfolder;?>/arrows.blue.retro.png) right top no-repeat; 
+					}
+				<?php
+				break;
+			case 12:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:-37px;
+						height:74px;
+						width:74px;
+						background:url(<?php echo $arrowfolder;?>/arrows.green.retro.png) left  top no-repeat; 
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:-37px;
+						height:74px;
+						width:74px;
+						background:url(<?php echo $arrowfolder;?>/arrows.green.retro.png) right top no-repeat; 
+					}
+				<?php
+				break;
+			case 13:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:-16px;
+						height:33px;
+						width:33px;
+						background:url(<?php echo $arrowfolder;?>/arrows.red.circle.png) left  top no-repeat; 
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:-16px;
+						height:33px;
+						width:33px;
+						background:url(<?php echo $arrowfolder;?>/arrows.red.circle.png) right top no-repeat; 
+					}
+				<?php
+				break;
+			case 14:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:-51px;
+						height:102px;
+						width:52px;
+						background:url(<?php echo $arrowfolder;?>/arrows.triangle.white.png) left  top no-repeat; 
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:-51px;
+						height:102px;
+						width:52px;
+						background:url(<?php echo $arrowfolder;?>/arrows.triangle.white.png) right top no-repeat; 
+					}
+				<?php
+				break;
+			case 15:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:-19px;
+						height:39px;
+						width:70px;
+						background:url(<?php echo $arrowfolder;?>/arrows.ancient.png) left  top no-repeat; 
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:-19px;
+						height:39px;
+						width:70px;
+						background:url(<?php echo $arrowfolder;?>/arrows.ancient.png) right top no-repeat; 
+					}
+				<?php
+				break;
+			case 16:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:-21px;
+						margin-top:-20px;
+						height:40px;
+						width:37px;
+						background:url(<?php echo $arrowfolder;?>/arrows.black.out.png) left  top no-repeat; 
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:-21px;
+						margin-top:-20px;
+						height:40px;
+						width:37px;
+						background:url(<?php echo $arrowfolder;?>/arrows.black.out.png) right top no-repeat; 
+					}
+				<?php
+				break;
 		}
 ?>
 	</style>
@@ -933,138 +1252,72 @@ function front_end_slider($images, $paramssld, $slider)
       ?>
 		<!-- ##########################DOTS######################### -->
         <div class="huge_it_slideshow_dots_container_<?php echo $sliderID; ?>">
-          <div class="huge_it_slideshow_dots_thumbnails_<?php echo $sliderID; ?>">
-            <?php
-			$current_image_id=0;
-			$current_pos =0;
-			$current_key=0;
-            foreach ($images as $key => $image_row) {
-              if ($image_row->id == $current_image_id) {
-                $current_pos = $key;
-                $current_key = $key;
-              }
-            ?>
-				<span id="huge_it_dots_<?php echo $key; ?>_<?php echo $sliderID; ?>" class="huge_it_slideshow_dots_<?php echo $sliderID; ?> <?php echo (($key==$current_image_id) ? 'huge_it_slideshow_dots_active_' . $sliderID : 'huge_it_slideshow_dots_deactive_' . $sliderID); ?>" onclick="huge_it_change_image_<?php echo $sliderID; ?>(parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()), '<?php echo $key; ?>', data_<?php echo $sliderID; ?>);return false;" image_id="<?php echo $image_row->id; ?>" image_key="<?php echo $key; ?>"></span>
-            <?php
-            }
-            ?>
-          </div>
-        
-	<?php
-	   if ($paramssld['slider_show_arrows']=="on") {
-	 ?>
-	   
-	   
-	   
-        <a id="huge_it_slideshow_left_<?php echo $sliderID; ?>" href="#" onclick="huge_it_change_image_<?php echo $sliderID; ?>(parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()), (parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()) - iterator_<?php echo $sliderID; ?>()) >= 0 ? (parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()) - iterator_<?php echo $sliderID; ?>()) % data_<?php echo $sliderID; ?>.length : data_<?php echo $sliderID; ?>.length - 1, data_<?php echo $sliderID; ?>);return false;">
-			<span id="huge_it_slideshow_left-ico_<?php echo $sliderID; ?>">
-			<span><i class="huge_it_slideshow_prev_btn_<?php echo $sliderID; ?> fa"></i></span></span>
-		</a>
-        
-		<a id="huge_it_slideshow_right_<?php echo $sliderID; ?>" href="#" onclick="huge_it_change_image_<?php echo $sliderID; ?>(parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()), (parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()) + iterator_<?php echo $sliderID; ?>()) % data_<?php echo $sliderID; ?>.length, data_<?php echo $sliderID; ?>);return false;">
-			<span id="huge_it_slideshow_right-ico_<?php echo $sliderID;?> , data_<?php echo $sliderID;?>">
-			<span><i class="huge_it_slideshow_next_btn_<?php echo $sliderID; ?> fa"></i></span></span>
-		</a>
-		<?php
-		}
-		?>
-	</div>
+			  <div class="huge_it_slideshow_dots_thumbnails_<?php echo $sliderID; ?>">
+				<?php
+				$current_image_id=0;
+				$current_pos =0;
+				$current_key=0;
+				foreach ($images as $key => $image_row) {
+				  if ($image_row->id == $current_image_id) {
+					$current_pos = $key;
+					$current_key = $key;
+				  }
+				?>
+					<div id="huge_it_dots_<?php echo $key; ?>_<?php echo $sliderID; ?>" class="huge_it_slideshow_dots_<?php echo $sliderID; ?> <?php echo (($key==$current_image_id) ? 'huge_it_slideshow_dots_active_' . $sliderID : 'huge_it_slideshow_dots_deactive_' . $sliderID); ?>" onclick="huge_it_change_image_<?php echo $sliderID; ?>(parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()), '<?php echo $key; ?>', data_<?php echo $sliderID; ?>);return false;" image_id="<?php echo $image_row->id; ?>" image_key="<?php echo $key; ?>"></div>
+				<?php
+				}
+				?>
+			  </div>
+			
+			<?php
+			   if ($paramssld['slider_show_arrows']=="on") {
+			 ?>
+				<a id="huge_it_slideshow_left_<?php echo $sliderID; ?>" href="#" onclick="huge_it_change_image_<?php echo $sliderID; ?>(parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()), (parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()) - iterator_<?php echo $sliderID; ?>()) >= 0 ? (parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()) - iterator_<?php echo $sliderID; ?>()) % data_<?php echo $sliderID; ?>.length : data_<?php echo $sliderID; ?>.length - 1, data_<?php echo $sliderID; ?>);return false;">
+					<div id="huge_it_slideshow_left-ico_<?php echo $sliderID; ?>">
+					<div><i class="huge_it_slideshow_prev_btn_<?php echo $sliderID; ?> fa"></i></div></div>
+				</a>
+				
+				<a id="huge_it_slideshow_right_<?php echo $sliderID; ?>" href="#" onclick="huge_it_change_image_<?php echo $sliderID; ?>(parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()), (parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()) + iterator_<?php echo $sliderID; ?>()) % data_<?php echo $sliderID; ?>.length, data_<?php echo $sliderID; ?>);return false;">
+					<div id="huge_it_slideshow_right-ico_<?php echo $sliderID;?> , data_<?php echo $sliderID;?>">
+					<div><i class="huge_it_slideshow_next_btn_<?php echo $sliderID; ?> fa"></i></div></div>
+				</a>
+			<?php
+			}
+			?>
+		</div>
 	  <!-- ##########################IMAGES######################### -->
       <div id="huge_it_slideshow_image_container_<?php echo $sliderID; ?>" class="huge_it_slideshow_image_container_<?php echo $sliderID; ?>">        
         <div class="huge_it_slide_container_<?php echo $sliderID; ?>">
           <div class="huge_it_slide_bg_<?php echo $sliderID; ?>">
-            <div class="huge_it_slider_<?php echo $sliderID; ?>">
-          <?php
-		  $i=0;
-          foreach ($images as $key => $image_row) {
-			$target="";
-            if ($i == $current_image_id) {
-              $current_key = $key;
-              ?>
-              <span class="huge_it_slideshow_image_span_<?php echo $sliderID; ?>" id="image_id_<?php echo $sliderID.'_'.$i ?>">
-                <span class="huge_it_slideshow_image_span1_<?php echo $sliderID; ?>">
-                  <span class="huge_it_slideshow_image_span2_<?php echo $sliderID; ?>">
-					<?php if($image_row->sl_url!=""){
-						
-						if ($image_row->link_target=="on"){
-							$target='target="_blank'.$image_row->link_target.'"';
-						}
-						
-						echo '<a href="'.$image_row->sl_url.'" '.$target.' >';} ?>
-                    <img id="huge_it_slideshow_image_<?php echo $sliderID; ?>"
-                         class="huge_it_slideshow_image_<?php echo $sliderID; ?>"
-                         src="<?php echo $image_row->image_url; ?>"
-                         image_id="<?php echo $image_row->id; ?>" />
-					<?php if($image_row->sl_url!=""){ echo '</a>'; }?>
-                  </span>
-                </span>
-              </span>
-             
-              <?php
-            }else {
-			?>
-              <span class="huge_it_slideshow_image_second_span_<?php echo $sliderID; ?>" id="image_id_<?php echo $sliderID.'_'.$i ?>">
-                <span class="huge_it_slideshow_image_span1_<?php echo $sliderID; ?>">
-                  <span class="huge_it_slideshow_image_span2_<?php echo $sliderID; ?>">
+            <ul class="huge_it_slider_<?php echo $sliderID; ?>">
+			  <?php
+			  $i=0;
+			  foreach ($images as $key => $image_row) {
+				$target="";
+				?>
+				  <li class="huge_it_slideshow_image<?php if ($i != $current_image_id) {$current_key = $key; echo '_second';} ?>_item_<?php echo $sliderID; ?>" id="image_id_<?php echo $sliderID.'_'.$i ?>">      
 					<?php if($image_row->sl_url!=""){ 
-						if ($image_row->link_target=="on"){
-							$target='target="_blank'.$image_row->link_target.'"';
-						}
-					echo '<a href="'.$image_row->sl_url.'" '.$target.'>';} ?>
-                    <img id="huge_it_slideshow_image_<?php echo $sliderID; ?>"
-						 class="huge_it_slideshow_image_<?php echo $sliderID; ?>"
-                         src="<?php echo $image_row->image_url; ?>"
-                         image_id="<?php echo $image_row->id; ?>" />
-					<?php if($image_row->sl_url!=""){ echo '</a>'; }?>
-                  </span>
-                </span>
-              </span>
-             
-              <?php
-			}
-			$i++;
-          }
-          ?>
-		   <input type="hidden" id="huge_it_current_image_key_<?php echo $sliderID; ?>" value="0" />
-            </div>
-          </div>
-        </div>
-        
-      </div>
-      <?php
-
-	  if($images[0]->name=='')$titleecho= 'none';
-      ?>
-	  <!-- ##########################TITLE######################### -->
-      <div class="huge_it_slideshow_image_container_<?php echo $sliderID; ?> " style="position: absolute;">
-        <div class="huge_it_slideshow_title_container_<?php echo $sliderID; ?>">
-          <div style="display:table; margin:0 auto;">
-            <span class="huge_it_slideshow_title_span_<?php echo $sliderID; ?>">
-              <div class="huge_it_slideshow_title_text_<?php echo $sliderID." ".$titleecho; ?>">
-                <?php echo $images[0]->name; ?>
-              </div>
-            </span>
+						if ($image_row->link_target=="on"){$target='target="_blank'.$image_row->link_target.'"';}
+						echo '<a href="'.$image_row->sl_url.'" '.$target.'>';
+					} ?>
+					<img id="huge_it_slideshow_image_<?php echo $sliderID; ?>" class="huge_it_slideshow_image_<?php echo $sliderID; ?>" src="<?php echo $image_row->image_url; ?>" image_id="<?php echo $image_row->id; ?>" />
+					<?php if($image_row->sl_url!=""){ echo '</a>'; }?>		
+					<div class="huge_it_slideshow_title_text_<?php echo $sliderID; ?> <?php if(trim($image_row->name)=="") echo "none"; ?>">
+						<?php echo $image_row->name; ?>
+					</div>
+					<div class="huge_it_slideshow_description_text_<?php echo $sliderID; ?> <?php if(trim($image_row->description)=="") echo "none"; ?>">
+						<?php echo $image_row->description; ?>
+					</div>
+				   </li>
+				  <?php
+				$i++;
+			  }
+			  ?>
+			   <input type="hidden" id="huge_it_current_image_key_<?php echo $sliderID; ?>" value="0" />
+            </ul>
           </div>
         </div>
       </div>
-      <?php 
-
-      if($images[0]->description=='')$descriptionecho= 'none';
-      ?>
-	  <!-- ##########################DESCRIPTION######################### -->
-      <div class="huge_it_slideshow_image_container_<?php echo $sliderID; ?>" style="position: absolute;">
-        <div class="huge_it_slideshow_description_container_<?php echo $sliderID; ?>">
-          <div style="display:table; margin:0 auto;">
-            <span class="huge_it_slideshow_description_span_<?php echo $sliderID; ?>">
-              <div class="huge_it_slideshow_description_text_<?php echo $sliderID." ".$descriptionecho; ?>">
-                <?php echo $images[0]->description; ?>
-              </div>
-            </span>
-          </div>
-        </div>
-      </div>
-  </div>
-	
       <?php   
 	return ob_get_clean();
 }  
