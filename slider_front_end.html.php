@@ -1318,6 +1318,7 @@ function front_end_slider($images, $paramssld, $slider)
           </div>
         </div>
       </div>
+	</div>
       <?php   
 	return ob_get_clean();
 }  
