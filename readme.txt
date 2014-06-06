@@ -65,6 +65,9 @@ Now you can set your slider options, images and use our slider.
 
 == Changelog ==
 
+= 2.4.5 =
+*  bug fixed in slider.
+
 = 2.4.4 =
 *  bug fixed.
 
