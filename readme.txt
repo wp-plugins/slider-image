@@ -106,7 +106,7 @@ To add a Slider, go to Huge IT Slider>Slider>Add New Slider.
 
 1. 1 Click on Add Images. Using Standard Media Upload option you should select the images you want to add to your slider. Each image should be added individually.
 
-Let?s have a look at the individual features of the images.
+Let's have a look at the individual features of the images.
 
 Title. Here you can provide a title for the slider image.
 Description. Provide the details for the image. This will be visible above the image, so it is advised to make it as short as possible.
@@ -123,7 +123,7 @@ Change speed. Specify the change speed in miliseconds.
 
 ### Step 3. Editing Slider General Options
 
-To change the styles and colors fo the slider you should got to Huge IT Slider > General Options.
+To change the styles and colors of the slider you should got to Huge IT Slider> Slider Options.
 
 3.1 Image styles and colors
 
@@ -167,13 +167,13 @@ Navigation type. Select the type of the navigation arrows to be used for the web
 4.1 Inserting the Slider into the Post or Page. 
 
 You should use the automatically generated code into the the Post or Page. The shortcodes takes the following form:
-insert numerical or `ALL_CAT` shortcode in `id`, where N is the number ID of the created Slider.
+[huge_it_slider id=N] , where N is the number ID of the created Slider.
 
 4.2 Inserting the Slider into the template.
 
 The shortcode can be easily inserted into a template/theme which corresponds to the WordPress standards.
 To do so you should insert the following shorcode:
 
-    <?php echo do_shortcode(«insert numerical or `ALL_CAT` shortcode in `id`‘»); ?>
+    <?php echo do_shortcode([huge_it_slider id=N]); ?>
 
 Where N is the number ID of the created Slider.
