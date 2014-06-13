@@ -499,13 +499,22 @@ function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $
 			<script type="text/javascript">
 				jQuery(document).ready(function() {
 				
-		
+					jQuery('#slider-posts-tabs li a').click(function(){
+						jQuery('#slider-posts-tabs li').removeClass('active');
+						jQuery(this).parent().addClass('active');
+						jQuery('#slider-posts-tabs-contents li').removeClass('active');
+						var liID=jQuery(this).attr('href');
+						jQuery(liID).addClass('active');
+						return false;
+					});
+
+					
 					jQuery('.huge-it-insert-post-button').on('click', function() {
 						alert("Add Post Slide feature is disabled in free version. If you need this functionality, you need to buy the commercial version.");
 						return false;
 					});
 			
-						
+				
 					$('.huge-it-post-checked').change(function(){
 						if($(this).is(':checked')){
 							$(this).addClass('active');
@@ -524,17 +533,7 @@ function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $
 						});
 						$('#huge-it-add-posts-params').val(inputval);
 					});
-	
-					
-					jQuery("#huge-it-categories-list").change(function(){
-						var currentCategoryID=jQuery(this).val();
-					
-						jQuery('#huge-it-posts-list li').not("#huge-it-posts-list-heading").css({"display":"none"});
-						jQuery('li[data-id*="'+currentCategoryID+'"]').css({"display":"block"});
-						
-					});
-					//jQuery("#huge-it-categories-list").change();
-										
+											
 					jQuery('#huge_it_slider_add_posts_wrap .view-type-block a').click(function(){
 						jQuery('#huge_it_slider_add_posts_wrap .view-type-block a').removeClass('active');
 						jQuery(this).addClass('active');
@@ -543,8 +542,7 @@ function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $
 						jQuery('#huge-it-posts-list').addClass(strtype);
 						return false;
 					});
-					
-					
+
 					jQuery('.updated').css({"display":"none"});
 				<?php	if($_GET["closepop"] == 1){ ?>
 					$("#closepopup").click();
@@ -557,101 +555,152 @@ function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $
 	
 	
 	<div id="huge_it_slider_add_posts">
-					<div id="huge_it_slider_add_posts_wrap">
-						<h2>Add post</h2>
-						<span class="buy-pro">This feature is disabled in free version. </br>If you need this functionality, you need to <a href="http://huge-it.com/slider/" target="_blank">buy the commercial version</a>.</span>
-						<div class="control-panel">
-						<form method="post"  onkeypress="doNothing()" action="admin.php?page=sliders_huge_it_slider&task=popup_posts&id=<?php echo $_GET['id']; ?>" id="huge-it-category-form" name="admin_form">
-							<label for="huge-it-categories-list">Select Category <select id="huge-it-categories-list" name="iframecatid" onchange="this.form.submit()">
-
-							 <?php $categories = get_categories( ); ?>
-
-							<?php	 foreach ($categories as $strcategories){
+		<div id="huge_it_slider_add_posts_wrap">
+		<span class="buy-pro">This feature is disabled in free version. </br>If you need this functionality, you need to <a href="http://huge-it.com/slider/" target="_blank">buy the commercial version</a>.</span>
+			<ul id="slider-posts-tabs">
+				<li  class="active"><a href="#slider-posts-tabs-content-0">Static posts</a></li>
+				<li><a href="#slider-posts-tabs-content-1">Last posts</a></li>
+			</ul>
+			<ul id="slider-posts-tabs-contents">
+				<li id="slider-posts-tabs-content-0"  class="active">
+					<!-- STATIC POSTS -->
+					<div class="control-panel">
+					<form method="post"  onkeypress="doNothing()" action="admin.php?page=sliders_huge_it_slider&task=popup_posts&id=<?php echo $_GET['id']; ?>" id="huge-it-category-form" name="admin_form">
+						<label for="huge-it-categories-list">Select Category <select id="huge-it-categories-list" name="iframecatid" onchange="this.form.submit()">
+						<?php $categories = get_categories(  ); ?>
+						<?php	 foreach ($categories as $strcategories){
 							if(isset($_POST["iframecatid"])){
-?>
+							?>
 								 <option value="<?php echo $strcategories->cat_ID; ?>" <?php if($strcategories->cat_ID == $_POST["iframecatid"]){echo 'selected="selected"';} ?>><?php echo $strcategories->cat_name; ?></option>';
 								
 							<?php }
-else
-{
-?>
-								<option value="<?php echo $strcategories->cat_ID; ?>"><?php echo $strcategories->cat_name; ?></option>';
-<?php
-}							}
-							?> 
-							</select></label>
-							</form>
-							<form method="post"  onkeypress="doNothing()" action="admin.php?page=sliders_huge_it_slider&task=popup_posts&id=<?php echo $_GET['id']; ?>&closepop=1" id="admin_form" name="admin_form">
-							<button class='save-slider-options button-primary huge-it-insert-post-button' id='huge-it-insert-post-button-top'>Insert Posts</button>
-							<label for="huge-it-description-length">Description Length <input id="huge-it-description-length" type="text" name="posthuge-it-description-length" value="<?php echo $row->published; ?>" placeholder="Description length" /></label>
-							<div class="view-type-block">
-								<a class="view-type list active" href="#list">View List</a>
-								<a class="view-type thumbs" href="#thumbs">View List</a>
-							</div>
-						</div>
-						<div style="clear:both;"></div>
-						<ul id="huge-it-posts-list" class="list">
-							<li id="huge-it-posts-list-heading" class="hascolor">
-								<div class="huge-it-posts-list-image">Image</div>
-								<div class="huge-it-posts-list-title">Title</div>
-								<div class="huge-it-posts-list-description">
-									Description
-									
-								</div>
-								<div class="huge-it-posts-list-link">Link</div>
-								<div class="huge-it-posts-list-category">Category</div>
-							</li>
-							<?php 
-
-
-
-							$strx=1;
-							foreach($rowsposts8 as $rowspostspop1){
-								 $query=$wpdb->prepare("SELECT * FROM ".$wpdb->prefix."posts where post_type = 'post' and post_status = 'publish' and ID = %d  order by ID ASC", $rowspostspop1->object_id);
-							$rowspostspop=$wpdb->get_results($query);
-							//print_r($rowspostspop);
-							
-							
-								$post_categories =  wp_get_post_categories( $rowspostspop[0]->ID, $rowspostspop[0]->ID ); 
-								$cats = array();
-								
-								
-								foreach($post_categories as $c){
-									$cat = get_category( $c );
-									$cats[] = array( 'name' => $cat->name, 'slug' => $cat->slug, 'id' => $cat->term_id );
-									//echo	$cat->slug;
-								}
-								if(get_the_post_thumbnail($rowspostspop[0]->ID, 'thumbnail') != ''){
-									$strx++;
-									$hascolor="";
-									if($strx%2==0){$hascolor='class="hascolor"';}
+							else
+							{
 							?>
-								
-								<li <?php echo $hascolor; ?>>
-									<input type="checkbox" class="huge-it-post-checked"  value="<?php echo $rowspostspop[0]->ID; ?>">
-									<div class="huge-it-posts-list-image"><?php echo get_the_post_thumbnail($rowspostspop[0]->ID, 'thumbnail'); ?></div>
-									<div class="huge-it-posts-list-title"><?php echo $rowspostspop[0]->post_title;	?></div>
-									<div class="huge-it-posts-list-description"><?php echo	$rowspostspop[0]->post_content;	?></div>
-									<div class="huge-it-posts-list-link"><?php echo	$rowspostspop[0]->guid; ?></div>
-									<div class="huge-it-posts-list-category"><?php echo	$cat->slug;	?></div>
-								</li>
-							<?php }
-								}	?>
-						</ul>
+								<option value="<?php echo $strcategories->cat_ID; ?>"><?php echo $strcategories->cat_name; ?></option>';
+							<?php
+							}
+						}
+						?> 
+						</select></label>
+					</form>
+					<form method="post"  onkeypress="doNothing()" action="admin.php?page=sliders_huge_it_slider&task=popup_posts&id=<?php echo $_GET['id']; ?>&closepop=1" id="admin_form" name="admin_form">
+						<button class='save-slider-options button-primary huge-it-insert-post-button' id='huge-it-insert-post-button-top'>Insert Posts</button>
+						<label for="huge-it-description-length">Description Length <input id="huge-it-description-length" type="text" name="posthuge-it-description-length" value="<?php echo $row->published; ?>" placeholder="Description length" /></label>
+						<div class="view-type-block">
+							<a class="view-type list active" href="#list">View List</a>
+							<a class="view-type thumbs" href="#thumbs">View List</a>
+						</div>
+					</div>
+					<div style="clear:both;"></div>
+					<ul id="huge-it-posts-list" class="list">
+						<li id="huge-it-posts-list-heading" class="hascolor">
+							<div class="huge-it-posts-list-image">Image</div>
+							<div class="huge-it-posts-list-title">Title</div>
+							<div class="huge-it-posts-list-description">
+								Description
+							</div>
+							<div class="huge-it-posts-list-link">Link</div>
+							<div class="huge-it-posts-list-category">Category</div>
+							<div class="help-message">Please make sure that category you selected has posts with inserted featured image. Only posts with featured images will be shown on slides.</div>
+						</li>
+						<?php 
+
+						$strx=1;
+						foreach($rowsposts8 as $rowspostspop1){
+							 $query=$wpdb->prepare("SELECT * FROM ".$wpdb->prefix."posts where post_type = 'post' and post_status = 'publish' and ID = %d  order by ID ASC", $rowspostspop1->object_id);
+						$rowspostspop=$wpdb->get_results($query);
+						//print_r($rowspostspop);
+						
+							$post_categories =  wp_get_post_categories( $rowspostspop[0]->ID, $rowspostspop[0]->ID ); 
+							$cats = array();
+							
+							foreach($post_categories as $c){
+								$cat = get_category( $c );
+								$cats[] = array( 'name' => $cat->name, 'slug' => $cat->slug, 'id' => $cat->term_id );
+								//echo	$cat->slug;
+							}
+							if(get_the_post_thumbnail($rowspostspop[0]->ID, 'thumbnail') != ''){
+								$strx++;
+								$hascolor="";
+								if($strx%2==0){$hascolor='class="hascolor"';}
+						?>
+							
+							<li <?php echo $hascolor; ?>>
+								<input type="checkbox" class="huge-it-post-checked"  value="<?php echo $rowspostspop[0]->ID; ?>">
+								<div class="huge-it-posts-list-image"><?php echo get_the_post_thumbnail($rowspostspop[0]->ID, 'thumbnail'); ?></div>
+								<div class="huge-it-posts-list-title"><?php echo $rowspostspop[0]->post_title;	?></div>
+								<div class="huge-it-posts-list-description"><?php echo	$rowspostspop[0]->post_content;	?></div>
+								<div class="huge-it-posts-list-link"><?php echo	$rowspostspop[0]->guid; ?></div>
+								<div class="huge-it-posts-list-category"><?php echo	$cat->slug;	?></div>
+							</li>
+						<?php }
+							}	?>
+					</ul>
+					<input id="huge-it-add-posts-params" type="hidden" name="popupposts" value="" />
+					<div class="clear"></div>
+					<button class='save-slider-options button-primary huge-it-insert-post-button' id='huge-it-insert-post-button-bottom'>Insert Posts</button>
+					</form>
+				</li>
+				<li id="slider-posts-tabs-content-1" class="recent-post-options">
+					<!-- RECENT POSTS -->
+					<form method="post"  onkeypress="doNothing()" action="admin.php?page=sliders_huge_it_slider&task=popup_posts&id=<?php echo $_GET['id']; ?>&closepop=1" id="huge-it-category-form" name="admin_form">
+								<div>
+									<div class="left margin height">
+										<?php $categories = get_categories(); ?>
+										<label for="titleimage">Show Posts From:</label>
+										<select name="titleimage" class="categories-list">
+											<option <?php if($rowimages->name == 0){echo 'selected="selected"';} ?> value="0">All Categories</option>
+										<?php foreach ($categories as $strcategories){ ?>
+											<option <?php if($rowimages->name == $strcategories->cat_name){echo 'selected="selected"';} ?> value="<?php echo $strcategories->cat_name; ?>"><?php echo $strcategories->cat_name; ?></option>
+										<?php	}	?> 
+										</select>
+									</div>
+									<div  class="left height">
+										<label for="sl_url">Showing Posts Count:</label>
+										<input class="text_area url-input number" type="number" name="sl_url" value="5" >
+									</div>
+								</div>
+	
+								<div>
+									<label class="long" for="sl_stitle">Show Title:</label>
+									<input type="hidden" name="sl_stitle" value="" />
+									<input class="link_target" checked="checked" type="checkbox" name="sl_stitle" value="1" />
+								</div>
+								<div>
+									<div class="left margin">
+										<label class="long" for="sl_sdesc">Show Description:</label>
+										<input type="hidden" name="sl_sdesc" value="" />
+										<input checked="checked" class="link_target" type="checkbox" name="sl_sdesc" value="1" />
+									</div>
+									<div class="left top ">
+										<label for="im_description">Description Symbols Number:</label>
+										<input value="300" class="text_area url-input number" type="number" name="im_description" />
+									</div>
+								</div>
+								<div>
+									<div class="left margin">
+										<label class="long" for="sl_postlink">Use Post Link:</label>
+										<input type="hidden" name="sl_postlink" value="" />
+										<input  checked="checked" class="link_target" type="checkbox" name="sl_postlink" value="1" />
+									</div>
+									<div  class="left">	
+										<label class="long" for="sl_link_target">Open Link In New Tab:</label>
+										<input type="hidden" name="sl_link_target" value="" />
+										<input checked="checked" class="link_target" type="checkbox" name="sl_link_target" />
+										<!--<input type="checkbox" name="pause_on_hover" id="pause_on_hover"  <?php if($row->pause_on_hover == 'on'){ echo 'checked="checked"'; } ?>  class="link_target"/>-->
+									</div>
+								</div>
 						<input id="huge-it-add-posts-params" type="hidden" name="popupposts" value="" />
+						<input id="huge-it-add-posts-params" type="hidden" name="addlastposts" value="addlastposts" />
 						<div class="clear"></div>
 						<button class='save-slider-options button-primary huge-it-insert-post-button' id='huge-it-insert-post-button-bottom'>Insert Posts</button>
-						</form>
-						
-					</div>
-				</div>		
-			
-
+					</form>
+				</li>
+			</ul>		
+		</div>
+	</div>		
 	<?php
-	
-	
-	
-	
 }
 ?>
 

@@ -1,4 +1,3 @@
-
 <?php
 
 function front_end_slider($images, $paramssld, $slider)
@@ -30,21 +29,53 @@ function front_end_slider($images, $paramssld, $slider)
 	var event_stack_<?php echo $sliderID; ?> = [];
 	<?php
 	//	$images=array_reverse($images);
-		for($i=0;$i<count($images);$i++){
-			echo 'data_'.$sliderID.'["'.$i.'"]=[];';
-			
-			echo 'data_'.$sliderID.'["'.$i.'"]["id"]="'.$i.'";';
-			echo 'data_'.$sliderID.'["'.$i.'"]["image_url"]="'.$images[$i]->image_url.'";';
-			
-			
-			$strdesription=str_replace('"',"'",$images[$i]->description);
-			$strdesription=preg_replace( "/\r|\n/", " ", $strdesription );
-			echo 'data_'.$sliderID.'["'.$i.'"]["description"]="'.$strdesription.'";';
+		$recent_posts = wp_get_recent_posts( $args, ARRAY_A );
 
+		$i=0;
+		foreach($images as $image){
 			
-			$stralt=str_replace('"',"'",$images[$i]->name);
-			$stralt=preg_replace( "/\r|\n/", " ", $stralt );
-			echo 'data_'.$sliderID.'["'.$i.'"]["alt"]="'.$stralt.'";';
+			switch($image->sl_type){
+							
+					case 'image':
+						echo 'data_'.$sliderID.'["'.$i.'"]=[];';
+						echo 'data_'.$sliderID.'["'.$i.'"]["id"]="'.$i.'";';
+						echo 'data_'.$sliderID.'["'.$i.'"]["image_url"]="'.$image->image_url.'";';
+						
+						
+						$strdesription=str_replace('"',"'",$image->description);
+						$strdesription=preg_replace( "/\r|\n/", " ", $strdesription );
+						echo 'data_'.$sliderID.'["'.$i.'"]["description"]="'.$strdesription.'";';
+
+						
+						$stralt=str_replace('"',"'",$image->name);
+						$stralt=preg_replace( "/\r|\n/", " ", $stralt );
+						echo 'data_'.$sliderID.'["'.$i.'"]["alt"]="'.$stralt.'";';
+						$i++;
+					break;
+					case 'last_posts':
+					
+					foreach($recent_posts as $recentimage){
+						echo 'data_'.$sliderID.'["'.$i.'"]=[];';
+						echo 'data_'.$sliderID.'["'.$i.'"]["id"]="'.$i.'";';
+						echo 'data_'.$sliderID.'["'.$i.'"]["image_url"]="'.$recentimage['guid'].'";';
+						
+						
+						$strdesription=str_replace('"',"'",$recentimage['post_content']);
+						$strdesription=preg_replace( "/\r|\n/", " ", $strdesription );
+						$strdesription=substr_replace($strdesription, "",$image->description);
+						echo 'data_'.$sliderID.'["'.$i.'"]["description"]="'.$strdesription.'";';
+
+						
+						$stralt=str_replace('"',"'",$recentimage['post_title']);
+						$stralt=preg_replace( "/\r|\n/", " ", $stralt );
+						echo 'data_'.$sliderID.'["'.$i.'"]["alt"]="'.$stralt.'";';
+						$i++;
+					}
+					
+					break;
+			}
+			
+			
 		}
 	?>
 	
@@ -403,6 +434,7 @@ function front_end_slider($images, $paramssld, $slider)
      }
 	 
      function huge_it_change_image_<?php echo $sliderID; ?>(current_key, key, data_<?php echo $sliderID; ?>, from_effect) {
+		
         if (data_<?php echo $sliderID; ?>[key]) {
          
           if (!from_effect) {
@@ -434,12 +466,14 @@ function front_end_slider($images, $paramssld, $slider)
           //Change image id, title, description.
           jQuery("#huge_it_slideshow_image_<?php echo $sliderID; ?>").attr('image_id', data_<?php echo $sliderID; ?>[key]["id"]);
 		  
+		  
 		  jQuery(".huge_it_slideshow_title_text_<?php echo $sliderID; ?>").html(data_<?php echo $sliderID; ?>[key]["alt"]);
           jQuery(".huge_it_slideshow_description_text_<?php echo $sliderID; ?>").html(data_<?php echo $sliderID; ?>[key]["description"]);
         
 		  var current_image_class = "#image_id_<?php echo $sliderID; ?>_" + data_<?php echo $sliderID; ?>[current_key]["id"];
           var next_image_class = "#image_id_<?php echo $sliderID; ?>_" + data_<?php echo $sliderID; ?>[key]["id"];
           
+		  
 		  huge_it_<?php echo $slidereffect; ?>_<?php echo $sliderID; ?>(current_image_class, next_image_class, direction);
 		  
 		  
@@ -541,7 +575,7 @@ function front_end_slider($images, $paramssld, $slider)
         huge_it_playInterval_<?php echo $sliderID; ?> = setInterval(function () {
 			//errorlogjQuery(".huge_it_slideshow_image_wrap_<?php echo $sliderID; ?>").after(" -- time left ---- ");
           var iterator = 1;
-          huge_it_change_image_<?php echo $sliderID; ?>(parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()), (parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()) + iterator) % data_<?php echo $sliderID; ?>.length, data_<?php echo $sliderID; ?>)
+          huge_it_change_image_<?php echo $sliderID; ?>(parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()), (parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()) + iterator) % data_<?php echo $sliderID; ?>.length, data_<?php echo $sliderID; ?>);
         }, '<?php echo $slidepausetime; ?>');
       }
 	  
@@ -722,7 +756,8 @@ function front_end_slider($images, $paramssld, $slider)
 		border-radius:<?php echo $paramssld['slider_description_border_radius']; ?>px;
 	  }
 	  
-	   .huge_it_slideshow_title_text_<?php echo $sliderID; ?>.none, .huge_it_slideshow_description_text_<?php echo $sliderID; ?>.none {display:none;}
+	   .huge_it_slideshow_title_text_<?php echo $sliderID; ?>.none, .huge_it_slideshow_description_text_<?php echo $sliderID; ?>.none,
+	   .huge_it_slideshow_title_text_<?php echo $sliderID; ?>.hidden, .huge_it_slideshow_description_text_<?php echo $sliderID; ?>.hidden	   {display:none;}
 	      
 	   .huge_it_slideshow_title_text_<?php echo $sliderID; ?> h1, .huge_it_slideshow_description_text_<?php echo $sliderID; ?> h1,
 	   .huge_it_slideshow_title_text_<?php echo $sliderID; ?> h2, .huge_it_slideshow_title_text_<?php echo $sliderID; ?> h2,
@@ -1246,6 +1281,23 @@ function front_end_slider($images, $paramssld, $slider)
 		}
 ?>
 	</style>
+	<?php
+		  $args = array(
+    'numberposts' => 10,
+    'offset' => 0,
+    'category' => 0,
+    'orderby' => 'post_date',
+    'order' => 'DESC',
+    'post_type' => 'post',
+    'post_status' => 'draft, publish, future, pending, private',
+    'suppress_filters' => true );
+
+    $recent_posts = wp_get_recent_posts( $args, ARRAY_A );
+	//print_r($recent_posts);
+	//echo get_the_post_thumbnail(1, 'thumbnail');
+ $image = wp_get_attachment_image_src( get_post_thumbnail_id( 1 ), 'thumbnail' );
+
+	?>
 	<div class="huge_it_slideshow_image_wrap_<?php echo $sliderID; ?>">
       <?php
       $current_pos = 0;
@@ -1257,14 +1309,42 @@ function front_end_slider($images, $paramssld, $slider)
 				$current_image_id=0;
 				$current_pos =0;
 				$current_key=0;
+				$stri=0;
 				foreach ($images as $key => $image_row) {
-				  if ($image_row->id == $current_image_id) {
-					$current_pos = $key;
-					$current_key = $key;
-				  }
-				?>
-					<div id="huge_it_dots_<?php echo $key; ?>_<?php echo $sliderID; ?>" class="huge_it_slideshow_dots_<?php echo $sliderID; ?> <?php echo (($key==$current_image_id) ? 'huge_it_slideshow_dots_active_' . $sliderID : 'huge_it_slideshow_dots_deactive_' . $sliderID); ?>" onclick="huge_it_change_image_<?php echo $sliderID; ?>(parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()), '<?php echo $key; ?>', data_<?php echo $sliderID; ?>);return false;" image_id="<?php echo $image_row->id; ?>" image_key="<?php echo $key; ?>"></div>
-				<?php
+
+					  
+						switch($image_row->sl_type){
+							
+							case 'image':
+											
+							  if ($image_row->id == $current_image_id) {
+								$current_pos = $stri;
+								$current_key = $stri;
+							  }
+							
+							?>
+								<div id="huge_it_dots_<?php echo $stri; ?>_<?php echo $sliderID; ?>" class="huge_it_slideshow_dots_<?php echo $sliderID; ?> <?php echo (($key==$current_image_id) ? 'huge_it_slideshow_dots_active_' . $sliderID : 'huge_it_slideshow_dots_deactive_' . $sliderID); ?>" onclick="huge_it_change_image_<?php echo $sliderID; ?>(parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()), '<?php echo $stri; ?>', data_<?php echo $sliderID; ?>);return false;" image_id="<?php echo $image_row->id; ?>" image_key="<?php echo $stri; ?>"></div>
+							<?php
+							  $stri++;
+							break;
+							case 'last_posts':
+							
+							foreach($recent_posts as $lkeys => $last_posts){
+							if(get_the_post_thumbnail($last_posts["ID"], 'thumbnail') != ''){
+											
+							  if ($image_row->id == $current_image_id) {
+								$current_pos = $stri;
+								$current_key = $stri;
+							  }
+							?>
+								<div id="huge_it_dots_<?php echo $stri; ?>_<?php echo $sliderID; ?>" class="huge_it_slideshow_dots_<?php echo $sliderID; ?> <?php echo (($stri==$current_image_id) ? 'huge_it_slideshow_dots_active_' . $sliderID : 'huge_it_slideshow_dots_deactive_' . $sliderID); ?>" onclick="huge_it_change_image_<?php echo $sliderID; ?>(parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()), '<?php echo $stri; ?>', data_<?php echo $sliderID; ?>);return false;" image_id="<?php echo $image_row->id; ?>" image_key="<?php echo $stri; ?>"></div>
+							<?php
+							  $stri++;
+							}
+							}
+							
+							break;
+					}
 				}
 				?>
 			  </div>
@@ -1293,25 +1373,56 @@ function front_end_slider($images, $paramssld, $slider)
 			  <?php
 			  $i=0;
 			  foreach ($images as $key => $image_row) {
-				$target="";
-				?>
-				  <li class="huge_it_slideshow_image<?php if ($i != $current_image_id) {$current_key = $key; echo '_second';} ?>_item_<?php echo $sliderID; ?>" id="image_id_<?php echo $sliderID.'_'.$i ?>">      
-					<?php if($image_row->sl_url!=""){ 
-						if ($image_row->link_target=="on"){$target='target="_blank'.$image_row->link_target.'"';}
-						echo '<a href="'.$image_row->sl_url.'" '.$target.'>';
-					} ?>
-					<img id="huge_it_slideshow_image_<?php echo $sliderID; ?>" class="huge_it_slideshow_image_<?php echo $sliderID; ?>" src="<?php echo $image_row->image_url; ?>" image_id="<?php echo $image_row->id; ?>" />
-					<?php if($image_row->sl_url!=""){ echo '</a>'; }?>		
-					<div class="huge_it_slideshow_title_text_<?php echo $sliderID; ?> <?php if(trim($image_row->name)=="") echo "none"; ?>">
-						<?php echo $image_row->name; ?>
-					</div>
-					<div class="huge_it_slideshow_description_text_<?php echo $sliderID; ?> <?php if(trim($image_row->description)=="") echo "none"; ?>">
-						<?php echo $image_row->description; ?>
-					</div>
-				   </li>
-				  <?php
-				$i++;
-			  }
+				switch($image_row->sl_type){
+					case 'image':
+					$target="";
+					?>
+					  <li class="huge_it_slideshow_image<?php if ($i != $current_image_id) {$current_key = $key; echo '_second';} ?>_item_<?php echo $sliderID; ?>" id="image_id_<?php echo $sliderID.'_'.$i ?>">      
+						<?php if($image_row->sl_url!=""){ 
+							if ($image_row->link_target=="on"){$target='target="_blank'.$image_row->link_target.'"';}
+							echo '<a href="'.$image_row->sl_url.'" '.$target.'>';
+						} ?>
+						<img id="huge_it_slideshow_image_<?php echo $sliderID; ?>" class="huge_it_slideshow_image_<?php echo $sliderID; ?>" src="<?php echo $image_row->image_url; ?>" image_id="<?php echo $image_row->id; ?>" />
+						<?php if($image_row->sl_url!=""){ echo '</a>'; }?>		
+						<div class="huge_it_slideshow_title_text_<?php echo $sliderID; ?> <?php if(trim($image_row->name)=="") echo "none"; ?>">
+							<?php echo $image_row->name; ?>
+						</div>
+						<div class="huge_it_slideshow_description_text_<?php echo $sliderID; ?> <?php if(trim($image_row->description)=="") echo "none"; ?>">
+							<?php echo $image_row->description; ?>
+						</div>
+					  </li>
+					  <?php
+					$i++;
+					break;
+					
+					case 'last_posts':
+					foreach($recent_posts as $lkeys => $last_posts){
+					$imagethumb = wp_get_attachment_image_src( get_post_thumbnail_id($last_posts["ID"]), 'thumbnail-size', true );
+					if(get_the_post_thumbnail($last_posts["ID"], 'thumbnail') != ''){
+					$target="";
+					?>
+					  <li class="huge_it_slideshow_image<?php if ($i != $current_image_id) {$current_key = $key; echo '_second';} ?>_item_<?php echo $sliderID; ?>" id="image_id_<?php echo $sliderID.'_'.$i ?>">      
+						<?php if ($image_row->sl_postlink=="1"){
+								if ($image_row->link_target=="on"){$target='target="_blank'.$image_row->link_target.'"';}
+								echo '<a href="'.$last_posts["guid"].'" '.$target.'>';
+						} ?>
+						<img id="huge_it_slideshow_image_<?php echo $sliderID; ?>" class="huge_it_slideshow_image_<?php echo $sliderID; ?>" src="<?php echo $imagethumb[0]; ?>" image_id="<?php echo $image_row->id; ?>" />
+						<?php if($image_row->sl_postlink=="1"){ echo '</a>'; }?>		
+						<div class="huge_it_slideshow_title_text_<?php echo $sliderID; ?> <?php if(trim($last_posts["post_title"])=="") echo "none";  if($image_row->sl_stitle!="1") echo " hidden"; ?>">
+								<?php echo $last_posts["post_title"]; ?>
+						</div>
+						<div class="huge_it_slideshow_description_text_<?php echo $sliderID; ?> <?php if(trim($last_posts["post_content"])=="") echo "none"; if($image_row->sl_sdesc!="1") echo " hidden"; ?>">
+							<?php 
+							echo substr_replace($last_posts["post_content"], "", $image_row->description); ?>
+						</div>
+					 </li>
+					  <?php
+					$i++;
+					}
+					}
+					break;
+				} 
+			 } 
 			  ?>
 			   <input type="hidden" id="huge_it_current_image_key_<?php echo $sliderID; ?>" value="0" />
             </ul>
@@ -1319,7 +1430,7 @@ function front_end_slider($images, $paramssld, $slider)
         </div>
       </div>
 	</div>
-      <?php   
+	  <?php 
 	return ob_get_clean();
 }  
 ?>
