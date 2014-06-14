@@ -4,7 +4,7 @@
 Plugin Name: Huge IT slider
 Plugin URI: http://huge-it.com/slider
 Description: Huge IT slider is a convenient tool for organizing the images represented on your website into sliders. Each product on the slider is assigned with a relevant slider, which makes it easier for the customers to search and identify the needed images within the slider.
-Version: 2.4.8
+Version: 2.4.9
 Author: http://huge-it.com/
 License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -486,7 +486,7 @@ INSERT INTO `$table_name` (`id`, `name`, `sl_height`, `sl_width`, `pause_on_hove
         }
     }
 	if ($isUpdate) {
-	$wpdb->query("ALTER TABLE `wp_huge_itslider_sliders` MODIFY `published` text");
+	$wpdb->query("ALTER TABLE `".$wpdb->prefix."huge_itslider_sliders` MODIFY `published` text");
 	$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET published = '300' WHERE id = 1 ");
 	}
 	
@@ -513,9 +513,9 @@ INSERT INTO `$table_name` (`id`, `name`, `sl_height`, `sl_width`, `pause_on_hove
 			}
 			else
 			{
-			$wpdb->query("ALTER TABLE  `wp_huge_itslider_images` ADD  `sl_type` TEXT NOT NULL AFTER  `sl_url`");
+			$wpdb->query("ALTER TABLE  `".$wpdb->prefix."huge_itslider_images` ADD  `sl_type` TEXT NOT NULL AFTER  `sl_url`");
 			$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_images SET sl_type = 'image' ");
-			$wpdb->query("ALTER TABLE  `wp_huge_itslider_images` ADD  `link_target` TEXT NOT NULL AFTER  `sl_type`");
+			$wpdb->query("ALTER TABLE  `".$wpdb->prefix."huge_itslider_images` ADD  `link_target` TEXT NOT NULL AFTER  `sl_type`");
 			$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_images SET link_target = 'on' ");
 
 		    $table_name = $wpdb->prefix . "huge_itslider_params";
@@ -539,7 +539,7 @@ query1;
 	}
 	else
 	{
-	$wpdb->query("ALTER TABLE  `wp_huge_itslider_sliders` ADD  `sl_position` TEXT NOT NULL AFTER  `param`");
+	$wpdb->query("ALTER TABLE  `".$wpdb->prefix."huge_itslider_sliders` ADD  `sl_position` TEXT NOT NULL AFTER  `param`");
 	$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET `sl_position` = 'center' ");
 	$table_name = $wpdb->prefix . "huge_itslider_params";
     $sql_update3 = <<<query1
@@ -557,9 +557,9 @@ query1;
 	}
 	else
 	{
-		$wpdb->query("ALTER TABLE  `wp_huge_itslider_images` ADD  `sl_stitle` TEXT NOT NULL AFTER  `link_target`");
-		$wpdb->query("ALTER TABLE  `wp_huge_itslider_images` ADD  `sl_sdesc` TEXT NOT NULL AFTER  `sl_stitle`");
-		$wpdb->query("ALTER TABLE  `wp_huge_itslider_images` ADD  `sl_postlink` TEXT NOT NULL AFTER  `sl_sdesc`");
+		$wpdb->query("ALTER TABLE  `".$wpdb->prefix."huge_itslider_images` ADD  `sl_stitle` TEXT NOT NULL AFTER  `link_target`");
+		$wpdb->query("ALTER TABLE  `".$wpdb->prefix."huge_itslider_images` ADD  `sl_sdesc` TEXT NOT NULL AFTER  `sl_stitle`");
+		$wpdb->query("ALTER TABLE  `".$wpdb->prefix."huge_itslider_images` ADD  `sl_postlink` TEXT NOT NULL AFTER  `sl_sdesc`");
 	}	
 }
 register_activation_hook(__FILE__, 'huge_it_slider_activate');
