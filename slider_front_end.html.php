@@ -1311,9 +1311,11 @@ function front_end_slider($images, $paramssld, $slider)
 				$current_key=0;
 				$stri=0;
 				foreach ($images as $key => $image_row) {
-
-					  
-						switch($image_row->sl_type){
+				$imagerowstype=$image_row->sl_type;
+				if($image_row->sl_type == ''){
+				$imagerowstype='image';
+				}
+						switch($imagerowstype){
 							
 							case 'image':
 											
@@ -1373,7 +1375,11 @@ function front_end_slider($images, $paramssld, $slider)
 			  <?php
 			  $i=0;
 			  foreach ($images as $key => $image_row) {
-				switch($image_row->sl_type){
+			  	$imagerowstype=$image_row->sl_type;
+				if($image_row->sl_type == ''){
+				$imagerowstype='image';
+				}
+				switch($imagerowstype){
 					case 'image':
 					$target="";
 					?>
