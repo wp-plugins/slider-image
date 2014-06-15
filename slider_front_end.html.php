@@ -33,8 +33,11 @@ function front_end_slider($images, $paramssld, $slider)
 
 		$i=0;
 		foreach($images as $image){
-			
-			switch($image->sl_type){
+		$imagerowstype=$image_row->sl_type;
+		if($image_row->sl_type == ''){
+				$imagerowstype='image';
+		}
+			switch($imagerowstype){
 							
 					case 'image':
 						echo 'data_'.$sliderID.'["'.$i.'"]=[];';
