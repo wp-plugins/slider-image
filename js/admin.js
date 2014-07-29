@@ -3,21 +3,11 @@ jQuery(document).ready(function () {
 		jQuery(this).parents('ul').find('li.active').removeClass('active');
 		jQuery(this).parents('li').addClass('active');
 	});
-	
-	
-	
+
 	jQuery('.general-options-save').click(function(){
 		alert("General Settings are disabled in free version. If you need those functionalityes, you need to buy the commercial version.");
 		
-	});
-		
-	$('input[data-slider="true"]').bind("slider:changed", function (event, data) {
-		 $(this).parent().find('span').html(parseInt(data.value)+"%");
-		 $(this).val(parseInt(data.value));
-	});
-		
-	
-	
+	});	
 });
 
   $(function() {

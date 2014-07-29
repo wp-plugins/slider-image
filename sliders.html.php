@@ -303,7 +303,7 @@ function change_select()
 											imgurl = jQuery('img', html).attr('src');
 											window.parent.uploadID.val(imgurl);
 											tb_remove();
-											$("#save-buttom").click();
+											jQuery("#save-buttom").click();
 											
 										};
 									});
@@ -339,7 +339,7 @@ function change_select()
 														window.parent.uploadID.val(imgurl);
 														
 														tb_remove();
-														$("#save-buttom").click();
+														jQuery("#save-buttom").click();
 													};
 												});
 													
@@ -515,23 +515,23 @@ function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $
 					});
 			
 				
-					$('.huge-it-post-checked').change(function(){
-						if($(this).is(':checked')){
-							$(this).addClass('active');
-							$(this).parent().addClass('active');
+					jQuery('.huge-it-post-checked').change(function(){
+						if(jQuery(this).is(':checked')){
+							jQuery(this).addClass('active');
+							jQuery(this).parent().addClass('active');
 						}else {
-							$(this).removeClass('active');
-							$(this).parent().removeClass('active');
+							jQuery(this).removeClass('active');
+							jQuery(this).parent().removeClass('active');
 						}
 						
 						var inputval="";
-						$('#huge-it-add-posts-params').val("");
-						$('.huge-it-post-checked').each(function(){
-							if($(this).is(':checked')){
-								inputval+=$(this).val()+";";
+						jQuery('#huge-it-add-posts-params').val("");
+						jQuery('.huge-it-post-checked').each(function(){
+							if(jQuery(this).is(':checked')){
+								inputval+=jQuery(this).val()+";";
 							}
 						});
-						$('#huge-it-add-posts-params').val(inputval);
+						jQuery('#huge-it-add-posts-params').val(inputval);
 					});
 											
 					jQuery('#huge_it_slider_add_posts_wrap .view-type-block a').click(function(){
@@ -545,7 +545,7 @@ function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $
 
 					jQuery('.updated').css({"display":"none"});
 				<?php	if($_GET["closepop"] == 1){ ?>
-					$("#closepopup").click();
+					jQuery("#closepopup").click();
 					self.parent.location.reload();
 				<?php	} ?>
 				});
