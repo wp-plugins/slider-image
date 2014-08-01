@@ -10,8 +10,8 @@ jQuery(document).ready(function () {
 	});	
 });
 
-  $(function() {
-    $( "#images-list" ).sortable({
+  jQuery(function() {
+    jQuery( "#images-list" ).sortable({
       stop: function() {
 			jQuery("#images-list li").removeClass('has-background');
 			count=jQuery("#images-list li").length;
