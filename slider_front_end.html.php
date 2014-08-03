@@ -3,7 +3,7 @@
 function front_end_slider($images, $paramssld, $slider)
 {
 
- ob_start();
+	ob_start();
 	$sliderID=$slider[0]->id;
 	$slidertitle=$slider[0]->name;
 	$sliderheight=$slider[0]->sl_height;
@@ -670,6 +670,7 @@ function front_end_slider($images, $paramssld, $slider)
 		text-align: center;
 		vertical-align: middle;
 		width:100%;
+		height:100%;
 	  }	  
 		
 	  .huge_it_slideshow_title_text_<?php echo $sliderID; ?> {
@@ -814,7 +815,7 @@ function front_end_slider($images, $paramssld, $slider)
 		vertical-align: middle;
 		z-index: 2;
 		margin:0px !important;
-		padding:0px;
+		padding:0px !important;
 		overflow:hidden;
 		border-radius: <?php echo $paramssld['slider_slideshow_border_radius']; ?>px !important;
 	  }
@@ -833,7 +834,7 @@ function front_end_slider($images, $paramssld, $slider)
 		z-index: 1;
 		overflow:hidden;
 		margin:0px !important;
-		padding:0px;
+		padding:0px !important;
 		border-radius: <?php echo $paramssld['slider_slideshow_border_radius']; ?>px !important;
 	  }
 	  .huge_it_grid_<?php echo $sliderID; ?> {
@@ -903,6 +904,9 @@ function front_end_slider($images, $paramssld, $slider)
 		vertical-align:middle;
 		width:100%;
 		height:100%;
+		outline:none !important;
+		margin:0px !important;
+		padding:0px !important;
 	  }
 		
 		
