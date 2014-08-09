@@ -126,14 +126,22 @@
 	position:absolute;
 	display:none;
 }
-
+.huge-it-newuploader {
+	padding-right: 0px !important;
+}
 #post-body-heading .button.add-new-image .wp-media-buttons-icon {
 	background: url('../../../../wp-admin/images/media-button.png') no-repeat top left;
 	display: inline-block;
-	width: 16px;
-	height: 16px;
+	width: 130px;
+	height: 24px;
 	vertical-align: text-top;
-	margin: 2px 7px 0px 0px;
+	color: #fff;
+	-webkit-box-shadow: inset 0 0px 0 #fff,0 1px 0 rgba(0,0,0,.08);
+	box-shadow: inset 0 0px 0 #fff,0 1px 0 rgba(0,0,0,.08);
+	border: none; 
+	padding-left: 22px;
+	background-position: 0px;
+	margin-right: 0px !important;
 }
 
 #post-body-heading .button.add-post-slide .wp-media-buttons-icon {
@@ -631,14 +639,7 @@
 	position:absolute;
 	top:100px;
 }
-
-
-
-
-
-
-
-
-
-
-
+.editimageicon {
+	height: 24px;
+	padding-top: 0px;
+}

@@ -220,7 +220,6 @@ function change_select()
 	
 }
 </script>
-
 <!-- GENERAL PAGE, ADD IMAGES PAGE -->
 <?php $path_site2 = plugins_url("images", __FILE__); ?>
 <div class="wrap">
@@ -269,19 +268,59 @@ function change_select()
 			<div id="post-body-content">
 
 
-			<?php add_thickbox(); ?>
 
 				<div id="post-body">
 					<div id="post-body-heading">
 						<h3>Slides</h3>
-						
-					<input type="hidden" name="imagess" value="" />
-						<a href="" class="button button-primary add-new-image"  id="slideup">
-							<span class="wp-media-buttons-icon"></span>Add Image Slide
-						</a>
+<script>
+jQuery(document).ready(function($){
+	jQuery(".wp-media-buttons-icon").click(function() {
+		jQuery(".attachment-filters").css("display","none");
+	});
+  var _custom_media = true,
+      _orig_send_attachment = wp.media.editor.send.attachment;
+	 
 
+  jQuery('.huge-it-newuploader .button').click(function(e) {
+    var send_attachment_bkp = wp.media.editor.send.attachment;
+	
+    var button = jQuery(this);
+    var id = button.attr('id').replace('_button', '');
+    _custom_media = true;
 
+	jQuery("#"+id).val('');
+	wp.media.editor.send.attachment = function(props, attachment){
+      if ( _custom_media ) {
+	     jQuery("#"+id).val(attachment.url+';;;'+jQuery("#"+id).val());
+		 jQuery("#save-buttom").click();
+      } else {
+        return _orig_send_attachment.apply( this, [props, attachment] );
+      };
+    }
+  
+    wp.media.editor.open(button);
+	 
+    return false;
+  });
 
+  jQuery('.add_media').on('click', function(){
+    _custom_media = false;
+	
+  });
+	jQuery(".wp-media-buttons-icon").click(function() {
+		jQuery(".media-menu-item").css("display","none");
+		jQuery(".media-menu-item:first").css("display","block");
+		jQuery(".separator").next().css("display","none");
+		jQuery('.attachment-filters').val('image').trigger('change');
+		jQuery(".attachment-filters").css("display","none");
+	});
+});
+</script>				
+							<input type="hidden" name="imagess" id="_unique_name" />
+							<span class="wp-media-buttons-icon"></span>
+							<div class="huge-it-newuploader uploader button button-primary add-new-image">
+								<input type="button" class="button wp-media-buttons-icon" name="_unique_name_button" id="_unique_name_button" value="Add Image Slide" />
+							</div>
 						
 						
 						<a href="admin.php?page=sliders_huge_it_slider&task=popup_posts&id=<?php echo $_GET['id']; ?>&TB_iframe=1" class="button button-primary add-post-slide thickbox"  id="slideup2s" value="iframepop">
@@ -289,29 +328,6 @@ function change_select()
 							<span class="wp-media-buttons-icon"></span>Add Post Slide
 						</a>
 	
-
-						<script>
-								jQuery(document).ready(function ($) {
-										
-										jQuery("#slideup").click(function () {
-											window.parent.uploadID = jQuery(this).prev('input');
-											formfield = jQuery('.upload').attr('name');
-											tb_show('', 'media-upload.php?type=image&amp;TB_iframe=true');
-											return false;
-										});
-										window.send_to_editor = function (html) {
-											imgurl = jQuery('img', html).attr('src');
-											window.parent.uploadID.val(imgurl);
-											tb_remove();
-											jQuery("#save-buttom").click();
-											
-										};
-									});
-									
-						</script>
-
-					<!--<a class="button button-primary" href="admin.php?page=sliders_huge_it_slider&id=<?php echo $row->id; ?>&task=apply&addslide=1">Add Image</a>-->
-				
 					</div>
 					<ul id="images-list">
 					
@@ -324,28 +340,51 @@ function change_select()
 							<div class="image-container">
 								<img src="<?php echo $rowimages->image_url; ?>" />
 								<div>
-									<script>
-											jQuery(document).ready(function ($) {
-													
-													jQuery("#slideup<?php echo $key; ?>").click(function () {
-														window.parent.uploadID = jQuery(this).prev('input');
-														formfield = jQuery('.upload').attr('name');
-														tb_show('', 'media-upload.php?type=image&amp;TB_iframe=true');
-														
-														return false;
-													});
-													window.send_to_editor = function (html) {
-														imgurl = jQuery('img', html).attr('src');
-														window.parent.uploadID.val(imgurl);
-														
-														tb_remove();
-														jQuery("#save-buttom").click();
-													};
-												});
-													
-										</script>
-										<input type="hidden" name="imagess<?php echo $rowimages->id; ?>" value="<?php echo $rowimages->image_url; ?>" />
-										<a href="" class="edit-image"  id="slideup<?php echo $key; ?>">Edit Image</a>
+						
+										<script>
+jQuery(document).ready(function($){
+  var _custom_media = true,
+      _orig_send_attachment = wp.media.editor.send.attachment;
+
+  jQuery('.huge-it-editnewuploader .button<?php echo $rowimages->id; ?>').click(function(e) {
+    var send_attachment_bkp = wp.media.editor.send.attachment;
+    var button = jQuery(this);
+    var id = button.attr('id').replace('_button', '');
+    _custom_media = true;
+    wp.media.editor.send.attachment = function(props, attachment){
+      if ( _custom_media ) {
+        jQuery("#"+id).val(attachment.url);
+		jQuery("#save-buttom").click();
+      } else {
+        return _orig_send_attachment.apply( this, [props, attachment] );
+      };
+    }
+
+    wp.media.editor.open(button);
+    return false;
+  });
+
+  jQuery('.add_media').on('click', function(){
+    _custom_media = false;
+  });
+	jQuery(".huge-it-editnewuploader").click(function() {
+	});
+		jQuery(".wp-media-buttons-icon").click(function() {
+		jQuery(".media-menu-item").css("display","none");
+		jQuery(".media-menu-item:first").css("display","block");
+		jQuery(".separator").next().css("display","none");
+		jQuery('.attachment-filters').val('image').trigger('change');
+		jQuery(".attachment-filters").css("display","none");
+
+	});
+});
+</script>				
+							<input type="hidden" name="imagess<?php echo $rowimages->id; ?>" id="_unique_name<?php echo $rowimages->id; ?>" value="<?php echo $rowimages->image_url; ?>" />
+							<span class="wp-media-buttons-icon"></span>
+							<div class="huge-it-editnewuploader uploader button<?php echo $rowimages->id; ?> add-new-image">
+								<input type="button" class="button<?php echo $rowimages->id; ?> wp-media-buttons-icon editimageicon" name="_unique_name_button<?php echo $rowimages->id; ?>" id="_unique_name_button<?php echo $rowimages->id; ?>" value="Edit image" />
+							</div>
+										
 									</div>
 							</div>
 							<div class="image-options">

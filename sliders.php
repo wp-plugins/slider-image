@@ -527,16 +527,19 @@ if (isset($_POST['params'])) {
 	  $orderingplus = $rowimages->ordering+1;
 	  $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  ordering = %d  WHERE ID = %d ", $orderingplus, $rowimages->id));
 	  }
+	$table_name = $wpdb->prefix . "huge_itslider_images";
+	$imagesnewuploader = explode(";;;", $_POST["imagess"]);
+	array_pop($imagesnewuploader);
+	foreach($imagesnewuploader as $imagesnewupload){
 	
-$table_name = $wpdb->prefix . "huge_itslider_images";
     $sql_2 = "
 INSERT INTO 
 
 `" . $table_name . "` ( `name`, `slider_id`, `description`, `image_url`, `sl_url`, `ordering`, `published`, `published_in_sl_width`) VALUES
-( '', '".$row->id."', '', '".$_POST["imagess"]."', '', 'par_TV', 2, '1' )";
+( '', '".$row->id."', '', '".$imagesnewupload."', '', 'par_TV', 2, '1' )";
 
       $wpdb->query($sql_2);
-	
+		}	
 	   }
 	if(isset($_POST["posthuge-it-description-length"])){
 	 $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  published = %d WHERE id = %d ", $_POST["posthuge-it-description-length"], $_GET['id']));
