@@ -1,10 +1,10 @@
 <?php
 
 /*
-Plugin Name: Huge IT slider
+Plugin Name: Huge IT Slider
 Plugin URI: http://huge-it.com/slider
 Description: Huge IT slider is a convenient tool for organizing the images represented on your website into sliders. Each product on the slider is assigned with a relevant slider, which makes it easier for the customers to search and identify the needed images within the slider.
-Version: 2.5.5
+Version: 2.6.0
 Author: http://huge-it.com/
 License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -132,7 +132,7 @@ function huge_it_cat_ShowTinyMCE()
 add_action('admin_menu', 'huge_it_slider_options_panel');
 function huge_it_slider_options_panel()
 {
-    $page_cat = add_menu_page('Theme page title', 'Huge IT slider', 'manage_options', 'sliders_huge_it_slider', 'sliders_huge_it_slider', plugins_url('images/huge_it_sliderLogoHover -for_menu.png', __FILE__));
+    $page_cat = add_menu_page('Theme page title', 'Huge IT Slider', 'manage_options', 'sliders_huge_it_slider', 'sliders_huge_it_slider', plugins_url('images/huge_it_sliderLogoHover -for_menu.png', __FILE__));
     add_submenu_page('sliders_huge_it_slider', 'Sliders', 'Sliders', 'manage_options', 'sliders_huge_it_slider', 'sliders_huge_it_slider');
     $page_option = add_submenu_page('sliders_huge_it_slider', 'General Options', 'General Options', 'manage_options', 'Options_slider_styles', 'Options_slider_styles');
 	add_submenu_page( 'sliders_huge_it_slider', 'Licensing', 'Licensing', 'manage_options', 'huge_it_slider_Licensing', 'huge_it_slider_Licensing');
@@ -148,6 +148,9 @@ function huge_it_slider_admin_script()
 		wp_enqueue_style("jquery_ui", "http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css", FALSE);
 		wp_enqueue_script("jquery_new", "http://code.jquery.com/jquery-1.10.2.js", FALSE);
 		wp_enqueue_script("jquery_ui_new", "http://code.jquery.com/ui/1.10.4/jquery-ui.js", FALSE);
+		
+		wp_enqueue_script("simple_slider_js",  plugins_url("js/simple-slider.js", __FILE__), FALSE);
+		wp_enqueue_style("simple_slider_css", plugins_url("style/simple-slider.css", __FILE__), FALSE);
 		
 		wp_enqueue_style("admin_css", plugins_url("style/admin.style.css", __FILE__), FALSE);
 		wp_enqueue_script("admin_js", plugins_url("js/admin.js", __FILE__), FALSE);
@@ -224,6 +227,14 @@ function sliders_huge_it_slider()
             else {
                 $id = $wpdb->get_var("SELECT MAX( id ) FROM " . $wpdb->prefix . "huge_itslider_sliders");
                 popup_posts($id);
+            }
+            break;
+		case 'popup_video':
+            if ($id)
+                popup_video($id);
+            else {
+                $id = $wpdb->get_var("SELECT MAX( id ) FROM " . $wpdb->prefix . "huge_itslider_sliders");
+                popup_video($id);
             }
             break;
         case 'edit_cat':

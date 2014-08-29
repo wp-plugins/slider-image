@@ -418,6 +418,13 @@ $posturl2 = htmlentities($posturl, ENT_QUOTES, "UTF-8");
     Html_popup_posts($ord_elem, $count_ord, $images, $row, $cat_row, $rowim, $rowsld, $paramssld, $rowsposts, $rowsposts8, $postsbycat);
 }
 
+function popup_video($id)
+{
+ 	   
+    Html_popup_video();
+}
+
+
 function removeslider($id)
 {
 
@@ -549,4 +556,6 @@ INSERT INTO
 	<?php
     return true;
 }
+
+
 ?>

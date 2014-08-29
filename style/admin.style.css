@@ -153,6 +153,19 @@
 	margin: 2px 7px 0px 0px;
 }
 
+#post-body-heading .button.add-video-slide .wp-media-buttons-icon {
+	background: url('../images/video.icon.png') left top  no-repeat;
+	display: inline-block;
+	width: 0px;
+	height: 19px;
+	vertical-align: text-top;
+	color: #fff;
+	border: none; 
+	padding-left: 22px;
+	background-position: 0px;
+	margin-right: 0px !important;
+}
+
 
 #post-body-footer {
 	padding:5px 10px 5px 10px;
@@ -639,7 +652,61 @@
 	position:absolute;
 	top:100px;
 }
+
 .editimageicon {
+	border:0px;
+	background:none;
+	color:#2ea2cc;
+	outline:none;
+	display:inline;
 	height: 24px;
 	padding-top: 0px;
+	cursor:pointer;
+	text-decoration:underline;
+	padding:0px 20px 0px 0px;
+	background: url(../images/edit.png) right 8px no-repeat;
+}
+
+.editimageicon:hover {
+	color:#0074a2;
+}
+
+/*#####ADD VIDEO SLIDE POPUP###*/
+
+#huge_it_add_video_input {
+	width:470px;
+	height:33px;
+}
+
+#add-video-popup-options > div {
+	display:none;
+	padding-top:20px;
+}
+
+#add-video-popup-options > div.active {display:block;}
+
+#add-video-popup-options > div > div {
+	width:50%;
+	height:40px;
+	margin:0px 0px 20px 0px;
+	float:left;
+	position:relative;
+}
+
+#add-video-popup-options > div > div label {
+	display: block;
+	float:left;
+	width: 40%;
+	padding-top:10px;
+	height:20px;
+}
+
+#add-video-popup-options > div > div .checkbox {
+	margin-top:7px
+}
+
+#add-video-popup-options > div > div div.slider-container {
+	position:relative;
+	display: inline-block;
+	margin-top:13px;
 }

@@ -327,7 +327,9 @@ jQuery(document).ready(function($){
 							<input  title="Add Post" class="thickbox" type="button" value="Add Post" />
 							<span class="wp-media-buttons-icon"></span>Add Post Slide
 						</a>
-	
+						<a href="admin.php?page=sliders_huge_it_slider&task=popup_video&id=<?php echo $_GET['id']; ?>&TB_iframe=1" class="button button-primary add-video-slide thickbox"  id="slideup3s" value="iframepop">
+							<span class="wp-media-buttons-icon"></span>Add Video Slide
+						</a>
 					</div>
 					<ul id="images-list">
 					
@@ -382,7 +384,7 @@ jQuery(document).ready(function($){
 							<input type="hidden" name="imagess<?php echo $rowimages->id; ?>" id="_unique_name<?php echo $rowimages->id; ?>" value="<?php echo $rowimages->image_url; ?>" />
 							<span class="wp-media-buttons-icon"></span>
 							<div class="huge-it-editnewuploader uploader button<?php echo $rowimages->id; ?> add-new-image">
-								<input type="button" class="button<?php echo $rowimages->id; ?> wp-media-buttons-icon editimageicon" name="_unique_name_button<?php echo $rowimages->id; ?>" id="_unique_name_button<?php echo $rowimages->id; ?>" value="Edit image" />
+								<input type="button" class="button<?php echo $rowimages->id; ?> wp-media-buttons-icon editimageicon" name="_unique_name_button<?php echo $rowimages->id; ?>" id="_unique_name_button<?php echo $rowimages->id; ?>" value="Edit Image" />
 							</div>
 										
 									</div>
@@ -742,5 +744,127 @@ function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $
 	<?php
 }
 ?>
+<?php
+function html_popup_video(){
+	global $wpdb;
 
+?>
+	<style>
+		html.wp-toolbar {
+			padding:0px !important;
+		}
+		#wpadminbar,#adminmenuback,#screen-meta, .update-nag,#dolly {
+			display:none;
+		}
+		#wpbody-content {
+			padding-bottom:30px;
+		}
+		#adminmenuwrap {display:none !important;}
+		.auto-fold #wpcontent, .auto-fold #wpfooter {
+			margin-left: 0px;
+		}
+		#wpfooter {display:none;}
+		iframe {height:250px !important;}
+		#TB_window {height:250px !important;}
+	</style>
+	<script type="text/javascript">
+		jQuery(document).ready(function() {	
+			jQuery('.huge-it-insert-video-button').on('click', function() {
+						alert("Add Video Slide feature is disabled in free version. If you need this functionality, you need to buy the commercial version.");
+						return false;
+					});
 
+			jQuery('.huge-it-insert-post-button').on('click', function() {
+				var ID1 = jQuery('#huge_it_add_video_input').val();
+				if(ID1==""){alert("Please copy and past url form Youtobe or Vimeo to insert into slider.");return false;}
+				
+				window.parent.uploadID.val(ID1);
+				
+				tb_remove();
+				$("#save-buttom").click();
+			});
+			
+			jQuery('#huge_it_add_video_input').change(function(){
+				
+				if (jQuery(this).val().indexOf("youtube") >= 0){
+					jQuery('#add-video-popup-options > div').removeClass('active');
+					jQuery('#add-video-popup-options  .youtube').addClass('active');
+				}else if (jQuery(this).val().indexOf("vimeo") >= 0){
+					jQuery('#add-video-popup-options > div').removeClass('active');
+					jQuery('#add-video-popup-options  .vimeo').addClass('active');
+				}else {
+					jQuery('#add-video-popup-options > div').removeClass('active');
+					jQuery('#add-video-popup-options  .error-message').addClass('active');
+				}
+			})
+					
+			jQuery('.updated').css({"display":"none"});
+		<?php	if($_GET["closepop"] == 1){ ?>
+			$("#closepopup").click();
+			self.parent.location.reload();
+		<?php	} ?>
+		
+		});
+		
+	</script>
+	<a id="closepopup"  onclick=" parent.eval('tb_remove()')" style="display:none;" > [X] </a>
+
+	<div id="huge_it_slider_add_videos">
+		<span class="buy-pro">This feature is disabled in free version. <br>If you need this functionality, you need to <a href="http://huge-it.com/slider/" target="_blank">buy the commercial version</a>.</span>
+		<div id="huge_it_slider_add_videos_wrap">
+			<h2>Add Video URL From Youtobe or Vimeo</h2>
+			<div class="control-panel">
+					<input type="text" id="huge_it_add_video_input" name="huge_it_add_video_input" />
+					<button class='save-slider-options button-primary huge-it-insert-video-button' id='huge-it-insert-video-button'>Insert Video Slide</button>
+					<div id="add-video-popup-options">
+						<div class="youtube">
+							<div>
+								<label for="show_quality">Quality:</label>	
+								<select id="show_quality" name="show_quality">
+									<option value="none">Auto</option>
+									<option value="280">280</option>
+									<option value="360"selected="selected">360</option>
+									<option value="480">480</option>
+									<option value="hd720">720 HD</option>
+									<option value="hd1080">1080 HD</option>
+								</select>
+							</div>
+							<div>
+								<label for="">Volume:</label>	
+								<div class="slider-container">
+									<input name="show_volume" value="50" data-slider-range="1,100"  type="text" data-slider="true"  data-slider-highlight="true" />
+								</div>
+							</div>
+							<div>
+								<label for="show_controls">Show Controls:</label>
+								<input type="hidden" name="show_controls" value="" />
+								<input type="checkbox" class="checkbox" checked="checked" name="show_controls" />	
+							</div>
+							<div>
+								<label for="show_info">Show Info:</label>
+								<input type="hidden" name="show_info" value="" />
+								<input type="checkbox" class="checkbox" checked="checked" name="show_info" />	
+							</div>
+						</div>
+						<div class="vimeo">
+							<div>
+								<label for="">Elements Color:</label>	
+								<input name="show_quality" type="text" class="color" id="" size="10" value="00adef"/>
+							</div>
+							<div>
+								<label for="">Volume:</label>	
+								<div class="slider-container">
+									<input name="show_volume" value="50" data-slider-range="1,100"  type="text" data-slider="true"  data-slider-highlight="true" />
+								</div>
+							</div>
+						</div>
+						<div class="error-message">
+							Please insert link only from youtobe or vimeo
+						</div>
+					</div>
+			</div>
+		</div>	
+	</div>
+<?php	
+}
+?>
