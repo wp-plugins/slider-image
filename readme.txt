@@ -66,6 +66,9 @@ Now you can set your slider options, images and use our slider.
 == Changelog ==
 
 = 2.5.5 =
+*  bug fixed and added new features.
+
+= 2.5.5 =
 *  add new feature for image uploader.
 
 = 2.5.4 =
