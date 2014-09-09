@@ -1,5 +1,5 @@
 <?php
-if (function_exists('current_user_can'))
+if(function_exists('current_user_can'))
     if (!current_user_can('manage_options')) {
         die('Access Denied');
     }
@@ -8,7 +8,7 @@ if (!function_exists('current_user_can')) {
 }
 function showStyles($op_type = "0")
 {
-    global $wpdb;
+global $wpdb;
     $query = "SELECT *  from " . $wpdb->prefix . "huge_itslider_params ";
     $rows = $wpdb->get_results($query);
     $param_values = array();

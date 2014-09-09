@@ -54,12 +54,13 @@ function html_showsliders( $rows,  $pageNav,$sort,$cat_row){
 			<div>This section allows you to configure the Slider options. <a href="http://huge-it.com/wordpress-plugins-slider-user-manual/" target="_blank">More...</a></div>
 		</div>
 		<div style="float: right;">
-			<a class="header-logo-text" href="http://huge-it.com/slider/" target="_blank" >
+			<a class="header-logo-text" href="http://huge-it.com/slider/" target="_blank">
 				<div><img width="250px" src="<?php echo $path_site2; ?>/huge-it1.png" /></div>
 				<div>Get the full version</div>
 			</a>
 		</div>
 	</div>
+	<div style="clear: both;"></div>
 	<div id="poststuff">
 		<div id="sliders-list-page">
 			<form method="post"  onkeypress="doNothing()" action="admin.php?page=sliders_huge_it_slider" id="admin_form" name="admin_form">
@@ -181,6 +182,9 @@ function html_showsliders( $rows,  $pageNav,$sort,$cat_row){
 
 			 <?php
 			?>
+			
+			
+		   
 			</form>
 		</div>
 	</div>
@@ -220,22 +224,24 @@ function change_select()
 	
 }
 </script>
+
 <!-- GENERAL PAGE, ADD IMAGES PAGE -->
-<?php $path_site2 = plugins_url("images", __FILE__); ?>
+
 <div class="wrap">
+<?php $path_site2 = plugins_url("images", __FILE__); ?>
 	<div class="slider-options-head">
 		<div style="float: left;">
 			<div><a href="http://huge-it.com/wordpress-plugins-slider-user-manual/" target="_blank">User Manual</a></div>
 			<div>This section allows you to configure the Slider options. <a href="http://huge-it.com/wordpress-plugins-slider-user-manual/" target="_blank">More...</a></div>
 		</div>
 		<div style="float: right;">
-			<a class="header-logo-text" href="http://huge-it.com/slider/" target="_blank" >
+			<a class="header-logo-text" href="http://huge-it.com/slider/" target="_blank">
 				<div><img width="250px" src="<?php echo $path_site2; ?>/huge-it1.png" /></div>
 				<div>Get the full version</div>
 			</a>
 		</div>
 	</div>
-	<div style="clear:both;"></div>
+	<div style="clear: both;"></div>
 <form action="admin.php?page=sliders_huge_it_slider&id=<?php echo $row->id; ?>" method="post" name="adminForm" id="adminForm">
 	<div id="poststuff" >
 	<div id="slider-header">
@@ -268,6 +274,7 @@ function change_select()
 			<div id="post-body-content">
 
 
+			<?php add_thickbox(); ?>
 
 				<div id="post-body">
 					<div id="post-body-heading">
@@ -310,83 +317,104 @@ jQuery(document).ready(function($){
 	jQuery(".wp-media-buttons-icon").click(function() {
 		jQuery(".media-menu-item").css("display","none");
 		jQuery(".media-menu-item:first").css("display","block");
-		jQuery(".separator").next().css("display","none");
+		jQuery(".separator").next().css("display","block");
 		jQuery('.attachment-filters').val('image').trigger('change');
 		jQuery(".attachment-filters").css("display","none");
 	});
 });
-</script>				
-							<input type="hidden" name="imagess" id="_unique_name" />
-							<span class="wp-media-buttons-icon"></span>
-							<div class="huge-it-newuploader uploader button button-primary add-new-image">
-								<input type="button" class="button wp-media-buttons-icon" name="_unique_name_button" id="_unique_name_button" value="Add Image Slide" />
-							</div>
-						
-						
+</script>
+						<input type="hidden" name="imagess" id="_unique_name" />
+						<span class="wp-media-buttons-icon"></span>
+						<div class="huge-it-newuploader uploader button button-primary add-new-image">
+						<input type="button" class="button wp-media-buttons-icon" name="_unique_name_button" id="_unique_name_button" value="Add Image Slide" />
+						</div>
 						<a href="admin.php?page=sliders_huge_it_slider&task=popup_posts&id=<?php echo $_GET['id']; ?>&TB_iframe=1" class="button button-primary add-post-slide thickbox"  id="slideup2s" value="iframepop">
-							<input  title="Add Post" class="thickbox" type="button" value="Add Post" />
-							<span class="wp-media-buttons-icon"></span>Add Post Slide
+						<input  title="Add Post" class="thickbox" type="button" value="Add Post" />
+						<span class="wp-media-buttons-icon"></span>Add Post Slide
 						</a>
 						<a href="admin.php?page=sliders_huge_it_slider&task=popup_video&id=<?php echo $_GET['id']; ?>&TB_iframe=1" class="button button-primary add-video-slide thickbox"  id="slideup3s" value="iframepop">
 							<span class="wp-media-buttons-icon"></span>Add Video Slide
 						</a>
+						<script>
+								jQuery(document).ready(function ($) {
+										jQuery("#slideup").click(function () {
+											window.parent.uploadID = jQuery(this).prev('input');
+											formfield = jQuery('.upload').attr('name');
+											tb_show('', 'media-upload.php?type=image&amp;TB_iframe=true');
+											return false;
+										});
+										window.send_to_editor = function (html) {
+											imgurl = jQuery('img', html).attr('src');
+											window.parent.uploadID.val(imgurl);
+											tb_remove();
+											$("#save-buttom").click();
+										};
+									});
+						</script>				
 					</div>
 					<ul id="images-list">
-					
 					<?php
+					
+						function get_youtube_id_from_url($url){
+							if (stristr($url,'youtu.be/'))
+								{ preg_match('/(https:|http:|)(\/\/www\.|\/\/|)(.*?)\/(.{11})/i', $url, $final_ID); return $final_ID[4]; }
+							else 
+								{ preg_match('/(https:|http:|):(\/\/www\.|\/\/|)(.*?)\/(embed\/|watch\?v=|(.*?)&v=|v\/|e\/|.+\/|watch.*v=|)([a-z_A-Z0-9]{11})/i', $url, $IDD); return $IDD[6]; }
+						}
+					
 					$i=2;
-					//$rowim = array_reverse($rowim);
 					foreach ($rowim as $key=>$rowimages){ ?>
+					<?php if($rowimages->sl_type == ''){$rowimages->sl_type = 'image';}
+					switch($rowimages->sl_type){
+					case 'image':	?>
 						<li <?php if($i%2==0){echo "class='has-background'";}$i++; ?>>
 						<input class="order_by" type="hidden" name="order_by_<?php echo $rowimages->id; ?>" value="<?php echo $rowimages->ordering; ?>" />
 							<div class="image-container">
 								<img src="<?php echo $rowimages->image_url; ?>" />
 								<div>
-						
-										<script>
-jQuery(document).ready(function($){
-  var _custom_media = true,
-      _orig_send_attachment = wp.media.editor.send.attachment;
+								<script>
+									jQuery(document).ready(function($){
+									  var _custom_media = true,
+										  _orig_send_attachment = wp.media.editor.send.attachment;
 
-  jQuery('.huge-it-editnewuploader .button<?php echo $rowimages->id; ?>').click(function(e) {
-    var send_attachment_bkp = wp.media.editor.send.attachment;
-    var button = jQuery(this);
-    var id = button.attr('id').replace('_button', '');
-    _custom_media = true;
-    wp.media.editor.send.attachment = function(props, attachment){
-      if ( _custom_media ) {
-        jQuery("#"+id).val(attachment.url);
-		jQuery("#save-buttom").click();
-      } else {
-        return _orig_send_attachment.apply( this, [props, attachment] );
-      };
-    }
+									  jQuery('.huge-it-editnewuploader .button<?php echo $rowimages->id; ?>').click(function(e) {
+										var send_attachment_bkp = wp.media.editor.send.attachment;
+										var button = jQuery(this);
+										var id = button.attr('id').replace('_button', '');
+										_custom_media = true;
+										wp.media.editor.send.attachment = function(props, attachment){
+										  if ( _custom_media ) {
+											jQuery("#"+id).val(attachment.url);
+											jQuery("#save-buttom").click();
+										  } else {
+											return _orig_send_attachment.apply( this, [props, attachment] );
+										  };
+										}
 
-    wp.media.editor.open(button);
-    return false;
-  });
+										wp.media.editor.open(button);
+										return false;
+									  });
 
-  jQuery('.add_media').on('click', function(){
-    _custom_media = false;
-  });
-	jQuery(".huge-it-editnewuploader").click(function() {
-	});
-		jQuery(".wp-media-buttons-icon").click(function() {
-		jQuery(".media-menu-item").css("display","none");
-		jQuery(".media-menu-item:first").css("display","block");
-		jQuery(".separator").next().css("display","none");
-		jQuery('.attachment-filters').val('image').trigger('change');
-		jQuery(".attachment-filters").css("display","none");
+									  jQuery('.add_media').on('click', function(){
+										_custom_media = false;
+									  });
+										jQuery(".huge-it-editnewuploader").click(function() {
+										});
+											jQuery(".wp-media-buttons-icon").click(function() {
+											jQuery(".media-menu-item").css("display","none");
+											jQuery(".media-menu-item:first").css("display","block");
+											jQuery(".separator").next().css("display","block");
+											jQuery('.attachment-filters').val('image').trigger('change');
+											jQuery(".attachment-filters").css("display","none");
 
-	});
-});
-</script>				
-							<input type="hidden" name="imagess<?php echo $rowimages->id; ?>" id="_unique_name<?php echo $rowimages->id; ?>" value="<?php echo $rowimages->image_url; ?>" />
-							<span class="wp-media-buttons-icon"></span>
-							<div class="huge-it-editnewuploader uploader button<?php echo $rowimages->id; ?> add-new-image">
-								<input type="button" class="button<?php echo $rowimages->id; ?> wp-media-buttons-icon editimageicon" name="_unique_name_button<?php echo $rowimages->id; ?>" id="_unique_name_button<?php echo $rowimages->id; ?>" value="Edit Image" />
+										});
+									});
+								</script>
+								<input type="hidden" name="imagess<?php echo $rowimages->id; ?>" id="_unique_name<?php echo $rowimages->id; ?>" value="<?php echo $rowimages->image_url; ?>" />
+								<span class="wp-media-buttons-icon"></span>
+								<div class="huge-it-editnewuploader uploader button<?php echo $rowimages->id; ?> add-new-image">
+								<input type="button" class="button<?php echo $rowimages->id; ?> wp-media-buttons-icon editimageicon" name="_unique_name_button<?php echo $rowimages->id; ?>" id="_unique_name_button<?php echo $rowimages->id; ?>" value="Edit image" />
 							</div>
-										
 									</div>
 							</div>
 							<div class="image-options">
@@ -411,9 +439,176 @@ jQuery(document).ready(function($){
 									<a class="button remove-image" href="admin.php?page=sliders_huge_it_slider&id=<?php echo $row->id; ?>&task=apply&removeslide=<?php echo $rowimages->id; ?>">Remove Image</a>
 								</div>
 							</div>
+							
 						<div class="clear"></div>
 						</li>
-					<?php } ?>
+						<?php
+						break;
+						case 'last_posts':	?>
+						<li <?php if($i%2==0){echo "class='has-background'";}$i++; ?>  >
+						<input class="order_by" type="hidden" name="order_by_<?php echo $rowimages->id; ?>" value="<?php echo $rowimages->ordering; ?>" />
+							<div class="image-container">
+								<img width='100' height='100' src="<?php echo plugins_url( 'images/pin.png' , __FILE__ ); ?>" />
+							</div>
+							<div class="recent-post-options image-options">
+								<div>
+									<div class="left">
+										<?php $categories = get_categories(); ?>
+										<label for="titleimage<?php echo $rowimages->id; ?>">Show Posts From:</label>
+										<select name="titleimage<?php echo $rowimages->id; ?>" class="categories-list">
+											<option <?php if($rowimages->name == 0){echo 'selected="selected"';} ?> value="0">All Categories</option>
+										<?php foreach ($categories as $strcategories){ ?>
+											<option <?php if($rowimages->name == $strcategories->cat_name){echo 'selected="selected"';} ?> value="<?php echo $strcategories->cat_name; ?>"><?php echo $strcategories->cat_name; ?></option>
+										<?php	}	?> 
+										</select>
+									</div>
+									<div  class="left">
+										<label for="sl_url<?php echo $rowimages->id; ?>">Showing Posts Count:</label>
+										<input class="text_area url-input number" type="number" id="sl_url<?php echo $rowimages->id; ?>" name="sl_url<?php echo $rowimages->id; ?>"  value="<?php echo $rowimages->sl_url; ?>" >
+									</div>
+								</div>
+	
+								<div>
+									<label class="long" for="sl_stitle<?php echo $rowimages->id; ?>">Show Title:</label>
+									<input type="hidden" name="sl_stitle<?php echo $rowimages->id; ?>" value="" />
+									<input  <?php if($rowimages->sl_stitle == '1'){ echo 'checked="checked"'; } ?>  class="link_target" type="checkbox" name="sl_stitle<?php echo $rowimages->id; ?>" value="1" />
+								</div>
+								<div>
+									<div class="left margin">
+										<label class="long" for="sl_sdesc<?php echo $rowimages->id; ?>">Show Description:</label>
+										<input type="hidden" name="sl_sdesc<?php echo $rowimages->id; ?>" value="" />
+										<input  <?php if($rowimages->sl_sdesc == '1'){ echo 'checked="checked"'; } ?>  class="link_target" type="checkbox" name="sl_sdesc<?php echo $rowimages->id; ?>" value="1" />
+									</div>
+									<div class="left">
+										<label for="im_description<?php echo $rowimages->id; ?>">Description Symbols Number:</label>
+										<input value="<?php echo $rowimages->description; ?>" class="text_area url-input number" id="im_description<?php echo $rowimages->id; ?>" type="number" name="im_description<?php echo $rowimages->id; ?>" />
+									</div>
+								</div>
+								<div>
+									<div class="left margin">
+										<label class="long" for="sl_postlink<?php echo $rowimages->id; ?>">Use Post Link:</label>
+										<input type="hidden" name="sl_postlink<?php echo $rowimages->id; ?>" value="" />
+										<input  <?php if($rowimages->sl_postlink == '1'){ echo 'checked="checked"'; } ?>  class="link_target" type="checkbox" name="sl_postlink<?php echo $rowimages->id; ?>" value="1" />
+									</div>
+									<div  class="left">	
+										<label class="long" for="sl_link_target<?php echo $rowimages->id; ?>">Open Link In New Tab:</label>
+										<input type="hidden" name="sl_link_target<?php echo $rowimages->id; ?>" value="" />
+										<input  <?php if($rowimages->link_target == 'on'){ echo 'checked="checked"'; } ?>  class="link_target" type="checkbox" id="sl_link_target<?php echo $rowimages->id; ?>" name="sl_link_target<?php echo $rowimages->id; ?>" />
+										<!--<input type="checkbox" name="pause_on_hover" id="pause_on_hover"  <?php if($row->pause_on_hover == 'on'){ echo 'checked="checked"'; } ?>  class="link_target"/>-->
+									</div>
+								</div>
+								<div class="remove-image-container">
+									<a class="button remove-image" href="admin.php?page=sliders_huge_it_slider&id=<?php echo $row->id; ?>&task=apply&removeslide=<?php echo $rowimages->id; ?>">Remove Last posts</a>
+								</div>
+							</div>
+							
+						<div class="clear"></div>
+						</li>
+						<?php
+						break;
+						case 'video': 
+							
+						?>
+							
+							<li <?php if($i%2==0){echo "class='has-background'";}$i++; ?>  >
+							<input class="order_by" type="hidden" name="order_by_<?php echo $rowimages->id; ?>" value="<?php echo $rowimages->ordering; ?>" />
+								<?php 	if(strpos($rowimages->image_url,'youtube') !== false) {
+											$liclass="youtube";
+											$video_thumb_url=get_youtube_id_from_url($rowimages->image_url);
+											$thumburl='<img src="http://img.youtube.com/vi/'.$video_thumb_url.'/mqdefault.jpg" alt="" />';
+										}else if (strpos($rowimages->image_url,'vimeo') !== false) {	
+											$liclass="vimeo";
+											$vimeo = $rowimages->image_url;
+											$imgid =  end(explode( "/", $vimeo ));
+											$hash = unserialize(file_get_contents("http://vimeo.com/api/v2/video/".$imgid.".php"));
+											$imgsrc=$hash[0]['thumbnail_large'];
+											$thumburl ='<img src="'.$imgsrc.'" alt="" />';
+										}
+										?> 
+									<div class="image-container">	
+										<?php echo $thumburl; ?>
+										<div class="play-icon <?php echo $liclass; ?>"></div>
+										
+										<div>
+											<script>
+													jQuery(document).ready(function ($) {
+															
+															jQuery("#slideup<?php echo $key; ?>").click(function () {
+																window.parent.uploadID = jQuery(this).prev('input');
+																formfield = jQuery('.upload').attr('name');
+																tb_show('', 'media-upload.php?type=image&amp;TB_iframe=true');
+																
+																return false;
+															});
+															window.send_to_editor = function (html) {
+																imgurl = jQuery('img', html).attr('src');
+																window.parent.uploadID.val(imgurl);
+																
+																tb_remove();
+																$("#save-buttom").click();
+															};
+														});
+															
+											</script>
+											<input type="hidden" name="imagess<?php echo $rowimages->id; ?>" value="<?php echo $rowimages->image_url; ?>" />
+										</div>
+									</div>
+									<div class="image-options video-options">
+										<?php 	if(strpos($rowimages->image_url,'youtube') !== false) { ?>
+										
+										<div class="video-quality video-options">
+											<label for="titleimage<?php echo $rowimages->id; ?>">Quality:</label>	
+											<select id="titleimage<?php echo $rowimages->id; ?>" name="titleimage<?php echo $rowimages->id; ?>">
+												<option value="none" <?php if($rowimages->name == 'none'){ echo 'selected="selected"'; } ?>>Auto</option>
+												<option value="280" <?php if($rowimages->name == '280'){ echo 'selected="selected"'; } ?>>280</option>
+												<option value="360" <?php if($rowimages->name == '360'){ echo 'selected="selected"'; } ?>>360</option>
+												<option value="480" <?php if($rowimages->name == '480'){ echo 'selected="selected"'; } ?>>480</option>
+												<option value="hd720" <?php if($rowimages->name == 'hd720'){ echo 'selected="selected"'; } ?>>720 HD</option>
+												<option value="hd1080" <?php if($rowimages->name == 'hd1080'){ echo 'selected="selected"'; } ?>>1080 HD</option>
+											</select>
+										</div>
+										<div class="video-volume video-options">
+											<label for="im_description<?php echo $rowimages->id; ?>">Volume:</label>	
+											<div class="slider-container">
+												<input id="im_description<?php echo $rowimages->id; ?>" name="im_description<?php echo $rowimages->id; ?>" value="<?php echo $rowimages->description; ?>" data-slider-range="1,100"  type="text" data-slider="true"  data-slider-highlight="true" />
+											</div>
+										</div>
+										<div class="video-options">
+											<label class="long" for="sl_url<?php echo $rowimages->id; ?>">Show Controls:</label>
+											<input type="hidden" name="sl_url<?php echo $rowimages->id; ?>" value="" />
+											<input <?php if($rowimages->sl_url == 'on'){ echo 'checked="checked"'; } ?> class="link_target"  type="checkbox" id="sl_url<?php echo $rowimages->id; ?>" name="sl_url<?php echo $rowimages->id; ?>" />		
+										</div>
+										<div class="video-options">
+											<label class="long" for="sl_link_target<?php echo $rowimages->id; ?>">Show Info:</label>
+											<input type="hidden" name="sl_link_target<?php echo $rowimages->id; ?>" value="" />
+											<input  <?php if($rowimages->link_target == 'on'){ echo 'checked="checked"'; } ?>  class="link_target" type="checkbox" id="sl_link_target<?php echo $rowimages->id; ?>" name="sl_link_target<?php echo $rowimages->id; ?>" />		
+										</div>
+										<div class="remove-image-container">
+											<a class="button remove-image" href="admin.php?page=sliders_huge_it_slider&id=<?php echo $row->id; ?>&task=apply&removeslide=<?php echo $rowimages->id; ?>">Remove Video</a>
+										</div>
+										<?php } else {?>
+										
+										<div class="video-quality video-options">
+											<label for="sl_link_target<?php echo $rowimages->id; ?>">Elements Color:</label>	
+											<input name="sl_link_target<?php echo $rowimages->id; ?>" type="text" class="color" id="sl_link_target<?php echo $rowimages->id; ?>" size="10" value="<?php echo $rowimages->link_target; ?>"/>
+										</div>
+										<div class="video-volume video-options">
+											<label for="im_description<?php echo $rowimages->id; ?>">Volume:</label>	
+											<div class="slider-container">
+												<input id="im_description<?php echo $rowimages->id; ?>" name="im_description<?php echo $rowimages->id; ?>" value="<?php echo $rowimages->description; ?>" data-slider-range="1,100"  type="text" data-slider="true"  data-slider-highlight="true" />
+											</div>
+										</div>
+										<div class="remove-image-container">
+											<a class="button remove-image" href="admin.php?page=sliders_huge_it_slider&id=<?php echo $row->id; ?>&task=apply&removeslide=<?php echo $rowimages->id; ?>">Remove Video</a>
+										</div>
+										<?php } ?>
+									</div>	
+							<div class="clear"></div>
+							</li>
+					<?php
+						break;
+					} ?>
+			<?php } ?>
 					</ul>
 				</div>
 
@@ -548,31 +743,39 @@ function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $
 						jQuery(liID).addClass('active');
 						return false;
 					});
-
 					
 					jQuery('.huge-it-insert-post-button').on('click', function() {
 						alert("Add Post Slide feature is disabled in free version. If you need this functionality, you need to buy the commercial version.");
 						return false;
 					});
 			
+
+					jQuery('#slider-posts-tabs-content-0 .huge-it-insert-post-button').on('click', function() {
+						var ID1 = jQuery('#huge-it-add-posts-params').val();
+						if(ID1==""){return false;}
+						window.parent.uploadID.val(ID1);
+						tb_remove();
+						$("#save-buttom").click();
+						
+					});
 				
-					jQuery('.huge-it-post-checked').change(function(){
-						if(jQuery(this).is(':checked')){
-							jQuery(this).addClass('active');
-							jQuery(this).parent().addClass('active');
+					$('.huge-it-post-checked').change(function(){
+						if($(this).is(':checked')){
+							$(this).addClass('active');
+							$(this).parent().addClass('active');
 						}else {
-							jQuery(this).removeClass('active');
-							jQuery(this).parent().removeClass('active');
+							$(this).removeClass('active');
+							$(this).parent().removeClass('active');
 						}
 						
 						var inputval="";
-						jQuery('#huge-it-add-posts-params').val("");
-						jQuery('.huge-it-post-checked').each(function(){
-							if(jQuery(this).is(':checked')){
-								inputval+=jQuery(this).val()+";";
+						$('#huge-it-add-posts-params').val("");
+						$('.huge-it-post-checked').each(function(){
+							if($(this).is(':checked')){
+								inputval+=$(this).val()+";";
 							}
 						});
-						jQuery('#huge-it-add-posts-params').val(inputval);
+						$('#huge-it-add-posts-params').val(inputval);
 					});
 											
 					jQuery('#huge_it_slider_add_posts_wrap .view-type-block a').click(function(){
@@ -586,7 +789,7 @@ function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $
 
 					jQuery('.updated').css({"display":"none"});
 				<?php	if($_GET["closepop"] == 1){ ?>
-					jQuery("#closepopup").click();
+					$("#closepopup").click();
 					self.parent.location.reload();
 				<?php	} ?>
 				});
@@ -597,7 +800,7 @@ function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $
 	
 	<div id="huge_it_slider_add_posts">
 		<div id="huge_it_slider_add_posts_wrap">
-		<span class="buy-pro">This feature is disabled in free version. </br>If you need this functionality, you need to <a href="http://huge-it.com/slider/" target="_blank">buy the commercial version</a>.</span>
+			<span class="buy-pro">This feature is disabled in free version. </br>If you need this functionality, you need to <a href="http://huge-it.com/slider/" target="_blank">buy the commercial version</a>.</span>
 			<ul id="slider-posts-tabs">
 				<li  class="active"><a href="#slider-posts-tabs-content-0">Static posts</a></li>
 				<li><a href="#slider-posts-tabs-content-1">Last posts</a></li>
@@ -606,7 +809,7 @@ function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $
 				<li id="slider-posts-tabs-content-0"  class="active">
 					<!-- STATIC POSTS -->
 					<div class="control-panel">
-					<form method="post"  onkeypress="doNothing()" action="admin.php?page=sliders_huge_it_slider&task=popup_posts&id=<?php echo $_GET['id']; ?>" id="huge-it-category-form" name="admin_form">
+	
 						<label for="huge-it-categories-list">Select Category <select id="huge-it-categories-list" name="iframecatid" onchange="this.form.submit()">
 						<?php $categories = get_categories(  ); ?>
 						<?php	 foreach ($categories as $strcategories){
@@ -624,8 +827,8 @@ function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $
 						}
 						?> 
 						</select></label>
-					</form>
-					<form method="post"  onkeypress="doNothing()" action="admin.php?page=sliders_huge_it_slider&task=popup_posts&id=<?php echo $_GET['id']; ?>&closepop=1" id="admin_form" name="admin_form">
+				
+				
 						<button class='save-slider-options button-primary huge-it-insert-post-button' id='huge-it-insert-post-button-top'>Insert Posts</button>
 						<label for="huge-it-description-length">Description Length <input id="huge-it-description-length" type="text" name="posthuge-it-description-length" value="<?php echo $row->published; ?>" placeholder="Description length" /></label>
 						<div class="view-type-block">
@@ -681,13 +884,13 @@ function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $
 					<input id="huge-it-add-posts-params" type="hidden" name="popupposts" value="" />
 					<div class="clear"></div>
 					<button class='save-slider-options button-primary huge-it-insert-post-button' id='huge-it-insert-post-button-bottom'>Insert Posts</button>
-					</form>
+			
 				</li>
 				<li id="slider-posts-tabs-content-1" class="recent-post-options">
 					<!-- RECENT POSTS -->
-					<form method="post"  onkeypress="doNothing()" action="admin.php?page=sliders_huge_it_slider&task=popup_posts&id=<?php echo $_GET['id']; ?>&closepop=1" id="huge-it-category-form" name="admin_form">
+				
 								<div>
-									<div class="left margin height">
+									<div class="left less-margin height">
 										<?php $categories = get_categories(); ?>
 										<label for="titleimage">Show Posts From:</label>
 										<select name="titleimage" class="categories-list">
@@ -736,7 +939,7 @@ function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $
 						<input id="huge-it-add-posts-params" type="hidden" name="addlastposts" value="addlastposts" />
 						<div class="clear"></div>
 						<button class='save-slider-options button-primary huge-it-insert-post-button' id='huge-it-insert-post-button-bottom'>Insert Posts</button>
-					</form>
+		
 				</li>
 			</ul>		
 		</div>
@@ -744,6 +947,8 @@ function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $
 	<?php
 }
 ?>
+
+
 <?php
 function html_popup_video(){
 	global $wpdb;
@@ -814,6 +1019,7 @@ function html_popup_video(){
 		<div id="huge_it_slider_add_videos_wrap">
 			<h2>Add Video URL From Youtobe or Vimeo</h2>
 			<div class="control-panel">
+				<form method="post"  onkeypress="doNothing()" action="admin.php?page=sliders_huge_it_slider&task=popup_video" id="huge-it-video-form" name="admin_form">
 					<input type="text" id="huge_it_add_video_input" name="huge_it_add_video_input" />
 					<button class='save-slider-options button-primary huge-it-insert-video-button' id='huge-it-insert-video-button'>Insert Video Slide</button>
 					<div id="add-video-popup-options">
@@ -849,12 +1055,12 @@ function html_popup_video(){
 						<div class="vimeo">
 							<div>
 								<label for="">Elements Color:</label>	
-								<input name="show_quality" type="text" class="color" id="" size="10" value="00adef"/>
+								<input name="show_quality_vim" type="text" class="color" id="" size="10" value="00adef"/>
 							</div>
 							<div>
 								<label for="">Volume:</label>	
 								<div class="slider-container">
-									<input name="show_volume" value="50" data-slider-range="1,100"  type="text" data-slider="true"  data-slider-highlight="true" />
+									<input name="show_volume_v" value="50" data-slider-range="1,100"  type="text" data-slider="true"  data-slider-highlight="true" />
 								</div>
 							</div>
 						</div>
@@ -862,9 +1068,14 @@ function html_popup_video(){
 							Please insert link only from youtobe or vimeo
 						</div>
 					</div>
+				</form>
 			</div>
 		</div>	
 	</div>
-<?php	
+<?php
+
+	
+	
+	
 }
 ?>

@@ -1,5 +1,4 @@
 <?php
-
 if (function_exists('current_user_can'))
     if (!current_user_can('manage_options')) {
         die('Access Denied');
@@ -7,38 +6,11 @@ if (function_exists('current_user_can'))
 if (!function_exists('current_user_can')) {
     die('Access Denied');
 }
-
-
-
 function      html_showStyles($param_values, $op_type)
 {
-
-
     ?>
-
+	<?php $path_site = plugins_url("Front_images", __FILE__); ?>
 <div class="wrap">
-<div id="poststuff">
-	<!--	<?php $path_site = plugins_url("Front_images", __FILE__); ?>
-		<input type="hidden" id="type" name="type" value="<?php echo isset($_POST['type']) ? $_POST['type'] : '1'; ?>"/>
- 
-          <script>
-            function change_type(type) {
-                type = (type == '' ? 3 : type);
-                document.getElementById('type').value = type;
-                for ($i = 2; $i < 9; $i++) {
-                    if ($i == type) {
-                        document.getElementById('fieldset_' + $i).style.display = '';
-                        document.getElementById('div_' + $i).style.background = '#C5C5C5';
-                    }
-                    else {
-                        document.getElementById('fieldset_' + $i).style.display = 'none';
-                        document.getElementById('div_' + $i).style.background = '#F4F4F4';
-                    }
-                }
-            }
-            window.onload = function() { change_type(<?php echo isset($_POST['type']) ? $_POST['type'] : '2'; ?>); };            
-          </script>
--->
 <?php $path_site2 = plugins_url("images", __FILE__); ?>
 	<div class="slider-options-head">
 		<div style="float: left;">
@@ -52,13 +24,13 @@ function      html_showStyles($param_values, $op_type)
 			</a>
 		</div>
 	</div>
-		<input type="hidden" id="type" name="type" value="<?php echo isset($_POST['type']) ? $_POST['type'] : '1'; ?>"/>
- 
+	<div style="clear: both;"></div>
+<div id="poststuff">
 
 		<div id="post-body-content" class="slider-options">
 			<div id="post-body-heading">
 				<h3>General Options</h3>
-				<a onclick="document.getElementById('adminForm').submit()" class="general-options-save save-slider-options button-primary">Save</a>
+				<a class="save-slider-options button-primary">Save</a>
 				<script>
 						jQuery(document).ready(function ($) {
 								
@@ -77,9 +49,7 @@ function      html_showStyles($param_values, $op_type)
 							
 				</script>		
 			</div>
-			<p>This feature is disabled in free version. If you need this functionality, you need to <a href="http://huge-it.com/slider/" target="_blank">buy the commercial version</a>.</p>
 			<div id="slider-options-list">
-			
 			<form action="admin.php?page=Options_slider_styles" method="post" id="adminForm" name="adminForm">
 		
 			<div class="options-block" id="options-block-title">
@@ -417,8 +387,8 @@ function      html_showStyles($param_values, $op_type)
 				</div>
 
 			<div id="post-body-footer">
-				<p>This feature is disabled in free version. If you need this functionality, you need to <a href="http://huge-it.com/slider/" target="_blank">buy the commercial version</a>.</p>
-				<a onclick="document.getElementById('adminForm').submit()" class="general-options-save save-slider-options button-primary">Save</a>
+				
+				<a class="save-slider-options button-primary">Save</a>
 				<div class="clear"></div>
 				<script>
 						jQuery(document).ready(function ($) {
