@@ -500,32 +500,6 @@ function removeslider($id)
  <div class="updated"><p><strong><?php _e('Item Deleted.' ); ?></strong></p></div>
  <?php
  }
-    $row=$wpdb->get_results($wpdb->prepare('UPDATE '.$wpdb->prefix.'huge_itslider_sliders SET sl_width="0"   WHERE sl_width= %d', $id));
-	$rows=$wpdb->get_results($wpdb->prepare('SELECT * FROM '.$wpdb->prefix.'huge_itslider_sliders  ORDER BY `ordering` ASC '));
-	
-	$count_of_rows=count($rows);
-	$ordering_values=array();
-	$ordering_ids=array();
-	for($i=0;$i<$count_of_rows;$i++)
-	{		
-	
-		$ordering_ids[$i]=$rows[$i]->id;
-		if(isset($_POST["ordering"]))
-		$ordering_values[$i]=$i+1+$_POST["ordering"];
-		else
-		$ordering_values[$i]=$i+1;
-	}
-
-		for($i=0;$i<$count_of_rows;$i++)
-	{	
-			$wpdb->update($wpdb->prefix.'huge_itslider_sliders', 
-			  array('ordering'      =>$ordering_values[$i]), 
-              array('id'			=>$ordering_ids[$i]),
-			  array('%s'),
-			  array( '%s' )
-			  );
-	}
-
 }
 
 function apply_cat($id)
@@ -568,17 +542,20 @@ function apply_cat($id)
 			   $rowim=$wpdb->get_results($query);
 			   
 			   foreach ($rowim as $key=>$rowimages){
-
+if(isset($_POST["order_by_".$rowimages->id.""])){
 $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  ordering = '".$_POST["order_by_".$rowimages->id.""]."'  WHERE ID = %d ", $rowimages->id));
 $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  link_target = '".$_POST["sl_link_target".$rowimages->id.""]."'  WHERE ID = %d ", $rowimages->id));
 $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  sl_url = '".$_POST["sl_url".$rowimages->id.""]."' WHERE ID = %d ", $rowimages->id));
 $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  name = '".$_POST["titleimage".$rowimages->id.""]."'  WHERE ID = %d ", $rowimages->id));
 $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  description = '".$_POST["im_description".$rowimages->id.""]."'  WHERE ID = %d ", $rowimages->id));
 $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  image_url = '".$_POST["imagess".$rowimages->id.""]."'  WHERE ID = %d ", $rowimages->id));
+}
 /////////////////update///////////////////////////
+if(isset($_POST["sl_stitle".$rowimages->id.""])){
 $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  sl_stitle = '".$_POST["sl_stitle".$rowimages->id.""]."'  WHERE ID = %d ", $rowimages->id));
 $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  sl_sdesc = '".$_POST["sl_sdesc".$rowimages->id.""]."'  WHERE ID = %d ", $rowimages->id));
 $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  sl_postlink = '".$_POST["sl_postlink".$rowimages->id.""]."'  WHERE ID = %d ", $rowimages->id));
+}
 ////////////////update///////////////////////////
 
 }

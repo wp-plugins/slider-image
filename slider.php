@@ -4,7 +4,7 @@
 Plugin Name: Huge IT Slider
 Plugin URI: http://huge-it.com/slider
 Description: Huge IT slider is a convenient tool for organizing the images represented on your website into sliders. Each product on the slider is assigned with a relevant slider, which makes it easier for the customers to search and identify the needed images within the slider.
-Version: 2.6.2
+Version: 2.6.3
 Author: http://huge-it.com/
 License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -154,8 +154,6 @@ Purchasing a license will add possibility to customize the general options of th
 	}
 function huge_it_slider_featured_plugins()
 {
-	switch ($_GET['task']) {
-	default:
 		?>
 		<style>
 .element {
@@ -343,9 +341,23 @@ function huge_it_slider_featured_plugins()
 		</div>
 	</div>
 </div>
+<div class="element hugeitmicro-item">
+	<div class="left-block">
+		<div class="main-image-block">
+			<a href="<?php echo plugins_url( 'images/video-gallery-logo.png' , __FILE__ ); ?>" rel="content"><img src="<?php echo plugins_url( 'images/video-gallery-logo.png' , __FILE__ ); ?>"></a>
+		</div>
+	</div>
+	<div class="right-block">
+		<div class="title-block"><h3>Wordpress Video Gallery</h3></div>
+		<div class="description-block">
+			<p>Video Gallery plugin was created and specifically designed to show your videos from Vimeo and Youtube in unusual splendid ways. It has 5 good-looking views. Each are made in different taste so that you can choose any of them, according to the style of your website.</p>
+		</div>			  				
+		<div class="button-block">
+			<a href="http://huge-it.com/video-gallery/" target="_blank">View Plugin</a>
+		</div>
+	</div>
+</div>
 		<?php
-		break;
-	}
 }
 
 function huge_it_slider_admin_script()
@@ -354,10 +366,8 @@ function huge_it_slider_admin_script()
 		wp_enqueue_style("jquery_ui", "http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css", FALSE);
 		wp_enqueue_script("jquery_new", "http://code.jquery.com/jquery-1.10.2.js", FALSE);
 		wp_enqueue_script("jquery_ui_new", "http://code.jquery.com/ui/1.10.4/jquery-ui.js", FALSE);
-		
 		wp_enqueue_script("simple_slider_js",  plugins_url("js/simple-slider.js", __FILE__), FALSE);
 		wp_enqueue_style("simple_slider_css", plugins_url("style/simple-slider.css", __FILE__), FALSE);
-		
 		wp_enqueue_style("admin_css", plugins_url("style/admin.style.css", __FILE__), FALSE);
 		wp_enqueue_script("admin_js", plugins_url("js/admin.js", __FILE__), FALSE);
 		wp_enqueue_script('param_block2', plugins_url("elements/jscolor/jscolor.js", __FILE__));
@@ -365,12 +375,9 @@ function huge_it_slider_admin_script()
 
 function huge_it_slider_option_admin_script()
 {
-		wp_enqueue_media();
 		wp_enqueue_script("jquery_old", "http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js", FALSE);
-		
 		wp_enqueue_script("simple_slider_js",  plugins_url("js/simple-slider.js", __FILE__), FALSE);
 		wp_enqueue_style("simple_slider_css", plugins_url("style/simple-slider.css", __FILE__), FALSE);
-		
 		wp_enqueue_style("admin_css", plugins_url("style/admin.style.css", __FILE__), FALSE);
 		wp_enqueue_script("admin_js", plugins_url("js/admin.js", __FILE__), FALSE);
 		wp_enqueue_script('param_block2', plugins_url("elements/jscolor/jscolor.js", __FILE__));
