@@ -242,35 +242,26 @@ INSERT INTO
 function add_slider()
 {
 global $wpdb;
-	$query="SELECT name,ordering FROM ".$wpdb->prefix."huge_itslider_sliders WHERE sl_width=0 ORDER BY `ordering`";
-	$ord_elem=$wpdb->get_results($query); ///////ordering elements list
-	$cat_row=$wpdb->get_results("SELECT * FROM ".$wpdb->prefix."huge_itslider_sliders where sl_width=0");
-	$cat_row=open_cat_in_tree($cat_row);
 	
 	$table_name = $wpdb->prefix . "huge_itslider_sliders";
     $sql_2 = "
 INSERT INTO 
 
-`" . $table_name . "` ( `name`, `sl_height`, `sl_width`, `pause_on_hover`, `slider_list_effects_s`, `description`, `param`, `ordering`, `published`) VALUES
-( 'New slider', '375', '600', 'on', 'cubeH', '4000', '1000', '1', '300')";
+`" . $table_name . "` ( `name`, `sl_height`, `sl_width`, `pause_on_hover`, `slider_list_effects_s`, `description`, `param`, `sl_position`, `ordering`, `published`) VALUES
+( 'New slider', '375', '600', 'on', 'cubeH', '4000', '1000', 'center', '1', '300')";
 
-    $wpdb->query($sql_huge_itslider_sliders);
 
       $wpdb->query($sql_2);
 
    $query="SELECT * FROM ".$wpdb->prefix."huge_itslider_sliders order by id ASC";
-			   $rowsldcc=$wpdb->get_results($query);
-			   $last_key = key( array_slice( $rowsldcc, -1, 1, TRUE ) );
-			   
-			   
+		$rowsldcc=$wpdb->get_results($query);
+		$last_key = key( array_slice( $rowsldcc, -1, 1, TRUE ) );
+
 	foreach($rowsldcc as $key=>$rowsldccs){
 		if($last_key == $key){
 			header('Location: admin.php?page=sliders_huge_it_slider&id='.$rowsldccs->id.'&task=apply');
 		}
 	}
-	
-	html_add_slider($ord_elem, $cat_row);
-	
 }
 
 function popup_posts($id)
