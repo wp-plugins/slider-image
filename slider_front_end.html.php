@@ -12,6 +12,7 @@ function front_end_slider($images, $paramssld, $slider)
 	$sliderpauseonhover=$slider[0]->pause_on_hover;
 	$sliderposition=$slider[0]->sl_position;
 	$slidechangespeed=$slider[0]->param;
+	$sliderloadingicon=$slider[0]->sl_loading_icon;
 	
 	$slideshow_title_position = explode('-', trim($paramssld['slider_title_position']));
 	$slideshow_description_position = explode('-', trim($paramssld['slider_description_position']));
@@ -181,7 +182,7 @@ jQuery(function(){
 </script>
 <?php } ?>
 	
-        
+	
 <script>
 	var data_<?php echo $sliderID; ?> = [];      
 	var event_stack_<?php echo $sliderID; ?> = [];
@@ -189,11 +190,10 @@ jQuery(function(){
 	<?php
 	//	$images=array_reverse($images);
 		$recent_posts = wp_get_recent_posts( $args, ARRAY_A );
-                
+
 		$i=0;
 		
 		foreach($images as $image){
-//                    var_dump($image);
 			  	$imagerowstype=$image->sl_type;
 				if($image->sl_type == ''){
 				$imagerowstype='image';
@@ -238,8 +238,7 @@ jQuery(function(){
 					case 'last_posts':
 					
 					foreach($recent_posts as $keyl => $recentimage){
-                                            if ($recentimage["post_status"] == "publish"){
-                                                if(get_the_post_thumbnail($recentimage["ID"], 'thumbnail') != ''){
+					if(get_the_post_thumbnail($recentimage["ID"], 'thumbnail') != ''){
 						if($keyl < $image->sl_url){
 						echo 'data_'.$sliderID.'["'.$i.'"]=[];';
 						echo 'data_'.$sliderID.'["'.$i.'"]["id"]="'.$i.'";';
@@ -258,8 +257,6 @@ jQuery(function(){
 						$i++;
 						}
 					}
-                                            }
-					
 					}
 					
 					break;
@@ -738,7 +735,9 @@ jQuery(function(){
 		
 		if("<?php echo $slideshow_description_position[1]; ?>"=="middle"){var descriptionmargintopminus=jQuery(".huge_it_slideshow_description_text_<?php echo $sliderID; ?>").outerHeight()/2;}	
 		if("<?php echo $slideshow_description_position[0]; ?>"=="center"){var descriptionmarginleftminus=jQuery(".huge_it_slideshow_description_text_<?php echo $sliderID; ?>").outerWidth()/2;}
-		jQuery(".huge_it_slideshow_description_text_<?php echo $sliderID; ?>").css({cssText: "margin-top:-" + descriptionmargintopminus + "px; margin-left:-"+descriptionmarginleftminus+"px;"});		
+		jQuery(".huge_it_slideshow_description_text_<?php echo $sliderID; ?>").css({cssText: "margin-top:-" + descriptionmargintopminus + "px; margin-left:-"+descriptionmarginleftminus+"px;"});
+		        jQuery("#huge_it_loading_image_<?php echo $sliderID; ?>").css({display: "none"});
+                jQuery(".huge_it_slideshow_image_wrap_<?php echo $sliderID; ?>").css({display: "block"});
 		
 		
 		if("<?php echo $paramssld['slider_crop_image']; ?>"=="resize"){
@@ -825,6 +824,25 @@ jQuery(function(){
       });      
     </script>
 	<style>				
+	  #huge_it_loading_image_<?php echo $sliderID; ?> {
+		height:<?php echo $sliderheight; ?>px;
+		width:<?php  echo $sliderwidth; ?>px;
+		display: table-cell;
+		text-align: center;
+		vertical-align: middle;
+	 }
+	  #huge_it_loading_image_<?php echo $sliderID; ?>.display {
+		display: table-cell;
+	 }
+	  #huge_it_loading_image_<?php echo $sliderID; ?>.nodisplay {
+		display: none;
+	 }
+	 #huge_it_loading_image_<?php echo $sliderID; ?> img {
+		margin: auto 0;
+		width: 100px !important;
+		
+	 }
+	 
 	 .huge_it_slideshow_image_wrap_<?php echo $sliderID; ?> {
 		height:<?php echo $sliderheight; ?>px;
 		width:<?php  echo $sliderwidth; ?>px;
@@ -840,8 +858,12 @@ jQuery(function(){
 		border-left:0px !important;
 		border-right:0px !important;
 	}
-
-
+	 .huge_it_slideshow_image_wrap_<?php echo $sliderID; ?>.display {
+		 display:block;
+	 }
+	 .huge_it_slideshow_image_wrap_<?php echo $sliderID; ?>.nodisplay {
+		 display:none;
+	 }
 	.huge_it_slideshow_image_wrap_<?php echo $sliderID; ?> * {
 		box-sizing: border-box;
 		-moz-box-sizing: border-box;
@@ -1507,7 +1529,7 @@ jQuery(function(){
     'orderby' => 'post_date',
     'order' => 'DESC',
     'post_type' => 'post',
-    'post_status' => 'publish, future, pending, private',
+    'post_status' => 'draft, publish, future, pending, private',
     'suppress_filters' => true );
 
     $recent_posts = wp_get_recent_posts( $args, ARRAY_A );
@@ -1516,7 +1538,13 @@ jQuery(function(){
  $image = wp_get_attachment_image_src( get_post_thumbnail_id( 1 ), 'thumbnail' );
 
 	?>
-	<div class="huge_it_slideshow_image_wrap_<?php echo $sliderID; ?>">
+	<?php if($sliderloadingicon == "on")	{ ?>
+		<div id="huge_it_loading_image_<?php echo $sliderID;  ?>" class="display" ><img  src="<?php echo plugins_url('', __FILE__).'/Front_images/loading/loading'.$paramssld["loading_icon_type"].'.gif'; ?>"/> </div>
+		<div class="huge_it_slideshow_image_wrap_<?php echo $sliderID; ?> nodisplay">
+	<?php } else { ?>
+		<div id="huge_it_loading_image_<?php echo $sliderID; ?>" class="nodisplay"> <img src="<?php echo plugins_url('', __FILE__).'/Front_images/loading/loading'.$paramssld["loading_icon_type"].'.gif'; ?>" width="100" height="100" style=" margin: 0px auto;" /> </div>
+		<div class="huge_it_slideshow_image_wrap_<?php echo $sliderID; ?>"class="display">
+	<?php } ?>
       <?php
       $current_pos = 0;
       ?>
@@ -1562,23 +1590,20 @@ jQuery(function(){
 							case 'last_posts':
 							
 							foreach($recent_posts as $lkeys => $last_posts){
-                                                            if($lkeys < $image_row->sl_url){
-                                                                if ($recentimage["post_status"] == "publish"){
-                                                                    if(get_the_post_thumbnail($last_posts["ID"], 'thumbnail') != ''){
-                                                                    $imagethumb = wp_get_attachment_image_src( get_post_thumbnail_id($last_posts["ID"]), 'thumbnail-size', true );
-
-                                                                    if ($image_row->id == $current_image_id) {
-                                                                        $current_pos = $stri;
-                                                                        $current_key = $stri;
-                                                                    }
-                                                                    ?>
-                                                                    <div id="huge_it_dots_<?php echo $stri; ?>_<?php echo $sliderID; ?>" class="huge_it_slideshow_dots_<?php echo $sliderID; ?> <?php echo (($stri==$current_image_id) ? 'huge_it_slideshow_dots_active_' . $sliderID : 'huge_it_slideshow_dots_deactive_' . $sliderID); ?>" onclick="huge_it_change_image_<?php echo $sliderID; ?>(parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()), '<?php echo $stri; ?>', data_<?php echo $sliderID; ?>,false,true);return false;" image_id="<?php echo $image_row->id; ?>" image_key="<?php echo $stri; ?>"></div>
-                                                                    <?php
-                                                                    $stri++;
-                                                                }
-                                                                }
-                                                                
-                                                            }
+							if($lkeys < $image_row->sl_url){
+							if(get_the_post_thumbnail($last_posts["ID"], 'thumbnail') != ''){
+							$imagethumb = wp_get_attachment_image_src( get_post_thumbnail_id($last_posts["ID"]), 'thumbnail-size', true );
+											
+							  if ($image_row->id == $current_image_id) {
+								$current_pos = $stri;
+								$current_key = $stri;
+							  }
+							?>
+								<div id="huge_it_dots_<?php echo $stri; ?>_<?php echo $sliderID; ?>" class="huge_it_slideshow_dots_<?php echo $sliderID; ?> <?php echo (($stri==$current_image_id) ? 'huge_it_slideshow_dots_active_' . $sliderID : 'huge_it_slideshow_dots_deactive_' . $sliderID); ?>" onclick="huge_it_change_image_<?php echo $sliderID; ?>(parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()), '<?php echo $stri; ?>', data_<?php echo $sliderID; ?>,false,true);return false;" image_id="<?php echo $image_row->id; ?>" image_key="<?php echo $stri; ?>"></div>
+							<?php
+							  $stri++;
+							}
+							}
 							}
 							
 							break;
@@ -1624,7 +1649,7 @@ jQuery(function(){
 							if ($image_row->link_target=="on"){$target='target="_blank'.$image_row->link_target.'"';}
 							echo '<a href="'.$image_row->sl_url.'" '.$target.'>';
 						} ?>
-						<img alt="<?php echo $image_row->name; ?>" id="huge_it_slideshow_image_<?php echo $sliderID; ?>" class="huge_it_slideshow_image_<?php echo $sliderID; ?>" src="<?php echo $image_row->image_url; ?>" image_id="<?php echo $image_row->id; ?>" />
+						<img id="huge_it_slideshow_image_<?php echo $sliderID; ?>" class="huge_it_slideshow_image_<?php echo $sliderID; ?>" src="<?php echo $image_row->image_url; ?>" image_id="<?php echo $image_row->id; ?>" />
 						<?php if($image_row->sl_url!=""){ echo '</a>'; }?>		
 						<div class="huge_it_slideshow_title_text_<?php echo $sliderID; ?> <?php if(trim($image_row->name)=="") echo "none"; ?>">
 							<?php echo $image_row->name; ?>
@@ -1640,10 +1665,8 @@ jQuery(function(){
 					case 'last_posts':
 					foreach($recent_posts as $lkeys => $last_posts){
 						if($lkeys < $image_row->sl_url){
-                                                    
 							$imagethumb = wp_get_attachment_image_src( get_post_thumbnail_id($last_posts["ID"]), 'thumbnail-size', true );
-                                                        if ($recentimage["post_status"] == "publish"){
-                                                            if(get_the_post_thumbnail($last_posts["ID"], 'thumbnail') != ''){
+							if(get_the_post_thumbnail($last_posts["ID"], 'thumbnail') != ''){
 							$target="";
 							?>
 							  <li class="huge_it_slideshow_image<?php if ($i != $current_image_id) {$current_key = $key; echo '_second';} ?>_item_<?php echo $sliderID; ?>" id="image_id_<?php echo $sliderID.'_'.$i ?>">      
@@ -1651,7 +1674,7 @@ jQuery(function(){
 										if ($image_row->link_target=="on"){$target='target="_blank'.$image_row->link_target.'"';}
 										echo '<a href="'.$last_posts["guid"].'" '.$target.'>';
 								} ?>
-								<img alt="<?php echo $image_row->name; ?>" id="huge_it_slideshow_image_<?php echo $sliderID; ?>" class="huge_it_slideshow_image_<?php echo $sliderID; ?>" src="<?php echo $imagethumb[0]; ?>" image_id="<?php echo $image_row->id; ?>" />
+								<img id="huge_it_slideshow_image_<?php echo $sliderID; ?>" class="huge_it_slideshow_image_<?php echo $sliderID; ?>" src="<?php echo $imagethumb[0]; ?>" image_id="<?php echo $image_row->id; ?>" />
 								<?php if($image_row->sl_postlink=="1"){ echo '</a>'; }?>		
 								<div class="huge_it_slideshow_title_text_<?php echo $sliderID; ?> <?php if(trim($last_posts["post_title"])=="") echo "none";  if($image_row->sl_stitle!="1") echo " hidden"; ?>">
 										<?php echo $last_posts["post_title"]; ?>
@@ -1664,8 +1687,6 @@ jQuery(function(){
 							  <?php
 							$i++;
 							}
-                                                        }
-							
 						}
 					}
 					break;

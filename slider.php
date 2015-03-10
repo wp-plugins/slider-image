@@ -4,7 +4,7 @@
 Plugin Name: Huge IT Slider
 Plugin URI: http://huge-it.com/slider
 Description: Huge IT slider is a convenient tool for organizing the images represented on your website into sliders. Each product on the slider is assigned with a relevant slider, which makes it easier for the customers to search and identify the needed images within the slider.
-Version: 2.6.8
+Version: 2.6.9
 Author: http://huge-it.com/
 License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -26,6 +26,15 @@ function add_my_custom_button($context) {
   
   return $context;
 }
+
+/*dobavka*/
+function remove_media_tab($strings) {
+
+	unset($strings["insertFromUrlTitle"]);
+	return $strings;
+}
+add_filter('media_view_strings','remove_media_tab');
+/*dobavka*/
 
 
 add_action('init', 'hugesl_do_output_buffer');
@@ -155,7 +164,7 @@ Purchasing a license will add possibility to customize the general options of th
 function huge_it_slider_featured_plugins()
 {
 		?>
-		<style>
+<style>
 .element {
 	position: relative;
 	width:93%; 
@@ -350,10 +359,58 @@ function huge_it_slider_featured_plugins()
 	<div class="right-block">
 		<div class="title-block"><h3>Wordpress Video Gallery</h3></div>
 		<div class="description-block">
-			<p>Video Gallery plugin was created and specifically designed to show your videos from Vimeo and Youtube in unusual splendid ways. It has 5 good-looking views. Each are made in different taste so that you can choose any of them, according to the style of your website.</p>
+			<p>Video Gallery plugin was created and specifically designed to show your video files in unusual splendid ways. It has 5 good-looking views. Each are made in different taste so that you can choose any of them, according to the style of your website.</p>
 		</div>			  				
 		<div class="button-block">
 			<a href="http://huge-it.com/video-gallery/" target="_blank">View Plugin</a>
+		</div>
+	</div>
+</div>
+<div class="element hugeitmicro-item">
+	<div class="left-block">
+		<div class="main-image-block">
+			<a href="<?php echo plugins_url( 'images/share-buttons-logo.png' , __FILE__ ); ?>" rel="content"><img src="<?php echo plugins_url( 'images/share-buttons-logo.png' , __FILE__ ); ?>"></a>
+		</div>
+	</div>
+	<div class="right-block">
+		<div class="title-block"><h3>Wordpress Share Buttons</h3></div>
+			<p>Social network is one of the popular places where people get information about everything in the world. Adding social share buttons into your blog or website page is very necessary and useful element for "socialization" of the project.</p>
+		<div class="description-block">
+		</div>			  				
+		<div class="button-block">
+			<a href="http://huge-it.com/share-buttons/" target="_blank">View Plugin</a>
+		</div>
+	</div>
+</div>
+<div class="element hugeitmicro-item">
+	<div class="left-block">
+		<div class="main-image-block">
+			<a href="<?php echo plugins_url( 'images/google-maps-logo.png' , __FILE__ ); ?>" rel="content"><img src="<?php echo plugins_url( 'images/google-maps-logo.png' , __FILE__ ); ?>"></a>
+		</div>
+	</div>
+	<div class="right-block">
+		<div class="title-block"><h3>Wordpress Google Map</h3></div>
+			<p>Huge-IT Google Map. One more perfect tool from Huge-IT. Improved Google Map, where we have our special contribution. Most simple and effective tool for rapid creation of individual Google Map in posts and pages.</p>
+		<div class="description-block">
+		</div>			  				
+		<div class="button-block">
+			<a href="http://huge-it.com/google-map/" target="_blank">View Plugin</a>
+		</div>
+	</div>
+</div>
+<div class="element hugeitmicro-item">
+	<div class="left-block">
+		<div class="main-image-block">
+			<a href="<?php echo plugins_url( 'images/colorbox-logo.png' , __FILE__ ); ?>" rel="content"><img src="<?php echo plugins_url( 'images/colorbox-logo.png' , __FILE__ ); ?>"></a>
+		</div>
+	</div>
+	<div class="right-block">
+		<div class="title-block"><h3>Wordpress Colorbox</h3></div>
+			<p>Huge-It Colorbox is the most spellbinding plugin in WordPress that implement Lightbox-effect look of the images and videos (when you click on the thumbnail of the image/video it nicely opens and increases in the same window with a beautiful effect).</p>
+		<div class="description-block">
+		</div>			  				
+		<div class="button-block">
+			<a href="http://huge-it.com/colorbox/" target="_blank">View Plugin</a>
 		</div>
 	</div>
 </div>
@@ -505,16 +562,18 @@ h3 {
 	  $id=$firstrow->id;
 	  }
 	  if($_GET["htslider_id"] == $_POST["hugeit_slider_id"]){
-	  if($_GET["hugeit_save"]==1){
-			$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  sl_width = '".$_POST["sl_width"]."'  WHERE id = '".$id."' ");
-			$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  sl_height = '".$_POST["sl_height"]."'  WHERE id = '".$id."' ");
-			$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  pause_on_hover = '".$_POST["pause_on_hover"]."'  WHERE id = '".$id."' ");
-			$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  slider_list_effects_s = '".$_POST["slider_effects_list"]."'  WHERE id = '".$id."' ");
-			$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  description = '".$_POST["sl_pausetime"]."'  WHERE id = '".$id."' ");
-			$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  param = '".$_POST["sl_changespeed"]."'  WHERE id = '".$id."' ");
-			$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  sl_position = '".$_POST["sl_position"]."'  WHERE id = '".$id."' ");
-		}
-		}
+              if($_GET["hugeit_save"]==1){
+                  $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  sl_width = '%s'  WHERE id = %d ", $_POST["sl_width"], $id));
+                  $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  sl_height = '%s'  WHERE id = %d ", $_POST["sl_height"], $id));
+                  $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  pause_on_hover = '%s'  WHERE id = %d ", $_POST["pause_on_hover"], $id));
+                  $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  slider_list_effects_s = '%s'  WHERE id = %d ", $_POST["slider_effects_list"], $id));
+                  $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  description = '%s'  WHERE id = %d ", $_POST["sl_pausetime"], $id));
+                  $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  param = '%s'  WHERE id = %d ", $_POST["sl_changespeed"], $id));
+                  $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  sl_position = '%s'  WHERE id = %d ", $_POST["sl_position"], $id));
+				  $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  sl_loading_icon = '%s' WHERE id = %d ", $_POST["sl_loading_icon"], $id));/*dobavka*/
+
+              }
+          }
 	  $query="SELECT * FROM ".$wpdb->prefix."huge_itslider_sliders order by id ASC";
 			   $shortcodesliders=$wpdb->get_results($query);
 		$query=$wpdb->prepare("SELECT * FROM ".$wpdb->prefix."huge_itslider_sliders WHERE id= %d", $id);
@@ -742,6 +801,7 @@ CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "huge_itslider_sliders` (
   UNIQUE KEY `id` (`id`)
   
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ";
+$sql_huge_itslider_sliders_update = "ALTER TABLE `wp_huge_itslider_sliders` ADD `sl_loading_icon` text  NULL AFTER `published`;";/*dobavka*/
 
 
 
@@ -794,8 +854,8 @@ INSERT INTO
 
     $sql_3 = "
 
-INSERT INTO `$table_name` (`id`, `name`, `sl_height`, `sl_width`, `pause_on_hover`, `slider_list_effects_s`, `description`, `param`, `ordering`, `published`) VALUES
-(1, 'My First Slider', '375', '600', 'on', 'random', '4000', '1000', '1', '300')";
+INSERT INTO `$table_name` (`id`, `name`, `sl_height`, `sl_width`, `pause_on_hover`, `slider_list_effects_s`, `description`, `param`, `ordering`, `published`,`sl_loading_icon`) VALUES
+(1, 'My First Slider', '375', '600', 'on', 'random', '4000', '1000', '1', '300','off')";/*dobavka*/
 
 
 
@@ -803,6 +863,8 @@ INSERT INTO `$table_name` (`id`, `name`, `sl_height`, `sl_width`, `pause_on_hove
     $wpdb->query($sql_huge_itslider_params);
     $wpdb->query($sql_huge_itslider_images);
     $wpdb->query($sql_huge_itslider_sliders);
+    $wpdb->query($sql_huge_itslider_sliders_update);
+	$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET `sl_loading_icon` = 'off' ");/*dobavka*/
 
 
     if (!$wpdb->get_var("select count(*) from " . $wpdb->prefix . "huge_itslider_params")) {
@@ -841,7 +903,8 @@ INSERT INTO `$table_name` (`id`, `name`, `sl_height`, `sl_width`, `pause_on_hove
 			$query="SELECT * FROM ".$wpdb->prefix."huge_itslider_images order by id ASC";
 			   $rowim=$wpdb->get_results($query);
 	  foreach ($rowim as $key=>$rowimages){
-	  $wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_images SET  ordering = '".$rowimages->id."'  WHERE ID = ".$rowimages->id." ");
+//	  $wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_images SET  ordering = '".$rowimages->id."'  WHERE ID = ".$rowimages->id." ");
+              $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  ordering = '%s'  WHERE id = %d ", $rowimages->id,$rowimages->id));
 	  }
 			}
     }
@@ -889,6 +952,16 @@ INSERT INTO `$table_name` (`name`, `title`,`description`, `value`) VALUES
 
 query1;
 	 $wpdb->query($sql_update3);
+	}
+$sql_update4 = <<<query2
+INSERT INTO `$table_name` (`name`, `title`,`description`, `value`) VALUES
+('loading_icon_type', 'Slider loading icon type', 'Slider loading icon type', '1');
+query2;
+	$table_name = $wpdb->prefix . "huge_itslider_params";
+        $query3="SELECT name FROM ".$table_name;
+	$update_p3=$wpdb->get_results($query3);
+	if(end($update_p3)->name=='slider_show_arrows'){
+		$wpdb->query($sql_update4);
 	}
 	$product4 = $wpdb->get_results("DESCRIBE " . $wpdb->prefix . "huge_itslider_images", ARRAY_A);
 	if($product4[8]['Field'] == 'sl_stitle'){

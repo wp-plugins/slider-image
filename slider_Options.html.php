@@ -438,6 +438,8 @@ function      html_showStyles($param_values, $op_type)
                                         </label>
 					<input type="text" name="params[slider_slideshow_border_radius]" id="slider_slideshow_border_radius" value="<?php echo $param_values['slider_slideshow_border_radius']; ?>" class="text" />
 				</div>
+
+
 			</div>
 			<div class="options-block" id="options-block-navigation">
 				<div>
@@ -488,6 +490,71 @@ function      html_showStyles($param_values, $op_type)
                                             </div>
                                         </label>
 					<input type="text" class="color" name="params[slider_active_dot_color]" id="slider_active_dot_color" value="<?php echo $param_values['slider_active_dot_color']; ?>" class="text" />
+				</div>
+
+				<div class="has-background">
+					<label for="slider_load_icon">Slider loading image
+                                           <div class="help">?
+                                                <div class="help-block">
+                                                    <span class="pnt"></span>
+                                                    <p>Set the loading icon for the slideshow</p>
+                                                </div>
+                                            </div>
+                                        </label>
+					<!--<select id="slider_load_icon" name="params[slider_load_icon]">
+						  <option <?php //if($param_values['slider_load_icon'] == 'on'){ echo 'selected'; } ?> value="on">On</option>
+						  <option <?php //if($param_values['slider_load_icon'] == 'off'){ echo 'selected'; } ?> value="off">Off</option>
+					</select>-->
+					<ul id="slider-loading-icon">
+						<li <?php if($param_values['loading_icon_type'] == 1){ echo 'class="act"'; } ?>>
+							<label for="params[loading_icon_type]_1">
+								<div class="image-block-icon">
+									<img src="<?php echo $path_site; ?>/loading/loading1.gif" alt="" />
+								</div>
+									<input type="radio" id="params[loading_icon_type]_1" name="params[loading_icon_type]" value="1" <?php if($param_values['loading_icon_type'] == 1){ echo 'checked="checked"'; } ?>>
+							</label>
+						</li>
+						<li <?php if($param_values['loading_icon_type'] == 2){ echo 'class="act"'; } ?>>
+							<label for="params[loading_icon_type]_2">
+								<div class="image-block-icon">
+									<img src="<?php echo $path_site; ?>/loading/loading2.gif" alt="" />
+								</div>
+									<input type="radio" id="params[loading_icon_type]_2" name="params[loading_icon_type]" value="2" <?php if($param_values['loading_icon_type'] == 2){ echo 'checked="checked"'; } ?>>
+							</label>
+						</li>
+						<li <?php if($param_values['loading_icon_type'] == 3){ echo 'class="act"'; } ?>>
+							<label for="params[loading_icon_type]_3">
+								<div class="image-block-icon">
+									<img src="<?php echo $path_site; ?>/loading/loading3.gif" alt="" />
+								</div>
+									<input type="radio" id="params[loading_icon_type]_3" name="params[loading_icon_type]" value="3" <?php if($param_values['loading_icon_type'] == 3){ echo 'checked="checked"'; } ?>>
+							</label>
+						</li>
+						<li <?php if($param_values['loading_icon_type'] == 4){ echo 'class="act"'; } ?>>
+							<label for="params[loading_icon_type]_4">
+								<div class="image-block-icon">
+									<img src="<?php echo $path_site; ?>/loading/loading4.gif" alt="" />
+								</div>
+									<input type="radio" id="params[loading_icon_type]_4" name="params[loading_icon_type]" value="4" <?php if($param_values['loading_icon_type'] == 4){ echo 'checked="checked"'; } ?>>
+							</label>
+						</li>
+						<li <?php if($param_values['loading_icon_type'] == 5){ echo 'class="act"'; } ?>>
+							<label for="params[loading_icon_type]_5">
+								<div class="image-block-icon">
+									<img src="<?php echo $path_site; ?>/loading/loading5.gif" alt="" />
+								</div>
+									<input type="radio" id="params[loading_icon_type]_5" name="params[loading_icon_type]" value="5" <?php if($param_values['loading_icon_type'] == 5){ echo 'checked="checked"'; } ?>>
+							</label>
+						</li>
+						<li <?php if($param_values['loading_icon_type'] == 6){ echo 'class="act"'; } ?>>
+							<label for="params[loading_icon_type]_6">
+								<div class="image-block-icon">
+									<img src="<?php echo $path_site; ?>/loading/loading6.gif"  alt="" />
+								</div>
+									<input type="radio" id="params[loading_icon_type]_6" name="params[loading_icon_type]" value="6" <?php if($param_values['loading_icon_type'] == 6){ echo 'checked="checked"'; } ?>>
+							</label>
+						</li>
+					</ul>
 				</div>
 				<div class="has-height" style="padding-top:20px;">
 					<label for="">Navigation Type
@@ -574,36 +641,36 @@ function      html_showStyles($param_values, $op_type)
 							<div class="image-block">
 								<img src="<?php echo $path_site; ?>/arrows/arrows.green.retro.png" alt="" />
 							</div>
-							<input type="radio" name="params[slider_navigation_type]" value="12" <?php if($param_values['slider_navigation_type'] == 12){ echo 'checked="checked"'; } ?>>
+							<input type="radio" style="margin-top: -15px; !important;" name="params[slider_navigation_type]" value="12" <?php if($param_values['slider_navigation_type'] == 12){ echo 'checked="checked"'; } ?>>
 						</li>	
 						<li <?php if($param_values['slider_navigation_type'] == 13){ echo 'class="active"'; } ?>>
 								<div class="image-block">
 									<img src="<?php echo $path_site; ?>/arrows/arrows.red.circle.png" alt="" />
 								</div>
-								<input type="radio" name="params[slider_navigation_type]" value="13" <?php if($param_values['slider_navigation_type'] == 13){ echo 'checked="checked"'; } ?>>
+								<input type="radio" style="margin-top: -15px;" name="params[slider_navigation_type]" value="13" <?php if($param_values['slider_navigation_type'] == 13){ echo 'checked="checked"'; } ?>>
 						</li>	
 						<li class="color" <?php if($param_values['slider_navigation_type'] == 14){ echo 'class="active"'; } ?>>
 								<div class="image-block">
 									<img src="<?php echo $path_site; ?>/arrows/arrows.triangle.white.png" alt="" />
 								</div>
-								<input type="radio" name="params[slider_navigation_type]" value="14" <?php if($param_values['slider_navigation_type'] == 14){ echo 'checked="checked"'; } ?>>
+								<input type="radio" style="margin-top: -15px;" name="params[slider_navigation_type]" value="14" <?php if($param_values['slider_navigation_type'] == 14){ echo 'checked="checked"'; } ?>>
 						</li>	
 						<li <?php if($param_values['slider_navigation_type'] == 15){ echo 'class="active"'; } ?>>
 								<div class="image-block">
 									<img src="<?php echo $path_site; ?>/arrows/arrows.ancient.png" alt="" />
 								</div>
-								<input type="radio" name="params[slider_navigation_type]" value="15" <?php if($param_values['slider_navigation_type'] == 15){ echo 'checked="checked"'; } ?>>
+								<input type="radio" style="margin-top: -15px;" name="params[slider_navigation_type]" value="15" <?php if($param_values['slider_navigation_type'] == 15){ echo 'checked="checked"'; } ?>>
 						</li>
 						<li <?php if($param_values['slider_navigation_type'] == 16){ echo 'class="active"'; } ?>>
 								<div class="image-block">
 									<img src="<?php echo $path_site; ?>/arrows/arrows.black.out.png" alt="" />
+									<input type="radio" style="margin-top: -15px;" name="params[slider_navigation_type]" value="16" <?php if($param_values['slider_navigation_type'] == 16){ echo 'checked="checked"'; } ?>>
 								</div>
-								<input type="radio" name="params[slider_navigation_type]" value="16" <?php if($param_values['slider_navigation_type'] == 16){ echo 'checked="checked"'; } ?>>
 						</li>							
 					</ul>
 					</div>
 				</div>
-
+<!--icon-->
 			<div id="post-body-footer">
 				
 				<a class="save-slider-options button-primary">Save</a>
