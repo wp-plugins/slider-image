@@ -4,7 +4,7 @@ Donate link: http://huge-it.com/slider/
 Tags: slider, slideshow, wordpress slider, content slider, posts slider,image slider, responsive slideshow, image Rotator, jquery slider, Photo Slider, nivo slider, slider plugin, javascript slider, coin slider, responsive slider, featured-content-slider, Horizontal slider, carousel slider, wp slider, vertical slider, best slider plugin, content slideshow, javascript slideshow, slideshow manager, slideshow plugin, image slideshow, jquery slideshow, wordpress slideshow, vertical slides, responsive, nivoslider, flex slider, coinslider, carousel, post, posts, plugin, slider widget, widget slider, widget slideshow, widget, widgets, seo, wordpress seo, media, page, slide, slides, image, images, slide show,  video slider, free video slider, custom video slider, video slideshow, free video slideshow, youtube slider, vimeo  slider, vimeo  slideshow, youtube slideshow, HTML5 slider, recent post slider, 3D slider, slider shortcode, picture slider, wp 
 Requires at least: 3.0.1
 Tested up to: 4.1
-Stable tag: 2.6.9
+Stable tag: 2.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -67,6 +67,9 @@ Now you can set your slider options, images and use our slider.
 5.  WordPress slider - Widget Slider      
 
 == Changelog ==
+
+= 2.7.0 =
+*  bug fixed.
 
 = 2.6.9 =
 *  bug fixed.
