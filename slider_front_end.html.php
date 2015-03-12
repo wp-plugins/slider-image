@@ -737,7 +737,7 @@ jQuery(function(){
 		if("<?php echo $slideshow_description_position[0]; ?>"=="center"){var descriptionmarginleftminus=jQuery(".huge_it_slideshow_description_text_<?php echo $sliderID; ?>").outerWidth()/2;}
 		jQuery(".huge_it_slideshow_description_text_<?php echo $sliderID; ?>").css({cssText: "margin-top:-" + descriptionmargintopminus + "px; margin-left:-"+descriptionmarginleftminus+"px;"});
 		        jQuery("#huge_it_loading_image_<?php echo $sliderID; ?>").css({display: "none"});
-                jQuery(".huge_it_slideshow_image_wrap_<?php echo $sliderID; ?>").css({display: "block"});
+                jQuery(".huge_it_slideshow_image_wrap1_<?php echo $sliderID; ?>").css({display: "block"});
 		
 		
 		if("<?php echo $paramssld['slider_crop_image']; ?>"=="resize"){
@@ -839,7 +839,7 @@ jQuery(function(){
 	 }
 	 #huge_it_loading_image_<?php echo $sliderID; ?> img {
 		margin: auto 0;
-		width: 100px !important;
+		width: 20% !important;
 		
 	 }
 	 
@@ -858,10 +858,14 @@ jQuery(function(){
 		border-left:0px !important;
 		border-right:0px !important;
 	}
-	 .huge_it_slideshow_image_wrap_<?php echo $sliderID; ?>.display {
+	 .huge_it_slideshow_image_wrap1_<?php echo $sliderID; ?>.display {
+		 width: 100%;
+		 height:100%;
+	 }
+	 .huge_it_slideshow_image_wrap1_<?php echo $sliderID; ?>.display {
 		 display:block;
 	 }
-	 .huge_it_slideshow_image_wrap_<?php echo $sliderID; ?>.nodisplay {
+	 .huge_it_slideshow_image_wrap1_<?php echo $sliderID; ?>.nodisplay {
 		 display:none;
 	 }
 	.huge_it_slideshow_image_wrap_<?php echo $sliderID; ?> * {
@@ -1538,12 +1542,13 @@ jQuery(function(){
  $image = wp_get_attachment_image_src( get_post_thumbnail_id( 1 ), 'thumbnail' );
 
 	?>
+<div class="huge_it_slideshow_image_wrap_<?php echo $sliderID; ?>">
 	<?php if($sliderloadingicon == "on")	{ ?>
 		<div id="huge_it_loading_image_<?php echo $sliderID;  ?>" class="display" ><img  src="<?php echo plugins_url('', __FILE__).'/Front_images/loading/loading'.$paramssld["loading_icon_type"].'.gif'; ?>"/> </div>
-		<div class="huge_it_slideshow_image_wrap_<?php echo $sliderID; ?> nodisplay">
+		<div class="huge_it_slideshow_image_wrap1_<?php echo $sliderID; ?> nodisplay">
 	<?php } else { ?>
 		<div id="huge_it_loading_image_<?php echo $sliderID; ?>" class="nodisplay"> <img src="<?php echo plugins_url('', __FILE__).'/Front_images/loading/loading'.$paramssld["loading_icon_type"].'.gif'; ?>" width="100" height="100" style=" margin: 0px auto;" /> </div>
-		<div class="huge_it_slideshow_image_wrap_<?php echo $sliderID; ?>"class="display">
+		<div class="huge_it_slideshow_image_wrap1_<?php echo $sliderID; ?>"class="display">
 	<?php } ?>
       <?php
       $current_pos = 0;
@@ -1720,6 +1725,7 @@ jQuery(function(){
         </div>
       </div>
 	</div>
+</div>
 	  <?php 
 	return ob_get_clean();
 }  

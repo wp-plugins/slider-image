@@ -281,9 +281,9 @@ function change_select()
 						<h3>Slides</h3>
 <script>
 jQuery(document).ready(function($){
-	jQuery(".wp-media-buttons-icon").click(function() {
+	/*jQuery(".wp-media-buttons-icon").click(function() {
 		jQuery(".attachment-filters").css("display","none");
-	});
+	});*/
   var _custom_media = true,
       _orig_send_attachment = wp.media.editor.send.attachment;
 	 
@@ -314,13 +314,13 @@ jQuery(document).ready(function($){
     _custom_media = false;
 	
   });
-	jQuery(".wp-media-buttons-icon").click(function() {
+	/*jQuery(".wp-media-buttons-icon").click(function() {
 		jQuery(".media-menu-item").css("display","none");
 		jQuery(".media-menu-item:first").css("display","block");
 		jQuery(".separator").next().css("display","block");
 		jQuery('.attachment-filters').val('image').trigger('change');
 		jQuery(".attachment-filters").css("display","none");
-	});
+	});*/
 });
 </script>
 						<input type="hidden" name="imagess" id="_unique_name" />
@@ -347,7 +347,7 @@ jQuery(document).ready(function($){
 											imgurl = jQuery('img', html).attr('src');
 											window.parent.uploadID.val(imgurl);
 											tb_remove();
-											$("#save-buttom").click();
+											jQuery("#save-buttom").click();
 										};
 									});
 						</script>				
@@ -397,7 +397,7 @@ jQuery(document).ready(function($){
 									  jQuery('.add_media').on('click', function(){
 										_custom_media = false;
 									  });
-										jQuery(".huge-it-editnewuploader").click(function() {
+										/* jQuery(".huge-it-editnewuploader").click(function() {
 										});
 											jQuery(".wp-media-buttons-icon").click(function() {
 											jQuery(".media-menu-item").css("display","none");
@@ -406,7 +406,7 @@ jQuery(document).ready(function($){
 											jQuery('.attachment-filters').val('image').trigger('change');
 											jQuery(".attachment-filters").css("display","none");
 
-										});
+										});*/
 									});
 								</script>
 								<input type="hidden" name="imagess<?php echo $rowimages->id; ?>" id="_unique_name<?php echo $rowimages->id; ?>" value="<?php echo $rowimages->image_url; ?>" />
@@ -544,7 +544,7 @@ jQuery(document).ready(function($){
 																window.parent.uploadID.val(imgurl);
 																
 																tb_remove();
-																$("#save-buttom").click();
+																jQuery("#save-buttom").click();
 															};
 														});
 															
