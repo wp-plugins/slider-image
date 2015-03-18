@@ -532,7 +532,7 @@ function apply_cat($id)
          $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  param = '%s'  WHERE ID = %d ", $_POST["sl_changespeed"], $id));
          $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  ordering = '1'  WHERE ID = %d ", $id));
          $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  sl_position = '%s'  WHERE ID = %d ", $_POST["sl_position"], $id));
-		 $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  sl_loading_icon = '%s'  WHERE ID = %d", $_POST["sl_loading_icon"], $id ));        /*dobavka*/
+		 $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  sl_loading_icon = '%s'  WHERE ID = %d", $_POST["sl_loading_icon"], $id ));        /*add*/
 
 
 		

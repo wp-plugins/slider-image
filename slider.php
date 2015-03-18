@@ -4,7 +4,7 @@
 Plugin Name: Huge IT Slider
 Plugin URI: http://huge-it.com/slider
 Description: Huge IT slider is a convenient tool for organizing the images represented on your website into sliders. Each product on the slider is assigned with a relevant slider, which makes it easier for the customers to search and identify the needed images within the slider.
-Version: 2.7.1
+Version: 2.7.2
 Author: http://huge-it.com/
 License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -433,12 +433,24 @@ function huge_it_slider_admin_script()
 
 function huge_it_slider_option_admin_script()
 {
+
 		wp_enqueue_script("jquery_old", "http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js", FALSE);
+if (!jQuery.ui) 
+{
+       // wp_enqueue_script("jquery_new", "http://code.jquery.com/jquery-1.10.2.js", FALSE);
+        wp_enqueue_script("jquery_ui_new", "http://code.jquery.com/ui/1.10.4/jquery-ui.js", FALSE);
+}
 		wp_enqueue_script("simple_slider_js",  plugins_url("js/simple-slider.js", __FILE__), FALSE);
 		wp_enqueue_style("simple_slider_css", plugins_url("style/simple-slider.css", __FILE__), FALSE);
 		wp_enqueue_style("admin_css", plugins_url("style/admin.style.css", __FILE__), FALSE);
 		wp_enqueue_script("admin_js", plugins_url("js/admin.js", __FILE__), FALSE);
 		wp_enqueue_script('param_block2', plugins_url("elements/jscolor/jscolor.js", __FILE__));
+	
+if (!jQuery.ui) 
+{
+       // wp_enqueue_script("jquery_new", "http://code.jquery.com/jquery-1.10.2.js", FALSE);
+        wp_enqueue_script("jquery_ui_new", "http://code.jquery.com/ui/1.10.4/jquery-ui.js", FALSE);
+}
 }
 
 function sliders_huge_it_slider()
@@ -799,11 +811,6 @@ CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "huge_itslider_sliders` (
   UNIQUE KEY `id` (`id`)
   
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ";
-$sql_huge_itslider_sliders_update = "ALTER TABLE `wp_huge_itslider_sliders` ADD `sl_loading_icon` text  NULL AFTER `published`;";
-
-
-
-
     $table_name = $wpdb->prefix . "huge_itslider_params";
     $sql_1 = <<<query1
 INSERT INTO `$table_name` (`name`, `title`,`description`, `value`) VALUES
@@ -852,8 +859,8 @@ INSERT INTO
 
     $sql_3 = "
 
-INSERT INTO `$table_name` (`id`, `name`, `sl_height`, `sl_width`, `pause_on_hover`, `slider_list_effects_s`, `description`, `param`, `ordering`, `published`,`sl_loading_icon`) VALUES
-(1, 'My First Slider', '375', '600', 'on', 'random', '4000', '1000', '1', '300','off')";
+INSERT INTO `$table_name` (`id`, `name`, `sl_height`, `sl_width`, `pause_on_hover`, `slider_list_effects_s`, `description`, `param`, `ordering`, `published`) VALUES
+(1, 'My First Slider', '375', '600', 'on', 'random', '4000', '1000', '1', '300')";
 
 
 
@@ -862,7 +869,6 @@ INSERT INTO `$table_name` (`id`, `name`, `sl_height`, `sl_width`, `pause_on_hove
     $wpdb->query($sql_huge_itslider_images);
     $wpdb->query($sql_huge_itslider_sliders);
     $wpdb->query($sql_huge_itslider_sliders_update);
-	$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET `sl_loading_icon` = 'off' ");
 
 
     if (!$wpdb->get_var("select count(*) from " . $wpdb->prefix . "huge_itslider_params")) {
@@ -950,6 +956,18 @@ INSERT INTO `$table_name` (`name`, `title`,`description`, `value`) VALUES
 
 query1;
 	 $wpdb->query($sql_update3);
+	}
+	$productSliders = $wpdb->get_results("DESCRIBE " . $wpdb->prefix . "huge_itslider_sliders", ARRAY_A);//get table fields
+   $isUpdate1 = 0;
+	foreach ($productSliders as $PSlider) {
+        if ($PSlider['Field'] == 'sl_loading_icon') {
+            $isUpdate1 = 1;
+			break;
+		}
+	}
+	if ($isUpdate1 == 0) {
+            $wpdb->query("ALTER TABLE "  .$wpdb->prefix . "huge_itslider_sliders ADD `sl_loading_icon` text NOT NULL AFTER `published`");
+            $wpdb->query("UPDATE " . $wpdb->prefix ."huge_itslider_sliders SET `sl_loading_icon` = 'off' ");
 	}
 
 	$product4 = $wpdb->get_results("DESCRIBE " . $wpdb->prefix . "huge_itslider_images", ARRAY_A);

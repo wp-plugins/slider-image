@@ -738,6 +738,7 @@ jQuery(function(){
 		jQuery(".huge_it_slideshow_description_text_<?php echo $sliderID; ?>").css({cssText: "margin-top:-" + descriptionmargintopminus + "px; margin-left:-"+descriptionmarginleftminus+"px;"});
 		        jQuery("#huge_it_loading_image_<?php echo $sliderID; ?>").css({display: "none"});
                 jQuery(".huge_it_slideshow_image_wrap1_<?php echo $sliderID; ?>").css({display: "block"});
+                jQuery(".huge_it_slideshow_image_wrap_<?php echo $sliderID; ?>").removeClass("nocolor");
 		
 		
 		if("<?php echo $paramssld['slider_crop_image']; ?>"=="resize"){
@@ -1153,7 +1154,9 @@ jQuery(function(){
 			border-color:#<?php echo $paramssld['slider_slideshow_border_color']; ?>;
 			border-radius:<?php echo $paramssld['slider_slideshow_border_radius']; ?>px;
 		}
-		
+		.huge_it_slideshow_image_wrap_<?php echo $sliderID; ?>.nocolor {
+			background: transparent;
+		}
 		.huge_it_slideshow_dots_thumbnails_<?php echo $sliderID; ?> {
 			<?php if($paramssld['slider_dots_position']=="bottom"){?>
 			bottom:0px;
@@ -1542,7 +1545,11 @@ jQuery(function(){
  $image = wp_get_attachment_image_src( get_post_thumbnail_id( 1 ), 'thumbnail' );
 
 	?>
-<div class="huge_it_slideshow_image_wrap_<?php echo $sliderID; ?>">
+<?php if($sliderloadingicon == "on")	{ ?>
+<div class="huge_it_slideshow_image_wrap_<?php echo $sliderID; ?> nocolor">
+<?php } else { ?>
+<div class="huge_it_slideshow_image_wrap_<?php echo $sliderID; ?> ">
+<?php } ?>
 	<?php if($sliderloadingicon == "on")	{ ?>
 		<div id="huge_it_loading_image_<?php echo $sliderID;  ?>" class="display" ><img  src="<?php echo plugins_url('', __FILE__).'/Front_images/loading/loading'.$paramssld["loading_icon_type"].'.gif'; ?>"/> </div>
 		<div class="huge_it_slideshow_image_wrap1_<?php echo $sliderID; ?> nodisplay">
