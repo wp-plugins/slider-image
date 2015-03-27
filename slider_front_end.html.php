@@ -14,8 +14,10 @@ function front_end_slider($images, $paramssld, $slider)
 	$slidechangespeed=$slider[0]->param;
 	$sliderloadingicon=$slider[0]->sl_loading_icon;
 	
-	$slideshow_title_position = explode('-', trim($paramssld['slider_title_position']));
-	$slideshow_description_position = explode('-', trim($paramssld['slider_description_position']));
+	$trim_slideshow_title_position =trim($paramssld['slider_title_position']);
+	$slideshow_title_position = explode('-', $trim_slideshow_title_position);
+	$trim_slideshow_description_position = trim($paramssld['slider_description_position']);
+	$slideshow_description_position = explode('-', $trim_slideshow_description_position);
 
 	$hasyoutube=false;
 	$hasvimeo=false;
