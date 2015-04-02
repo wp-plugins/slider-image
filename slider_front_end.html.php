@@ -240,25 +240,54 @@ jQuery(function(){
 					case 'last_posts':
 					
 					foreach($recent_posts as $keyl => $recentimage){
-					if(get_the_post_thumbnail($recentimage["ID"], 'thumbnail') != ''){
-						if($keyl < $image->sl_url){
-						echo 'data_'.$sliderID.'["'.$i.'"]=[];';
-						echo 'data_'.$sliderID.'["'.$i.'"]["id"]="'.$i.'";';
-						echo 'data_'.$sliderID.'["'.$i.'"]["image_url"]="'.$recentimage['guid'].'";';
-						
-						
-						$strdesription=str_replace('"',"'",$recentimage['post_content']);
-						$strdesription=preg_replace( "/\r|\n/", " ", $strdesription );
-						$strdesription=substr_replace($strdesription, "",$image->description);
-						echo 'data_'.$sliderID.'["'.$i.'"]["description"]="'.$strdesription.'";';
+                                            if($image->name == "0"){
+                                                if(get_the_post_thumbnail($recentimage["ID"], 'thumbnail') != ''){
+                                                        if($keyl < $image->sl_url){
+                                                            echo 'data_'.$sliderID.'["'.$i.'"]=[];';
+                                                            echo 'data_'.$sliderID.'["'.$i.'"]["id"]="'.$i.'";';
+                                                            echo 'data_'.$sliderID.'["'.$i.'"]["image_url"]="'.$recentimage['guid'].'";';
 
-						
-						$stralt=str_replace('"',"'",$recentimage['post_title']);
-						$stralt=preg_replace( "/\r|\n/", " ", $stralt );
-						echo 'data_'.$sliderID.'["'.$i.'"]["alt"]="'.$stralt.'";';
-						$i++;
-						}
-					}
+
+                                                            $strdesription=str_replace('"',"'",$recentimage['post_content']);
+                                                            $strdesription=preg_replace( "/\r|\n/", " ", $strdesription );
+                                                            $strdesription=substr_replace($strdesription, "",$image->description);
+                                                            echo 'data_'.$sliderID.'["'.$i.'"]["description"]="'.$strdesription.'";';
+
+
+                                                            $stralt=str_replace('"',"'",$recentimage['post_title']);
+                                                            $stralt=preg_replace( "/\r|\n/", " ", $stralt );
+                                                            echo 'data_'.$sliderID.'["'.$i.'"]["alt"]="'.$stralt.'";';
+                                                            $i++;
+                                                        }
+                                                    }
+                                            }
+                                            else{
+                                                $category_id = get_cat_ID($image->name);                    //       my slider category id
+                                                $category_id_from_posts = get_the_category($recentimage['ID']);  //       recent post id
+    //                                            echo $category_id.' '.$category_id_from_posts[0]->term_id.'brrr';
+                                                if($category_id == $category_id_from_posts[0]->term_id){
+                                                    if(get_the_post_thumbnail($recentimage["ID"], 'thumbnail') != ''){
+                                                        if($keyl < $image->sl_url){
+                                                            echo 'data_'.$sliderID.'["'.$i.'"]=[];';
+                                                            echo 'data_'.$sliderID.'["'.$i.'"]["id"]="'.$i.'";';
+                                                            echo 'data_'.$sliderID.'["'.$i.'"]["image_url"]="'.$recentimage['guid'].'";';
+
+
+                                                            $strdesription=str_replace('"',"'",$recentimage['post_content']);
+                                                            $strdesription=preg_replace( "/\r|\n/", " ", $strdesription );
+                                                            $strdesription=substr_replace($strdesription, "",$image->description);
+                                                            echo 'data_'.$sliderID.'["'.$i.'"]["description"]="'.$strdesription.'";';
+
+
+                                                            $stralt=str_replace('"',"'",$recentimage['post_title']);
+                                                            $stralt=preg_replace( "/\r|\n/", " ", $stralt );
+                                                            echo 'data_'.$sliderID.'["'.$i.'"]["alt"]="'.$stralt.'";';
+                                                            $i++;
+                                                        }
+                                                    }
+                                                }
+                                            }
+					
 					}
 					
 					break;
@@ -1604,20 +1633,43 @@ jQuery(function(){
 							case 'last_posts':
 							
 							foreach($recent_posts as $lkeys => $last_posts){
-							if($lkeys < $image_row->sl_url){
-							if(get_the_post_thumbnail($last_posts["ID"], 'thumbnail') != ''){
-							$imagethumb = wp_get_attachment_image_src( get_post_thumbnail_id($last_posts["ID"]), 'thumbnail-size', true );
-											
-							  if ($image_row->id == $current_image_id) {
-								$current_pos = $stri;
-								$current_key = $stri;
-							  }
-							?>
-								<div id="huge_it_dots_<?php echo $stri; ?>_<?php echo $sliderID; ?>" class="huge_it_slideshow_dots_<?php echo $sliderID; ?> <?php echo (($stri==$current_image_id) ? 'huge_it_slideshow_dots_active_' . $sliderID : 'huge_it_slideshow_dots_deactive_' . $sliderID); ?>" onclick="huge_it_change_image_<?php echo $sliderID; ?>(parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()), '<?php echo $stri; ?>', data_<?php echo $sliderID; ?>,false,true);return false;" image_id="<?php echo $image_row->id; ?>" image_key="<?php echo $stri; ?>"></div>
-							<?php
-							  $stri++;
-							}
-							}
+                                                            if($image_row->name == "0"){
+                                                                if($lkeys < $image_row->sl_url){
+                                                                    if(get_the_post_thumbnail($last_posts["ID"], 'thumbnail') != ''){
+                                                                    $imagethumb = wp_get_attachment_image_src( get_post_thumbnail_id($last_posts["ID"]), 'thumbnail-size', true );
+
+                                                                      if ($image_row->id == $current_image_id) {
+                                                                            $current_pos = $stri;
+                                                                            $current_key = $stri;
+                                                                      }
+                                                                    ?>
+                                                                            <div id="huge_it_dots_<?php echo $stri; ?>_<?php echo $sliderID; ?>" class="huge_it_slideshow_dots_<?php echo $sliderID; ?> <?php echo (($stri==$current_image_id) ? 'huge_it_slideshow_dots_active_' . $sliderID : 'huge_it_slideshow_dots_deactive_' . $sliderID); ?>" onclick="huge_it_change_image_<?php echo $sliderID; ?>(parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()), '<?php echo $stri; ?>', data_<?php echo $sliderID; ?>,false,true);return false;" image_id="<?php echo $image_row->id; ?>" image_key="<?php echo $stri; ?>"></div>
+                                                                    <?php
+                                                                      $stri++;
+                                                                    }
+                                                                }
+                                                            }
+                                                            else{
+                                                                $category_id = get_cat_ID($image_row->name);                    //       my slider category id
+                                                                $category_id_from_posts = get_the_category($last_posts['ID']);  //       recent post id
+                                                                if($category_id == $category_id_from_posts[0]->term_id){
+                                                                    if($lkeys < $image_row->sl_url){
+                                                                            if(get_the_post_thumbnail($last_posts["ID"], 'thumbnail') != ''){
+                                                                            $imagethumb = wp_get_attachment_image_src( get_post_thumbnail_id($last_posts["ID"]), 'thumbnail-size', true );
+
+                                                                              if ($image_row->id == $current_image_id) {
+                                                                                    $current_pos = $stri;
+                                                                                    $current_key = $stri;
+                                                                              }
+                                                                            ?>
+                                                                                    <div id="huge_it_dots_<?php echo $stri; ?>_<?php echo $sliderID; ?>" class="huge_it_slideshow_dots_<?php echo $sliderID; ?> <?php echo (($stri==$current_image_id) ? 'huge_it_slideshow_dots_active_' . $sliderID : 'huge_it_slideshow_dots_deactive_' . $sliderID); ?>" onclick="huge_it_change_image_<?php echo $sliderID; ?>(parseInt(jQuery('#huge_it_current_image_key_<?php echo $sliderID; ?>').val()), '<?php echo $stri; ?>', data_<?php echo $sliderID; ?>,false,true);return false;" image_id="<?php echo $image_row->id; ?>" image_key="<?php echo $stri; ?>"></div>
+                                                                            <?php
+                                                                              $stri++;
+                                                                            }
+                                                                    }
+                                                                }
+                                                            }
+							
 							}
 							
 							break;
@@ -1678,30 +1730,64 @@ jQuery(function(){
 					
 					case 'last_posts':
 					foreach($recent_posts as $lkeys => $last_posts){
-						if($lkeys < $image_row->sl_url){
-							$imagethumb = wp_get_attachment_image_src( get_post_thumbnail_id($last_posts["ID"]), 'thumbnail-size', true );
-							if(get_the_post_thumbnail($last_posts["ID"], 'thumbnail') != ''){
-							$target="";
-							?>
-							  <li class="huge_it_slideshow_image<?php if ($i != $current_image_id) {$current_key = $key; echo '_second';} ?>_item_<?php echo $sliderID; ?>" id="image_id_<?php echo $sliderID.'_'.$i ?>">      
-								<?php if ($image_row->sl_postlink=="1"){
-										if ($image_row->link_target=="on"){$target='target="_blank'.$image_row->link_target.'"';}
-										echo '<a href="'.$last_posts["guid"].'" '.$target.'>';
-								} ?>
-								<img id="huge_it_slideshow_image_<?php echo $sliderID; ?>" class="huge_it_slideshow_image_<?php echo $sliderID; ?>" src="<?php echo $imagethumb[0]; ?>" image_id="<?php echo $image_row->id; ?>" />
-								<?php if($image_row->sl_postlink=="1"){ echo '</a>'; }?>		
-								<div class="huge_it_slideshow_title_text_<?php echo $sliderID; ?> <?php if(trim($last_posts["post_title"])=="") echo "none";  if($image_row->sl_stitle!="1") echo " hidden"; ?>">
-										<?php echo $last_posts["post_title"]; ?>
-								</div>
-								<div class="huge_it_slideshow_description_text_<?php echo $sliderID; ?> <?php if(trim($last_posts["post_content"])=="") echo "none"; if($image_row->sl_sdesc!="1") echo " hidden"; ?>">
-									<?php 
-									echo substr_replace($last_posts["post_content"], "", $image_row->description); ?>
-								</div>
-							 </li>
-							  <?php
-							$i++;
-							}
+                                            if($image_row->name == "0"){
+                                                if($lkeys < $image_row->sl_url){
+                                                    $imagethumb = wp_get_attachment_image_src( get_post_thumbnail_id($last_posts["ID"]), 'thumbnail-size', true );
+
+                                                    if(get_the_post_thumbnail($last_posts["ID"], 'thumbnail') != ''){
+                                                    $target="";
+                                                    ?>
+                                                      <li class="huge_it_slideshow_image<?php if ($i != $current_image_id) {$current_key = $key; echo '_second';} ?>_item_<?php echo $sliderID; ?>" id="image_id_<?php echo $sliderID.'_'.$i ?>">      
+                                                            <?php if ($image_row->sl_postlink=="1"){
+                                                                            if ($image_row->link_target=="on"){$target='target="_blank'.$image_row->link_target.'"';}
+                                                                            echo '<a href="'.$last_posts["guid"].'" '.$target.'>';
+                                                            } ?>
+                                                            <img id="huge_it_slideshow_image_<?php echo $sliderID; ?>" class="huge_it_slideshow_image_<?php echo $sliderID; ?>" src="<?php echo $imagethumb[0]; ?>" image_id="<?php echo $image_row->id; ?>" />
+                                                            <?php if($image_row->sl_postlink=="1"){ echo '</a>'; }?>		
+                                                            <div class="huge_it_slideshow_title_text_<?php echo $sliderID; ?> <?php if(trim($last_posts["post_title"])=="") echo "none";  if($image_row->sl_stitle!="1") echo " hidden"; ?>">
+                                                                            <?php echo $last_posts["post_title"]; ?>
+                                                            </div>
+                                                            <div class="huge_it_slideshow_description_text_<?php echo $sliderID; ?> <?php if(trim($last_posts["post_content"])=="") echo "none"; if($image_row->sl_sdesc!="1") echo " hidden"; ?>">
+                                                                    <?php 
+                                                                    echo substr_replace($last_posts["post_content"], "", $image_row->description); ?>
+                                                            </div>
+                                                     </li>
+                                                      <?php
+                                                    $i++;
+                                                    }
+                                                }
+                                            }
+                                            else{
+                                                $category_id = get_cat_ID($image_row->name);                    //       my slider category id
+                                                $category_id_from_posts = get_the_category($last_posts['ID']);  //       recent post id
+                                                if($category_id == $category_id_from_posts[0]->term_id){
+                                                    if($lkeys < $image_row->sl_url){
+                                                        $imagethumb = wp_get_attachment_image_src( get_post_thumbnail_id($last_posts["ID"]), 'thumbnail-size', true );
+
+                                                        if(get_the_post_thumbnail($last_posts["ID"], 'thumbnail') != ''){
+                                                        $target="";
+                                                        ?>
+                                                          <li class="huge_it_slideshow_image<?php if ($i != $current_image_id) {$current_key = $key; echo '_second';} ?>_item_<?php echo $sliderID; ?>" id="image_id_<?php echo $sliderID.'_'.$i ?>">      
+                                                                <?php if ($image_row->sl_postlink=="1"){
+                                                                                if ($image_row->link_target=="on"){$target='target="_blank'.$image_row->link_target.'"';}
+                                                                                echo '<a href="'.$last_posts["guid"].'" '.$target.'>';
+                                                                } ?>
+                                                                <img id="huge_it_slideshow_image_<?php echo $sliderID; ?>" class="huge_it_slideshow_image_<?php echo $sliderID; ?>" src="<?php echo $imagethumb[0]; ?>" image_id="<?php echo $image_row->id; ?>" />
+                                                                <?php if($image_row->sl_postlink=="1"){ echo '</a>'; }?>		
+                                                                <div class="huge_it_slideshow_title_text_<?php echo $sliderID; ?> <?php if(trim($last_posts["post_title"])=="") echo "none";  if($image_row->sl_stitle!="1") echo " hidden"; ?>">
+                                                                                <?php echo $last_posts["post_title"]; ?>
+                                                                </div>
+                                                                <div class="huge_it_slideshow_description_text_<?php echo $sliderID; ?> <?php if(trim($last_posts["post_content"])=="") echo "none"; if($image_row->sl_sdesc!="1") echo " hidden"; ?>">
+                                                                        <?php 
+                                                                        echo substr_replace($last_posts["post_content"], "", $image_row->description); ?>
+                                                                </div>
+                                                         </li>
+                                                          <?php
+                                                        $i++;
+                                                        }
+                                                    }
 						}
+                                            }
 					}
 					break;
 					case 'video':
