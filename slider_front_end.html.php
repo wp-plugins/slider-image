@@ -191,7 +191,7 @@ jQuery(function(){
 	video_is_playing_<?php echo $sliderID; ?>=false;
 	<?php
 	//	$images=array_reverse($images);
-		$recent_posts = wp_get_recent_posts( $args, ARRAY_A );
+		//$recent_posts = wp_get_recent_posts( $args, ARRAY_A );
 
 		$i=0;
 		

@@ -1,7 +1,9 @@
 <?php	
-	if(function_exists('current_user_can'))
-	if(!current_user_can('manage_options')) {
-	die('Access Denied');
+if(function_exists('current_user_can'))
+//if(!current_user_can('manage_options')) {
+    
+if(!current_user_can('delete_pages')) {
+    die('Access Denied');
 }	
 if(!function_exists('current_user_can')){
 	die('Access Denied');
@@ -337,7 +339,9 @@ $table_name = $wpdb->prefix . "huge_itslider_images";
 		}
 		else
 		{
+			if(isset($categories[0]->cat_ID))
 		$iframecatid = $categories[0]->cat_ID;
+			else $iframecatid='';
 		}
 	 
 	 	  $query=$wpdb->prepare("SELECT * FROM ".$wpdb->prefix."term_relationships where term_taxonomy_id = %d order by object_id ASC",$iframecatid);
@@ -447,7 +451,7 @@ if(isset($_POST["addlastposts"])){
     }
 }
 
-	   	   
+	   	   if(!isset($postsbycat)) $postsbycat = '';
     Html_popup_posts($ord_elem, $count_ord, $images, $row, $cat_row, $rowim, $rowsld, $paramssld, $rowsposts, $rowsposts8, $postsbycat);
 }
 
@@ -549,6 +553,7 @@ $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  l
 $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  sl_url = '".$_POST["sl_url".$rowimages->id.""]."' WHERE ID = %d ", $rowimages->id));
 $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  name = '".$_POST["titleimage".$rowimages->id.""]."'  WHERE ID = %d ", $rowimages->id));
 $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  description = '".$_POST["im_description".$rowimages->id.""]."'  WHERE ID = %d ", $rowimages->id));
+if(isset($_POST["imagess".$rowimages->id.""]))
 $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  image_url = '".$_POST["imagess".$rowimages->id.""]."'  WHERE ID = %d ", $rowimages->id));
 }
 /////////////////update///////////////////////////

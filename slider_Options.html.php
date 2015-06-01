@@ -28,7 +28,7 @@ function      html_showStyles($param_values, $op_type)
 				<script>
 						jQuery(document).ready(function ($) {
 								
-								jQuery("#slideup<?php echo $key; ?>").click(function () {
+								jQuery("#slideup<?php echo isset($key)?$key:''; ?>").click(function () {
 									window.parent.uploadID = jQuery(this).prev('input');
 									formfield = jQuery('.upload').attr('name');
 									tb_show('', 'media-upload.php?type=image&amp;TB_iframe=true');
@@ -678,7 +678,7 @@ function      html_showStyles($param_values, $op_type)
 				<script>
 						jQuery(document).ready(function ($) {
 								
-								jQuery("#slideup<?php echo $key; ?>").click(function () {
+								jQuery("#slideup<?php  echo isset($key)?$key:''; ?>").click(function () {
 									window.parent.uploadID = jQuery(this).prev('input');
 									formfield = jQuery('.upload').attr('name');
 									tb_show('', 'media-upload.php?type=image&amp;TB_iframe=true');

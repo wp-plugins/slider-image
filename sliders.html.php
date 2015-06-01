@@ -1,7 +1,9 @@
 <?php	
 if(function_exists('current_user_can'))
-if(!current_user_can('manage_options')) {
-die('Access Denied');
+//if(!current_user_can('manage_options')) {
+    
+if(!current_user_can('delete_pages')) {
+    die('Access Denied');
 }	
 if(!function_exists('current_user_can')){
 	die('Access Denied');
@@ -793,7 +795,7 @@ function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $
 					});
 
 					jQuery('.updated').css({"display":"none"});
-				<?php	if($_GET["closepop"] == 1){ ?>
+				<?php	if(isset($_GET["closepop"]) && $_GET["closepop"] == 1){ ?>
 					jQuery("#closepopup").click();
 					self.parent.location.reload();
 				<?php	} ?>
@@ -860,7 +862,7 @@ function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $
 							 $query=$wpdb->prepare("SELECT * FROM ".$wpdb->prefix."posts where post_type = 'post' and post_status = 'publish' and ID = %d  order by ID ASC", $rowspostspop1->object_id);
 						$rowspostspop=$wpdb->get_results($query);
 						//print_r($rowspostspop);
-						
+						if(isset($rowspostspop[0]->ID)) {
 							$post_categories =  wp_get_post_categories( $rowspostspop[0]->ID, $rowspostspop[0]->ID ); 
 							$cats = array();
 							
@@ -884,7 +886,8 @@ function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $
 								<div class="huge-it-posts-list-category"><?php echo	$cat->slug;	?></div>
 							</li>
 						<?php }
-							}	?>
+							}
+						}							?>
 					</ul>
 					<input id="huge-it-add-posts-params" type="hidden" name="popupposts" value="" />
 					<div class="clear"></div>
@@ -899,7 +902,7 @@ function html_popup_posts($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $
 										<?php $categories = get_categories(); ?>
 										<label for="titleimage">Show Posts From:</label>
 										<select name="titleimage" class="categories-list">
-											<option <?php if($rowimages->name == 0){echo 'selected="selected"';} ?> value="0">All Categories</option>
+											<option <?php if(isset($rowimages->name) && $rowimages->name == 0){echo 'selected="selected"';} ?> value="0">All Categories</option>
 										<?php foreach ($categories as $strcategories){ ?>
 											<option <?php if($rowimages->name == $strcategories->cat_name){echo 'selected="selected"';} ?> value="<?php echo $strcategories->cat_name; ?>"><?php echo $strcategories->cat_name; ?></option>
 										<?php	}	?> 
@@ -1008,7 +1011,7 @@ function html_popup_video(){
 			})
 					
 			jQuery('.updated').css({"display":"none"});
-		<?php	if($_GET["closepop"] == 1){ ?>
+		<?php	if(isset($_GET["closepop"]) && $_GET["closepop"] == 1){ ?>
 			jQuery("#closepopup").click();
 			self.parent.location.reload();
 		<?php	} ?>

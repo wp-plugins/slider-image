@@ -4,7 +4,7 @@
 Plugin Name: Huge IT Slider
 Plugin URI: http://huge-it.com/slider
 Description: Huge IT slider is a convenient tool for organizing the images represented on your website into sliders. Each product on the slider is assigned with a relevant slider, which makes it easier for the customers to search and identify the needed images within the slider.
-Version: 2.7.4
+Version: 2.7.5
 Author: http://huge-it.com/
 License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -128,8 +128,8 @@ function   huge_it_cat_images_list($id)
 add_action('admin_menu', 'huge_it_slider_options_panel');
 function huge_it_slider_options_panel()
 {
-    $page_cat = add_menu_page('Theme page title', 'Huge IT Slider', 'manage_options', 'sliders_huge_it_slider', 'sliders_huge_it_slider', plugins_url('images/sidebar.icon.png', __FILE__));
-    add_submenu_page('sliders_huge_it_slider', 'Sliders', 'Sliders', 'manage_options', 'sliders_huge_it_slider', 'sliders_huge_it_slider');
+    $page_cat = add_menu_page('Theme page title', 'Huge IT Slider', 'delete_pages', 'sliders_huge_it_slider', 'sliders_huge_it_slider', plugins_url('images/sidebar.icon.png', __FILE__));
+    add_submenu_page('sliders_huge_it_slider', 'Sliders', 'Sliders', 'delete_pages', 'sliders_huge_it_slider', 'sliders_huge_it_slider');
     $page_option = add_submenu_page('sliders_huge_it_slider', 'General Options', 'General Options', 'manage_options', 'Options_slider_styles', 'Options_slider_styles');
 	add_submenu_page( 'sliders_huge_it_slider', 'Licensing', 'Licensing', 'manage_options', 'huge_it_slider_Licensing', 'huge_it_slider_Licensing');
 	add_submenu_page('sliders_huge_it_slider', 'Featured Plugins', 'Featured Plugins', 'manage_options', 'huge_it_slider_featured_plugins', 'huge_it_slider_featured_plugins');
@@ -435,7 +435,7 @@ function huge_it_slider_option_admin_script()
 {
 
 		wp_enqueue_script("jquery_old", "http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js", FALSE);
-if (!jQuery.ui) 
+	if (!wp_script_is( 'jQuery.ui' )) 
 {
        // wp_enqueue_script("jquery_new", "http://code.jquery.com/jquery-1.10.2.js", FALSE);
         wp_enqueue_script("jquery_ui_new", "http://code.jquery.com/ui/1.10.4/jquery-ui.js", FALSE);
@@ -446,7 +446,7 @@ if (!jQuery.ui)
 		wp_enqueue_script("admin_js", plugins_url("js/admin.js", __FILE__), FALSE);
 		wp_enqueue_script('param_block2', plugins_url("elements/jscolor/jscolor.js", __FILE__));
 	
-if (!jQuery.ui) 
+if (!wp_script_is( 'jQuery.ui' ))
 {
        // wp_enqueue_script("jquery_new", "http://code.jquery.com/jquery-1.10.2.js", FALSE);
         wp_enqueue_script("jquery_ui_new", "http://code.jquery.com/ui/1.10.4/jquery-ui.js", FALSE);
@@ -571,7 +571,7 @@ h3 {
 	  else{
 	  $id=$firstrow->id;
 	  }
-	  if($_GET["htslider_id"] == $_POST["hugeit_slider_id"]){
+	  if(isset($_GET["htslider_id"]) && $_GET["htslider_id"] == $_POST["hugeit_slider_id"]){
               if($_GET["hugeit_save"]==1){
                   $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  sl_width = '%s'  WHERE id = %d ", $_POST["sl_width"], $id));
                   $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  sl_height = '%s'  WHERE id = %d ", $_POST["sl_height"], $id));
@@ -587,7 +587,7 @@ h3 {
 	  $query="SELECT * FROM ".$wpdb->prefix."huge_itslider_sliders order by id ASC";
 			   $shortcodesliders=$wpdb->get_results($query);
 		$query=$wpdb->prepare("SELECT * FROM ".$wpdb->prefix."huge_itslider_sliders WHERE id= %d", $id);
-	   $row=$wpdb->get_row($query);
+	   $row=$wpdb->get_row($query);$container_id = 'huge_it_slider';
 			   ?>
 <form action="?page=sliders_huge_it_slider&task=add_shortcode_post&TB_iframe=1&width=400&inlineId=<?php echo $container_id; ?>&hugeit_save=1&htslider_id=<?php echo $id; ?>" method="post" name="adminForm" id="adminForm">
  <?php 	if (count($shortcodesliders)) {
@@ -868,7 +868,7 @@ INSERT INTO `$table_name` (`id`, `name`, `sl_height`, `sl_width`, `pause_on_hove
     $wpdb->query($sql_huge_itslider_params);
     $wpdb->query($sql_huge_itslider_images);
     $wpdb->query($sql_huge_itslider_sliders);
-    $wpdb->query($sql_huge_itslider_sliders_update);
+  //  $wpdb->query($sql_huge_itslider_sliders_update);
 
 
     if (!$wpdb->get_var("select count(*) from " . $wpdb->prefix . "huge_itslider_params")) {
