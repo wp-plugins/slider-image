@@ -178,8 +178,8 @@ function html_showsliders( $rows,  $pageNav,$sort,$cat_row){
 				</tbody>
 			</table>
 			 <input type="hidden" name="oreder_move" id="oreder_move" value="" />
-			 <input type="hidden" name="asc_or_desc" id="asc_or_desc" value="<?php if(isset($_POST['asc_or_desc'])) echo $_POST['asc_or_desc'];?>"  />
-			 <input type="hidden" name="order_by" id="order_by" value="<?php if(isset($_POST['order_by'])) echo $_POST['order_by'];?>"  />
+			 <input type="hidden" name="asc_or_desc" id="asc_or_desc" value="<?php if(isset($_POST['asc_or_desc'])) echo esc_html($_POST['asc_or_desc']);?>"  />
+			 <input type="hidden" name="order_by" id="order_by" value="<?php if(isset($_POST['order_by'])) echo esc_html($_POST['order_by']);?>"  />
 			 <input type="hidden" name="saveorder" id="saveorder" value="" />
 
 			 <?php
@@ -330,11 +330,11 @@ jQuery(document).ready(function($){
 						<div class="huge-it-newuploader uploader button button-primary add-new-image">
 						<input type="button" class="button wp-media-buttons-icon" name="_unique_name_button" id="_unique_name_button" value="Add Image Slide" />
 						</div>
-						<a href="admin.php?page=sliders_huge_it_slider&task=popup_posts&id=<?php echo $_GET['id']; ?>&TB_iframe=1" class="button button-primary add-post-slide thickbox"  id="slideup2s" value="iframepop">
+						<a href="admin.php?page=sliders_huge_it_slider&task=popup_posts&id=<?php echo esc_html($_GET['id']); ?>&TB_iframe=1" class="button button-primary add-post-slide thickbox"  id="slideup2s" value="iframepop">
 						<input  title="Add Post" class="thickbox" type="button" value="Add Post" />
 						<span class="wp-media-buttons-icon"></span>Add Post Slide
 						</a>
-						<a href="admin.php?page=sliders_huge_it_slider&task=popup_video&id=<?php echo $_GET['id']; ?>&TB_iframe=1" class="button button-primary add-video-slide thickbox"  id="slideup3s" value="iframepop">
+						<a href="admin.php?page=sliders_huge_it_slider&task=popup_video&id=<?php echo esc_html($_GET['id']); ?>&TB_iframe=1" class="button button-primary add-video-slide thickbox"  id="slideup3s" value="iframepop">
 							<span class="wp-media-buttons-icon"></span>Add Video Slide
 						</a>
 						<script>
@@ -522,7 +522,7 @@ jQuery(document).ready(function($){
 											$vimeo = $rowimages->image_url;
 											$imgid =  end(explode( "/", $vimeo ));
 											$hash = unserialize(file_get_contents("http://vimeo.com/api/v2/video/".$imgid.".php"));
-											$imgsrc=$hash[0]['thumbnail_large'];
+											$imgsrc=esc_html($hash[0]['thumbnail_large']);
 											$thumburl ='<img src="'.$imgsrc.'" alt="" />';
 										}
 										?> 
