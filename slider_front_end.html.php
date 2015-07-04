@@ -3,20 +3,20 @@
 function front_end_slider($images, $paramssld, $slider)
 {
  ob_start();
-	$sliderID=$slider[0]->id;
-	$slidertitle=$slider[0]->name;
-	$sliderheight=$slider[0]->sl_height;
-	$sliderwidth=$slider[0]->sl_width;
-	$slidereffect=$slider[0]->slider_list_effects_s;
-	$slidepausetime=($slider[0]->description+$slider[0]->param);
-	$sliderpauseonhover=$slider[0]->pause_on_hover;
-	$sliderposition=$slider[0]->sl_position;
-	$slidechangespeed=$slider[0]->param;
-	$sliderloadingicon=$slider[0]->sl_loading_icon;
+	$sliderID=esc_html($slider[0]->id);
+	$slidertitle=esc_html($slider[0]->name);
+	$sliderheight=esc_html($slider[0]->sl_height);
+	$sliderwidth=esc_html($slider[0]->sl_width);
+	$slidereffect=esc_html($slider[0]->slider_list_effects_s);
+	$slidepausetime=(esc_html($slider[0]->description)+esc_html($slider[0]->param));
+	$sliderpauseonhover=esc_html($slider[0]->pause_on_hover);
+	$sliderposition=esc_html($slider[0]->sl_position);
+	$slidechangespeed=esc_html($slider[0]->param);
+	$sliderloadingicon=esc_html($slider[0]->sl_loading_icon);
 	
-	$trim_slideshow_title_position =trim($paramssld['slider_title_position']);
+	$trim_slideshow_title_position =trim(esc_html($paramssld['slider_title_position']));
 	$slideshow_title_position = explode('-', $trim_slideshow_title_position);
-	$trim_slideshow_description_position = trim($paramssld['slider_description_position']);
+	$trim_slideshow_description_position = trim(esc_html($paramssld['slider_description_position']));
 	$slideshow_description_position = explode('-', $trim_slideshow_description_position);
 
 	$hasyoutube=false;
@@ -245,16 +245,16 @@ jQuery(function(){
                                                         if($keyl < $image->sl_url){
                                                             echo 'data_'.$sliderID.'["'.$i.'"]=[];';
                                                             echo 'data_'.$sliderID.'["'.$i.'"]["id"]="'.$i.'";';
-                                                            echo 'data_'.$sliderID.'["'.$i.'"]["image_url"]="'.$recentimage['guid'].'";';
+                                                            echo 'data_'.$sliderID.'["'.$i.'"]["image_url"]="'.esc_html($recentimage['guid']).'";';
 
 
-                                                            $strdesription=str_replace('"',"'",$recentimage['post_content']);
+                                                            $strdesription=str_replace('"',"'",esc_html($recentimage['post_content']));
                                                             $strdesription=preg_replace( "/\r|\n/", " ", $strdesription );
                                                             $strdesription=substr_replace($strdesription, "",$image->description);
                                                             echo 'data_'.$sliderID.'["'.$i.'"]["description"]="'.$strdesription.'";';
 
 
-                                                            $stralt=str_replace('"',"'",$recentimage['post_title']);
+                                                            $stralt=str_replace('"',"'",esc_html($recentimage['post_title']));
                                                             $stralt=preg_replace( "/\r|\n/", " ", $stralt );
                                                             echo 'data_'.$sliderID.'["'.$i.'"]["alt"]="'.$stralt.'";';
                                                             $i++;
@@ -263,23 +263,23 @@ jQuery(function(){
                                             }
                                             else{
                                                 $category_id = get_cat_ID($image->name);                    //       my slider category id
-                                                $category_id_from_posts = get_the_category($recentimage['ID']);  //       recent post id
+                                                $category_id_from_posts = get_the_category(esc_html($recentimage['ID']));  //       recent post id
     //                                            echo $category_id.' '.$category_id_from_posts[0]->term_id.'brrr';
                                                 if($category_id == $category_id_from_posts[0]->term_id){
                                                     if(get_the_post_thumbnail($recentimage["ID"], 'thumbnail') != ''){
                                                         if($keyl < $image->sl_url){
                                                             echo 'data_'.$sliderID.'["'.$i.'"]=[];';
                                                             echo 'data_'.$sliderID.'["'.$i.'"]["id"]="'.$i.'";';
-                                                            echo 'data_'.$sliderID.'["'.$i.'"]["image_url"]="'.$recentimage['guid'].'";';
+                                                            echo 'data_'.$sliderID.'["'.$i.'"]["image_url"]="'.esc_html($recentimage['guid']).'";';
 
 
-                                                            $strdesription=str_replace('"',"'",$recentimage['post_content']);
+                                                            $strdesription=str_replace('"',"'",esc_html($recentimage['post_content']));
                                                             $strdesription=preg_replace( "/\r|\n/", " ", $strdesription );
                                                             $strdesription=substr_replace($strdesription, "",$image->description);
                                                             echo 'data_'.$sliderID.'["'.$i.'"]["description"]="'.$strdesription.'";';
 
 
-                                                            $stralt=str_replace('"',"'",$recentimage['post_title']);
+                                                            $stralt=str_replace('"',"'",esc_html($recentimage['post_title']));
                                                             $stralt=preg_replace( "/\r|\n/", " ", $stralt );
                                                             echo 'data_'.$sliderID.'["'.$i.'"]["alt"]="'.$stralt.'";';
                                                             $i++;
@@ -1055,7 +1055,7 @@ jQuery(function(){
                                             }
                                             else{
                                                 $category_id = get_cat_ID($image_row->name);                    //       my slider category id
-                                                $category_id_from_posts = get_the_category($last_posts['ID']);  //       recent post id
+                                                $category_id_from_posts = get_the_category(esc_html($last_posts['ID']));  //       recent post id
                                                 if($category_id == $category_id_from_posts[0]->term_id){
                                                     if($lkeys < $image_row->sl_url){
                                                         $imagethumb = wp_get_attachment_image_src( get_post_thumbnail_id($last_posts["ID"]), 'thumbnail-size', true );

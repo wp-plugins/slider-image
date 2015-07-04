@@ -170,9 +170,9 @@ function html_showsliders( $rows,  $pageNav,$sort,$cat_row){
 					?>
 					<tr <?php if($trcount%2==0){ echo 'class="has-background"';}?>>
 						<td><?php echo $rows[$i]->id; ?></td>
-						<td><a  href="admin.php?page=sliders_huge_it_slider&task=edit_cat&id=<?php echo $rows[$i]->id?>"><?php echo esc_html(stripslashes($rows[$i]->name)); ?></a></td>
+						<td><a  href="admin.php?page=sliders_huge_it_slider&task=edit_cat&id=<?php echo esc_html($rows[$i]->id) ?>"><?php echo esc_html(stripslashes($rows[$i]->name)); ?></a></td>
 						<td>(<?php if(!($pr_count)){echo '0';} else{ echo $rows[$i]->prod_count;} ?>)</td>
-						<td><a  href="admin.php?page=sliders_huge_it_slider&task=remove_cat&id=<?php echo $rows[$i]->id?>">Delete</a></td>
+						<td><a  href="admin.php?page=sliders_huge_it_slider&task=remove_cat&id=<?php echo esc_html($rows[$i]->id) ?>">Delete</a></td>
 					</tr> 
 				 <?php } ?>
 				</tbody>
@@ -198,7 +198,7 @@ function Html_editslider($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $r
 
 {
  global $wpdb;
-	
+	$_GET["addslide"] = esc_html($_GET["addslide"]);
 	if(isset($_GET["addslide"])){
 	if($_GET["addslide"] == 1){
 	header('Location: admin.php?page=sliders_huge_it_slider&id='.$row->id.'&task=apply');
