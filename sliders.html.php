@@ -66,7 +66,7 @@ function html_showsliders( $rows,  $pageNav,$sort,$cat_row){
 	<div id="poststuff">
 		<div id="sliders-list-page">
 			<form method="post"  onkeypress="doNothing()" action="admin.php?page=sliders_huge_it_slider" id="admin_form" name="admin_form">
-			<h2>Huge Sliders
+			<h2>Huge IT Sliders
 				<a onclick="window.location.href='admin.php?page=sliders_huge_it_slider&task=add_cat'" class="add-new-h2" >Add New Slider</a>
 			</h2>
 			<?php
@@ -181,8 +181,11 @@ function html_showsliders( $rows,  $pageNav,$sort,$cat_row){
 			 <input type="hidden" name="asc_or_desc" id="asc_or_desc" value="<?php if(isset($_POST['asc_or_desc'])) echo esc_html($_POST['asc_or_desc']);?>"  />
 			 <input type="hidden" name="order_by" id="order_by" value="<?php if(isset($_POST['order_by'])) echo esc_html($_POST['order_by']);?>"  />
 			 <input type="hidden" name="saveorder" id="saveorder" value="" />
+			 <input type="hidden" name="csrf_token_hugeit_1752" value="csrf_token_hugeit_1752" />
 
 			 <?php
+			 session_start();
+			 $_SESSION['csrf_token_hugeit_1752'] = 'csrf_token_hugeit_1752';
 			?>
 			
 			
@@ -711,6 +714,11 @@ jQuery(document).ready(function($){
 		</div>
 	</div>
 	<input type="hidden" name="task" value="" />
+	 <input type="hidden" name="csrf_token_hugeit_1752" value="csrf_token_hugeit_1752" />
+			 <?php
+			 session_start();
+			 $_SESSION['csrf_token_hugeit_1752'] = 'csrf_token_hugeit_1752';
+			?>
 </form>
 </div>
 
@@ -1026,7 +1034,7 @@ function html_popup_video(){
 		<div id="huge_it_slider_add_videos_wrap">
 			<h2>Add Video URL From Youtobe or Vimeo</h2>
 			<div class="control-panel">
-				<form method="post"  onkeypress="doNothing()" action="admin.php?page=sliders_huge_it_slider&task=popup_video" id="huge-it-video-form" name="admin_form">
+			
 					<input type="text" id="huge_it_add_video_input" name="huge_it_add_video_input" />
 					<button class='save-slider-options button-primary huge-it-insert-video-button' id='huge-it-insert-video-button'>Insert Video Slide</button>
 					<div id="add-video-popup-options">
@@ -1075,7 +1083,7 @@ function html_popup_video(){
 							Please insert link only from youtobe or vimeo
 						</div>
 					</div>
-				</form>
+				
 			</div>
 		</div>	
 	</div>

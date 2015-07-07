@@ -11,8 +11,13 @@ if(!function_exists('current_user_can')){
 function showslider() 
   {
   global $wpdb;
-  if(isset($_POST['search_events_by_title']))
+  
+  session_start();
+ if($_SESSION['csrf_token_hugeit_1752'] == $_REQUEST['csrf_token_hugeit_1752']){
+  if(isset($_POST['search_events_by_title'])){
 $_POST['search_events_by_title']=esc_html(stripslashes($_POST['search_events_by_title']));
+  }
+  }
 if(isset($_POST['asc_or_desc']))
 $_POST['asc_or_desc']=esc_js($_POST['asc_or_desc']);
 if(isset($_POST['order_by']))
@@ -130,6 +135,7 @@ GROUP BY ".$wpdb->prefix."huge_itslider_images.slider_id " ;
 		
 foreach($rows as $row)
 {
+	
 	foreach($prod_rows as $row_1)
 	{
 		if ($row->id == $row_1->id)
@@ -506,8 +512,10 @@ function removeslider($id)
 }
 
 function apply_cat($id)
-{	
+{
 		 global $wpdb;
+		   session_start();
+ if($_SESSION['csrf_token_hugeit_1752'] == $_REQUEST['csrf_token_hugeit_1752']){
 		 if(!is_numeric($id)){
 			 echo 'insert numerc id';
 		 	return '';
@@ -548,19 +556,19 @@ function apply_cat($id)
 			   
 			   foreach ($rowim as $key=>$rowimages){
 if(isset($_POST["order_by_".$rowimages->id.""])){
-$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  ordering = '".$_POST["order_by_".$rowimages->id.""]."'  WHERE ID = %d ", $rowimages->id));
-$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  link_target = '".$_POST["sl_link_target".$rowimages->id.""]."'  WHERE ID = %d ", $rowimages->id));
-$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  sl_url = '".$_POST["sl_url".$rowimages->id.""]."' WHERE ID = %d ", $rowimages->id));
-$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  name = '".$_POST["titleimage".$rowimages->id.""]."'  WHERE ID = %d ", $rowimages->id));
-$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  description = '".$_POST["im_description".$rowimages->id.""]."'  WHERE ID = %d ", $rowimages->id));
+$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  ordering = '".esc_html($_POST["order_by_".$rowimages->id.""])."'  WHERE ID = %d ", $rowimages->id));
+$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  link_target = '".esc_html($_POST["sl_link_target".$rowimages->id.""])."'  WHERE ID = %d ", $rowimages->id));
+$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  sl_url = '".esc_html($_POST["sl_url".$rowimages->id.""])."' WHERE ID = %d ", $rowimages->id));
+$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  name = '".esc_html($_POST["titleimage".$rowimages->id.""])."'  WHERE ID = %d ", $rowimages->id));
+$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  description = '".esc_html($_POST["im_description".$rowimages->id.""])."'  WHERE ID = %d ", $rowimages->id));
 if(isset($_POST["imagess".$rowimages->id.""]))
-$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  image_url = '".$_POST["imagess".$rowimages->id.""]."'  WHERE ID = %d ", $rowimages->id));
+$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  image_url = '".esc_html($_POST["imagess".$rowimages->id.""])."'  WHERE ID = %d ", $rowimages->id));
 }
 /////////////////update///////////////////////////
 if(isset($_POST["sl_stitle".$rowimages->id.""])){
-$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  sl_stitle = '".$_POST["sl_stitle".$rowimages->id.""]."'  WHERE ID = %d ", $rowimages->id));
-$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  sl_sdesc = '".$_POST["sl_sdesc".$rowimages->id.""]."'  WHERE ID = %d ", $rowimages->id));
-$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  sl_postlink = '".$_POST["sl_postlink".$rowimages->id.""]."'  WHERE ID = %d ", $rowimages->id));
+$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  sl_stitle = '".esc_html($_POST["sl_stitle".$rowimages->id.""])."'  WHERE ID = %d ", $rowimages->id));
+$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  sl_sdesc = '".esc_html($_POST["sl_sdesc".$rowimages->id.""])."'  WHERE ID = %d ", $rowimages->id));
+$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  sl_postlink = '".esc_html($_POST["sl_postlink".$rowimages->id.""])."'  WHERE ID = %d ", $rowimages->id));
 }
 ////////////////update///////////////////////////
 
@@ -609,6 +617,6 @@ if (isset($_POST['params'])) {
 	<?php
 	
     return true;
-
+}
 }
 ?>
