@@ -4,7 +4,7 @@
 Plugin Name: Huge IT Slider
 Plugin URI: http://huge-it.com/slider
 Description: Huge IT slider is a convenient tool for organizing the images represented on your website into sliders. Each product on the slider is assigned with a relevant slider, which makes it easier for the customers to search and identify the needed images within the slider.
-Version: 2.7.9
+Version: 2.8.0
 Author: http://huge-it.com/
 License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -364,6 +364,22 @@ function huge_it_slider_featured_plugins()
 		</div>			  				
 		<div class="button-block">
 			<a href="http://huge-it.com/video-gallery/" target="_blank">View Plugin</a>
+		</div>
+	</div>
+</div>
+<div class="element hugeitmicro-item">
+	<div class="left-block">
+		<div class="main-image-block">
+			<a href="<?php echo plugins_url( 'images/product-catalog-logo.png' , __FILE__ ); ?>" rel="content"><img src="<?php echo plugins_url( 'images/product-catalog-logo.png' , __FILE__ ); ?>"></a>
+		</div>
+	</div>
+	<div class="right-block">
+		<div class="title-block"><h3>WordPress Product Catalog</h3></div>
+		<div class="description-block">
+			<p>Huge-IT Product Catalog is made for demonstration, sale, advertisements for your products. Imagine a stand with a variety of catalogs with a specific product category. To imagine is not difficult, to use is even easier.</p>
+		</div>			  				
+		<div class="button-block">
+			<a href="http://huge-it.com/product-catalog/" target="_blank">View Plugin</a>
 		</div>
 	</div>
 </div>
