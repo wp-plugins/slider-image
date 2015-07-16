@@ -4,7 +4,7 @@
 Plugin Name: Huge IT Slider
 Plugin URI: http://huge-it.com/slider
 Description: Huge IT slider is a convenient tool for organizing the images represented on your website into sliders. Each product on the slider is assigned with a relevant slider, which makes it easier for the customers to search and identify the needed images within the slider.
-Version: 2.8.0
+Version: 2.8.1
 Author: http://huge-it.com/
 License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -412,6 +412,22 @@ function huge_it_slider_featured_plugins()
 		</div>			  				
 		<div class="button-block">
 			<a href="http://huge-it.com/google-map/" target="_blank">View Plugin</a>
+		</div>
+	</div>
+</div>
+<div class="element hugeitmicro-item">
+	<div class="left-block">
+		<div class="main-image-block">
+			<a href="<?php echo plugins_url( 'images/video-player-logo.png' , __FILE__ ); ?>" rel="content"><img src="<?php echo plugins_url( 'images/video-player-logo.png' , __FILE__ ); ?>"></a>
+		</div>
+	</div>
+	<div class="right-block">
+		<div class="title-block"><h3>Wordpress Video Player</h3></div>
+			<p>Inserting video on a page is a perfect way to supplement website with media content and expand the user’s interest in your site. Huge-IT Video Player is extremely necessary video tool for your sites, which provides a wide range of different file formats.</p>
+		<div class="description-block">
+		</div>			  				
+		<div class="button-block">
+			<a href="http://huge-it.com/video-player/" target="_blank">View Plugin</a>
 		</div>
 	</div>
 </div>
