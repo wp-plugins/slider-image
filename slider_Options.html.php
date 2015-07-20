@@ -7,15 +7,21 @@ function      html_showStyles($param_values, $op_type)
 <?php $path_site2 = plugins_url("images", __FILE__); ?>
 	<div class="slider-options-head">
 		<div style="float: left;">
-			<div><a href="http://huge-it.com/wordpress-plugins-slider-user-manual/" target="_blank">User Manual</a></div>
-			<div>This section allows you to configure the Slider options. <a href="http://huge-it.com/wordpress-plugins-slider-user-manual/" target="_blank">More...</a></div>
-			<div>These options are made for pro users, and are displayed only for demonstration. Unfortunatelly free users are unable to use them.</div>
-		</div>
-		<div style="float: right;">
+				<div style="float: right;">
 			<a class="header-logo-text" href="http://huge-it.com/slider/" target="_blank">
 				<div><img width="250px" src="<?php echo $path_site2; ?>/huge-it1.png" /></div>
 				<div>Get the full version</div>
 			</a>
+		</div>
+			<div><a href="http://huge-it.com/wordpress-plugins-slider-user-manual/" target="_blank">User Manual</a></div>
+			<div>This section allows you to configure the Slider options. <a href="http://huge-it.com/wordpress-plugins-slider-user-manual/" target="_blank">More...</a></div>
+			<div style="color: #a00; margin-bottom: 15px;">Dear user. Thank you for your interest in our product.
+            Please be known, that this version is for commercial users, and in order to use options from there,
+            you should have pro license. We please you to be understanding. The money we get for pro license
+            is expended on constantly improvements of our plugins, making them more professional useful and effective,
+            as well as for keeping fast support for every user.
+        </div>
+			<div>These options are made for pro users, and are displayed only for demonstration. Unfortunatelly free users are unable to use them.</div>
 		</div>
 	</div>
 	<div style="clear: both;"></div>
