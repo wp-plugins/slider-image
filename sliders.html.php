@@ -184,7 +184,7 @@ function html_showsliders( $rows,  $pageNav,$sort,$cat_row){
 			 <input type="hidden" name="csrf_token_hugeit_1752" value="csrf_token_hugeit_1752" />
 
 			 <?php
-			 session_start();
+			
 			 $_SESSION['csrf_token_hugeit_1752'] = 'csrf_token_hugeit_1752';
 			?>
 			
