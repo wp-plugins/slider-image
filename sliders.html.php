@@ -201,8 +201,9 @@ function Html_editslider($ord_elem, $count_ord,$images,$row,$cat_row, $rowim, $r
 
 {
  global $wpdb;
-	$_GET["addslide"] = esc_html($_GET["addslide"]);
+	
 	if(isset($_GET["addslide"])){
+	$_GET["addslide"] = esc_html($_GET["addslide"]);
 	if($_GET["addslide"] == 1){
 	header('Location: admin.php?page=sliders_huge_it_slider&id='.$row->id.'&task=apply');
 	}
@@ -716,8 +717,8 @@ jQuery(document).ready(function($){
 	<input type="hidden" name="task" value="" />
 	 <input type="hidden" name="csrf_token_hugeit_1752" value="csrf_token_hugeit_1752" />
 			 <?php
-			 session_start();
-			 $_SESSION['csrf_token_hugeit_1752'] = 'csrf_token_hugeit_1752';
+			
+			$_SESSION['csrf_token_hugeit_1752'] = 'csrf_token_hugeit_1752';
 			?>
 </form>
 </div>

@@ -517,6 +517,7 @@ function apply_cat($id)
 {
 		 global $wpdb;
 		   session_start();
+		   if(isset($_REQUEST['csrf_token_hugeit_1752'])){
  if($_SESSION['csrf_token_hugeit_1752'] == $_REQUEST['csrf_token_hugeit_1752']){
 		 if(!is_numeric($id)){
 			 echo 'insert numerc id';
@@ -619,6 +620,7 @@ if (isset($_POST['params'])) {
 	<?php
 	
     return true;
+}
 }
 }
 ?>
