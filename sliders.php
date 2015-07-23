@@ -14,16 +14,21 @@ function showslider()
   
   session_start();
   if(isset($_REQUEST['csrf_token_hugeit_1752'])){
+$_REQUEST['csrf_token_hugeit_1752'] = esc_html($_REQUEST['csrf_token_hugeit_1752']);
  if($_SESSION['csrf_token_hugeit_1752'] == $_REQUEST['csrf_token_hugeit_1752']){
   if(isset($_POST['search_events_by_title'])){
 $_POST['search_events_by_title']=esc_html(stripslashes($_POST['search_events_by_title']));
   }
   }
   }
-if(isset($_POST['asc_or_desc']))
+if(isset($_POST['asc_or_desc'])){
+$_POST['asc_or_desc'] = esc_html($_POST['asc_or_desc']);
 $_POST['asc_or_desc']=esc_js($_POST['asc_or_desc']);
-if(isset($_POST['order_by']))
+}
+if(isset($_POST['order_by'])){
+$_POST['order_by'] = esc_html($_POST['order_by']);
 $_POST['order_by']=esc_js($_POST['order_by']);
+}
   $where='';
   	$sort["custom_style"] ="manage-column column-autor sortable desc";
 	$sort["default_style"]="manage-column column-autor sortable desc";
@@ -32,6 +37,7 @@ $_POST['order_by']=esc_js($_POST['order_by']);
 	$order='';
 	if(isset($_POST['page_number']))
 	{
+		$_POST['page_number'] = esc_html($_POST['page_number']);
 			if($_POST['asc_or_desc'])
 			{
 				$sort["sortid_by"]=$_POST['order_by'];
@@ -62,6 +68,7 @@ $_POST['order_by']=esc_js($_POST['order_by']);
 			$limit=0;
 		}
 	if(isset($_POST['search_events_by_title'])){
+	$_POST['search_events_by_title'] = esc_html($_POST['search_events_by_title']);
 		$search_tag=esc_html(stripslashes($_POST['search_events_by_title']));
 		}
 		else
@@ -69,11 +76,13 @@ $_POST['order_by']=esc_js($_POST['order_by']);
 		$search_tag="";
 		}		
 	 if(isset($_GET["catid"])){
+		 $_GET["catid"] = esc_html($_GET["catid"]);
 	    $cat_id=$_GET["catid"];	
 		}
        else
 	   {
        if(isset($_POST['cat_search'])){
+		   $_POST['cat_search'] = esc_html($_POST['cat_search']);
 		$cat_id=$_POST['cat_search'];
 		}else{
 		$cat_id=0;}
@@ -119,6 +128,7 @@ $rows = $wpdb->get_results($query);
  global $glob_ordering_in_cat;
 if(isset($sort["sortid_by"]))
 {
+	$sort["sortid_by"] = esc_html($sort["sortid_by"]);
 	if($sort["sortid_by"]=='ordering'){
 	if($_POST['asc_or_desc']==1){
 		$glob_ordering_in_cat=" ORDER BY ordering ASC";
@@ -184,6 +194,7 @@ function editslider($id)
 	  global $wpdb;
 	  
 	  if(isset($_GET["removeslide"])){
+		  $_GET["removeslide"] = esc_html($_GET["removeslide"]);
 	     if($_GET["removeslide"] != ''){
 
 	         $wpdb->query($wpdb->prepare("DELETE FROM ".$wpdb->prefix."huge_itslider_images  WHERE id = %d ", $_GET["removeslide"]));
@@ -206,6 +217,7 @@ function editslider($id)
 			   $rowim=$wpdb->get_results($query);
 			   
 			   if(isset($_GET["addslide"])){
+				   $_GET["addslide"]= esc_html($_GET["addslide"]);
 			   if($_GET["addslide"] == 1){
 	
 $table_name = $wpdb->prefix . "huge_itslider_images";
@@ -238,6 +250,7 @@ $table_name = $wpdb->prefix . "huge_itslider_images";
 	$rowsposts8 = '';
 	$postsbycat = '';
 	if(isset($_POST["iframecatid"])){
+		$_POST["iframecatid"] = esc_html($_POST["iframecatid"]);
 	 	  $query=$wpdb->prepare("SELECT * FROM ".$wpdb->prefix."term_relationships where term_taxonomy_id = %d order by object_id ASC",$_POST["iframecatid"]);
 		$rowsposts8=$wpdb->get_results($query);
 
@@ -280,6 +293,7 @@ function popup_posts($id)
 	  global $wpdb;
 	 
 	     if(isset($_GET["removeslide"])){
+			 $_GET["removeslide"] = esc_html($_GET["removeslide"]);
 	     if($_GET["removeslide"] != ''){
 	
 
@@ -307,6 +321,7 @@ function popup_posts($id)
 			   $rowim=$wpdb->get_results($query);
 			   
 			   if(isset($_GET["addslide"])){
+				    $_GET["addslide"]= esc_html($_GET["addslide"]);
 			   if($_GET["addslide"] == 1){
 	
 $table_name = $wpdb->prefix . "huge_itslider_images";
@@ -343,6 +358,7 @@ $table_name = $wpdb->prefix . "huge_itslider_images";
 			   
 			   $categories = get_categories(  );
 		if(isset($_POST["iframecatid"])){
+			$_POST["iframecatid"] = esc_html($_POST["iframecatid"]);
 		$iframecatid = $_POST["iframecatid"];
 		}
 		else
@@ -365,6 +381,7 @@ $table_name = $wpdb->prefix . "huge_itslider_images";
 	 global $wpdb;
 
 	  if(isset($_GET["closepop"])){
+		  $_GET["closepop"] = esc_html($_GET["closepop"]);
 	  if($_GET["closepop"] == 1){
 
 	      if($_POST["popupposts"] != 'none' and $_POST["popupposts"] != ''){
@@ -409,6 +426,7 @@ $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET or
 	  }
 
 if(isset($_POST["lastposts"])){
+	$_POST["lastposts"] = esc_html($_POST["lastposts"]);
 $query=$wpdb->prepare("SELECT * FROM ".$wpdb->prefix."posts where post_type = 'post' and post_status = 'publish' order by id DESC LIMIT 0, ".$_POST["lastposts"]."");
 			   $rowspostslast=$wpdb->get_results($query);
 			   foreach($rowspostslast as $rowspostslastfor){
@@ -439,6 +457,7 @@ $wpdb->query($wpdb->prepare("INSERT INTO `" . $table_name . "` ( `name`, `slider
 	  } 
 }
 if(isset($_POST["addlastposts"])){
+	$_POST["addlastposts"] = esc_html($_POST["addlastposts"]);
     if($_POST["addlastposts"]=='addlastposts'){
       $query=$wpdb->prepare("SELECT * FROM ".$wpdb->prefix."huge_itslider_images where slider_id = %d order by id ASC", $row->id);
                                $rowplusorder=$wpdb->get_results($query);
@@ -470,6 +489,7 @@ function last_posts($id)
 	$row=$wpdb->get_row($query);
 	$test = 'test';
 	if(isset($_POST['sel_categ'])){
+		$_POST['sel_categ'] = esc_html($_POST['sel_categ']);
 	$table_name = $wpdb->prefix . "huge_itslider_images";
         $sql_lastposts = $wpdb->query($wpdb->prepare("INSERT INTO `" . $table_name . "` ( `name`, `slider_id`, `description`, `image_url`, `sl_url`, `sl_type`, `link_target`, `ordering`, `published`, `published_in_sl_width` )"
                 . "VALUES ( '%s', '%s', '300', '', '%s', 'last_posts', 'on', '0', 1, '0' )", $_POST['sel_categ'], $row->id, $_POST['count_posts'] ));
@@ -518,6 +538,7 @@ function apply_cat($id)
 		 global $wpdb;
 		   session_start();
 		   if(isset($_REQUEST['csrf_token_hugeit_1752'])){
+			   $_REQUEST['csrf_token_hugeit_1752'] = esc_html($_REQUEST['csrf_token_hugeit_1752']);
  if($_SESSION['csrf_token_hugeit_1752'] == $_REQUEST['csrf_token_hugeit_1752']){
 		 if(!is_numeric($id)){
 			 echo 'insert numerc id';
@@ -535,6 +556,7 @@ function apply_cat($id)
 	        $id_bef=$wpdb->get_var($query);
       
 	if(isset($_POST["content"])){
+		$_POST["content"] = esc_html($_POST["content"]);
 	$script_cat = preg_replace('#<script(.*?)>(.*?)</script>#is', '', stripslashes($_POST["content"]));
 	}
 

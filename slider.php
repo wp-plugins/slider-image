@@ -4,7 +4,7 @@
 Plugin Name: Huge IT Slider
 Plugin URI: http://huge-it.com/slider
 Description: Huge IT slider is a convenient tool for organizing the images represented on your website into sliders. Each product on the slider is assigned with a relevant slider, which makes it easier for the customers to search and identify the needed images within the slider.
-Version: 2.8.6
+Version: 2.8.7
 Author: http://huge-it.com/
 License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -581,14 +581,19 @@ h3 {
 <div id="huge_it_slider">
   <?php 
   	  global $wpdb;
+	  session_start();
 	  $query="SELECT * FROM ".$wpdb->prefix."huge_itslider_sliders";
 	  $firstrow=$wpdb->get_row($query);
 	  if(isset($_POST["hugeit_slider_id"])){
+		  $_POST["hugeit_slider_id"] = esc_html($_POST["hugeit_slider_id"]);
 	  $id=$_POST["hugeit_slider_id"];
 	  }
 	  else{
 	  $id=$firstrow->id;
 	  }
+	  	if(isset($_REQUEST['csrf_token_hugeit_1753'])){
+	$_REQUEST['csrf_token_hugeit_1753'] = esc_html($_REQUEST['csrf_token_hugeit_1753']);
+	if($_SESSION['csrf_token_hugeit_1753'] == $_REQUEST['csrf_token_hugeit_1753']){
 	  if(isset($_GET["htslider_id"]) && $_GET["htslider_id"] == $_POST["hugeit_slider_id"]){
               if($_GET["hugeit_save"]==1){
                   $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  sl_width = '%s'  WHERE id = %d ", $_POST["sl_width"], $id));
@@ -602,10 +607,13 @@ h3 {
 
               }
           }
+		  }
+	  }
 	  $query="SELECT * FROM ".$wpdb->prefix."huge_itslider_sliders order by id ASC";
 			   $shortcodesliders=$wpdb->get_results($query);
 		$query=$wpdb->prepare("SELECT * FROM ".$wpdb->prefix."huge_itslider_sliders WHERE id= %d", $id);
 	   $row=$wpdb->get_row($query);$container_id = 'huge_it_slider';
+	  
 			   ?>
 <form action="?page=sliders_huge_it_slider&task=add_shortcode_post&TB_iframe=1&width=400&inlineId=<?php echo $container_id; ?>&hugeit_save=1&htslider_id=<?php echo $id; ?>" method="post" name="adminForm" id="adminForm">
  <?php 	if (count($shortcodesliders)) {
@@ -683,6 +691,10 @@ h3 {
 
 					</ul>
 					<input type="submit" value="Save Slider" id="save-buttom" class="button button-primary button-large">
+					<input type="hidden" name="csrf_token_hugeit_1753" value="csrf_token_hugeit_1753" />
+					 <?php			
+						$_SESSION['csrf_token_hugeit_1753'] = 'csrf_token_hugeit_1753';
+					?>
 					</div>
 				</div>
 			</form>
