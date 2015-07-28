@@ -585,7 +585,7 @@ $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  o
 $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  link_target = '".esc_html($_POST["sl_link_target".$rowimages->id.""])."'  WHERE ID = %d ", $rowimages->id));
 $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  sl_url = '".esc_html($_POST["sl_url".$rowimages->id.""])."' WHERE ID = %d ", $rowimages->id));
 $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  name = '".esc_html($_POST["titleimage".$rowimages->id.""])."'  WHERE ID = %d ", $rowimages->id));
-$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  description = '".esc_html($_POST["im_description".$rowimages->id.""])."'  WHERE ID = %d ", $rowimages->id));
+$wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  description = '".$_POST["im_description".$rowimages->id.""]."'  WHERE ID = %d ", $rowimages->id));
 if(isset($_POST["imagess".$rowimages->id.""]))
 $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_images SET  image_url = '".esc_html($_POST["imagess".$rowimages->id.""])."'  WHERE ID = %d ", $rowimages->id));
 }
