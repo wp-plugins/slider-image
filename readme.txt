@@ -12,6 +12,13 @@ Huge-IT slider is an awesome WordPress slider plugin with a lot of nice features
 
 == Description ==
 
+### Wordpress Slider
+
+* [Wordpress Slider](http://huge-it.com/slider/)
+* [Demo Slider](http://huge-it.com/wordpress-plugins-slider-demo-1-shuffle/)
+* [Demo Slider Admin](http://huge-it.com/wordpress-plugins-slider-demo-admin/)
+* [User Slider Manual](http://huge-it.com/wordpress-plugins-slider-user-manual/)
+
 Huge-IT Slider is a quick and easy way to add custom sliders to the WordPress websites (both to templates and posts/pages).
 The slider allows having unlimited amount of images with their titles and descriptions.
 
