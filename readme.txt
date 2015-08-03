@@ -68,10 +68,12 @@ Now you can set your slider options, images and use our slider.
 == Screenshots ==
 
 1.  WordPress slider - Slider Front end    
-2.  [WordPress Slider](http://wordpress.org/plugins/slider-image) - Slides admin page  
-3.  [WordPress Slider](http://huge-it.com/slider) - Sliders admin page 
-4.  WordPress slider - Post Slider        
-5.  WordPress slider - Widget Slider      
+2.  WordPress slider - Slider Front end    
+3.  WordPress slider - Slider Front end    
+4.  [WordPress Slider](http://wordpress.org/plugins/slider-image) - Slides admin page  
+5.  [WordPress Slider](http://huge-it.com/slider) - Sliders admin page 
+6.  WordPress slider - Post Slider        
+7.  WordPress slider - Widget Slider      
 
 == Changelog ==
 
