@@ -878,10 +878,10 @@ jQuery(function(){
 <div class="huge_it_slideshow_image_wrap_<?php echo $sliderID; ?> ">
 <?php } ?>
 	<?php if($sliderloadingicon == "on")	{ ?>
-		<div id="huge_it_loading_image_<?php echo $sliderID;  ?>" class="display" ><img  src="<?php echo plugins_url('', __FILE__).'/Front_images/loading/loading'.$paramssld["loading_icon_type"].'.gif'; ?>" alt="" /> </div>
+		<div id="huge_it_loading_image_<?php echo $sliderID;  ?>" class="display" ><img  src="<?php echo plugins_url('', __FILE__).'/Front_images/loading/loading'.$paramssld["loading_icon_type"].'.gif'; ?>" /> </div>
 		<div class="huge_it_slideshow_image_wrap1_<?php echo $sliderID; ?> nodisplay">
 	<?php } else { ?>
-		<div id="huge_it_loading_image_<?php echo $sliderID; ?>" class="nodisplay"> <img src="<?php echo plugins_url('', __FILE__).'/Front_images/loading/loading'.$paramssld["loading_icon_type"].'.gif'; ?>" width="100" height="100" style=" margin: 0px auto;"  alt="" /> </div>
+		<div id="huge_it_loading_image_<?php echo $sliderID; ?>" class="nodisplay"> <img src="<?php echo plugins_url('', __FILE__).'/Front_images/loading/loading'.$paramssld["loading_icon_type"].'.gif'; ?>" width="100" height="100" style=" margin: 0px auto;" /> </div>
 		<div class="huge_it_slideshow_image_wrap1_<?php echo $sliderID; ?> display">
 	<?php } ?>
       <?php
@@ -1011,7 +1011,7 @@ jQuery(function(){
 							if ($image_row->link_target=="on"){$target='target="_blank"';}
 							echo '<a href="'.$image_row->sl_url.'" '.$target.'>';
 						} ?>
-						<img id="huge_it_slideshow_image_<?php echo $sliderID; ?>_<?php echo $key;?>" class="huge_it_slideshow_image_<?php echo $sliderID; ?>"  alt="" src="<?php echo $image_row->image_url; ?>" data-image_id="<?php echo $image_row->id; ?>" />
+						<img id="huge_it_slideshow_image_<?php echo $sliderID; ?>_<?php echo $key;?>" class="huge_it_slideshow_image_<?php echo $sliderID; ?>"  alt="<?php echo $image_row->name; ?>" src="<?php echo $image_row->image_url; ?>" data-image_id="<?php echo $image_row->id; ?>" />
 						<?php if($image_row->sl_url!=""){ echo '</a>'; }?>		
 						<div class="huge_it_slideshow_title_text_<?php echo $sliderID; ?> <?php if(trim($image_row->name)=="") echo "none"; ?>">
 							<?php echo $image_row->name; ?>
