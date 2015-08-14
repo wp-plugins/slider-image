@@ -351,9 +351,22 @@ jQuery(document).ready(function($){
 										});
 										window.send_to_editor = function (html) {
 											imgurl = jQuery('img', html).attr('src');
-											window.parent.uploadID.val(imgurl);
-											tb_remove();
-											jQuery("#save-buttom").click();
+											if(imgurl) {
+												window.parent.uploadID.val(imgurl);
+													tb_remove();
+													jQuery("#save-buttom").click();
+											}
+											else {
+												imgurl = jQuery('#embed-url-field').val();
+												if(imgurl) {
+
+
+													window.parent.jQuery("#_unique_name").val(imgurl+';;;');				
+													jQuery("#save-buttom").click();												
+
+													tb_remove();
+												}
+											}
 										};
 									});
 						</script>				
@@ -545,13 +558,25 @@ jQuery(document).ready(function($){
 																
 																return false;
 															});
-															window.send_to_editor = function (html) {
-																imgurl = jQuery('img', html).attr('src');
-																window.parent.uploadID.val(imgurl);
-																
+													window.send_to_editor = function (html) {
+														imgurl = jQuery('img', html).attr('src');
+														if(imgurl) {
+															window.parent.uploadID.val(imgurl);
 																tb_remove();
 																jQuery("#save-buttom").click();
-															};
+														}
+														else {
+															imgurl = jQuery('#embed-url-field').val();
+															if(imgurl) {
+
+
+																window.parent.jQuery("#_unique_name").val(imgurl+';;;');				
+																jQuery("#save-buttom").click();												
+
+																tb_remove();
+															}
+														}
+													};
 														});
 															
 											</script>
