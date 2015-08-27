@@ -55,7 +55,7 @@ https://www.youtube.com/watch?v=oIcsrVHNDWo
 
 == Installation ==
 
-### First download the ZIP file ,
+### First download the ZIP file,
 
 1. Log in to your website administrator panel.   
 2. Go to Plugins page, and add new plugin.    
@@ -67,13 +67,13 @@ Now you can set your slider options, images and use our slider.
 
 == Screenshots ==
 
-1.  WordPress slider - Slider Front end    
-2.  WordPress slider - Slider Front end    
-3.  WordPress slider - Slider Front end    
-4.  [WordPress Slider](http://wordpress.org/plugins/slider-image) - Slides admin page  
-5.  [WordPress Slider](http://huge-it.com/slider) - Sliders admin page 
-6.  WordPress slider - Post Slider        
-7.  WordPress slider - Widget Slider      
+1.  WordPress slider - Slider Front end.    
+2.  WordPress slider - Slider Front end.  
+3.  WordPress slider - Slider Front end.    
+4.  [WordPress Slider](http://wordpress.org/plugins/slider-image) - Slides admin page.  
+5.  [WordPress Slider](http://huge-it.com/slider) - Sliders admin page. 
+6.  WordPress slider - Post Slider.    
+7.  WordPress slider - Widget Slider.  
 
 == Changelog ==
 
