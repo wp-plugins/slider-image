@@ -120,17 +120,17 @@ jQuery(document).ready(function() {
 setInterval(function(){
 	if(huge_video_playing['video_is_playing_'+sliderID]==true){
 		 _this.stopAuto();
-		// alert('video playing')
-	}else{
+		
+	}else if(huge_video_playing['video_is_playing_'+sliderID]==false){
 		_this.startAuto();
-		//alert('video paused')
+		
 	}
 	if(jQuery('#huge_it_loading_image_'+sliderID).css('display')=='table-cell'){
 		_this.stopAuto();
-		//alert('loading')
+		
 	}else if(jQuery('#huge_it_loading_image_'+sliderID).css('display')=='none'){
 		_this.startAuto();
-		//alert('ready')
+		
 	}
 },100)
 	
