@@ -263,7 +263,7 @@ function change_select()
 				<?php
 				}
 				else{ ?>
-					<li class="active" style="background-image:url(<?php echo plugins_url('images/edit.png', __FILE__) ;?>)">
+					<li class="active" onclick="this.firstElementChild.style.width = ((this.firstElementChild.value.length + 1) * 8) + 'px';" style="background-image:url(<?php echo plugins_url('images/edit.png', __FILE__) ;?>);cursor: pointer;">
 						<input class="text_area" onfocus="this.style.width = ((this.value.length + 1) * 8) + 'px'" type="text" name="name" id="name" maxlength="250" value="<?php echo esc_html(stripslashes($row->name));?>" />
 					</li>
 				<?php	
@@ -659,11 +659,7 @@ jQuery(document).ready(function($){
 							<label for="sl_height">Height</label>
 							<input type="text" name="sl_height" id="sl_height" value="<?php echo $row->sl_height; ?>" class="text_area" />
 						</li>
-						<li>
-							<label for="pause_on_hover">Pause on hover</label>
-							<input type="hidden" value="off" name="pause_on_hover" />					
-							<input type="checkbox" name="pause_on_hover"  value="on" id="pause_on_hover"  <?php if($row->pause_on_hover  == 'on'){ echo 'checked="checked"'; } ?> />
-						</li>
+						
 						<li>
 							<label for="slider_effects_list">Effects</label>
 							<select name="slider_effects_list" id="slider_effects_list">
@@ -687,11 +683,11 @@ jQuery(document).ready(function($){
 						</li>
 
 						<li>
-							<label for="sl_pausetime">Pause time</label>
+							<label for="sl_pausetime">Pause Time</label>
 							<input type="text" name="sl_pausetime" id="sl_pausetime" value="<?php echo $row->description; ?>" class="text_area" />
 						</li>
 						<li>
-							<label for="sl_changespeed">Change speed</label>
+							<label for="sl_changespeed">Change Speed</label>
 							<input type="text" name="sl_changespeed" id="sl_changespeed" value="<?php echo $row->param; ?>" class="text_area" />
 						</li>
 						<li>
@@ -703,11 +699,25 @@ jQuery(document).ready(function($){
 							</select>
 						</li>
 						<li>
-							<label for="sl_loading_icon">Loading icon</label>
+							<label for="sl_loading_icon">Loading Icon</label>
 							<select id="sl_loading_icon" name="sl_loading_icon">
 								  <option <?php if($row->sl_loading_icon == 'on'){ echo 'selected'; } ?> value="on">On</option>
 								  <option <?php if($row->sl_loading_icon == 'off'){ echo 'selected'; } ?> value="off">Off</option>
 							</select>
+						</li>
+						<li>
+							<label for="show_thumb">Navigate By</label>
+							<input type="hidden" value="off" name="show_thumb" />					
+							<select id="show_thumb" name="show_thumb">
+								  <option <?php if($row->show_thumb == 'dotstop'){ echo 'selected'; } ?> value="dotstop">Dots</option>
+								  <option <?php if($row->show_thumb == 'thumbnails'){ echo 'selected'; } ?> value="thumbnails">Thumbnails</option>
+								  <option <?php if($row->show_thumb == 'nonav'){ echo 'selected'; } ?> value="nonav">No Navigation</option>
+							</select>
+						</li>
+						<li>
+							<label for="pause_on_hover">Pause on Hover</label>
+							<input type="hidden" value="off" name="pause_on_hover" />					
+							<input type="checkbox" name="pause_on_hover"  value="on" id="pause_on_hover"  <?php if($row->pause_on_hover  == 'on'){ echo 'checked="checked"'; } ?> />
 						</li>
 					</ul>
 						<div id="major-publishing-actions">
@@ -1058,7 +1068,7 @@ function html_popup_video(){
 	<div id="huge_it_slider_add_videos">
 		<span class="buy-pro">This feature is disabled in free version. <br>If you need this functionality, you need to <a href="http://huge-it.com/slider/" target="_blank">buy the commercial version</a>.</span>
 		<div id="huge_it_slider_add_videos_wrap">
-			<h2>Add Video URL From Youtobe or Vimeo</h2>
+			<h2>Add Video URL From Youtube or Vimeo</h2>
 			<div class="control-panel">
 			
 					<input type="text" id="huge_it_add_video_input" name="huge_it_add_video_input" />

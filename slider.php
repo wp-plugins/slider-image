@@ -4,7 +4,7 @@
 Plugin Name: Huge IT Slider
 Plugin URI: http://huge-it.com/slider
 Description: Huge IT slider is a convenient tool for organizing the images represented on your website into sliders. Each product on the slider is assigned with a relevant slider, which makes it easier for the customers to search and identify the needed images within the slider.
-Version: 2.9.0
+Version: 2.9.1
 Author: http://huge-it.com/
 License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -51,16 +51,16 @@ function huge_it_ajax_func()
     </script>
 <?php
 }
-
 function huge_it_slider_images_list_shotrcode($atts)
 {
     extract(shortcode_atts(array(
-
         'id' => 'no huge_it slider',
+    
     ), $atts));
 	add_style_to_header($atts['id']);
-	add_action('wp_head', 'add_style_to_header');
+	add_action('wp_footer', 'add_style_to_header');
     return huge_it_cat_images_list($atts['id']);
+
 }
 
 function slider_after_search_results($query)
@@ -108,6 +108,8 @@ function gen_string_slider_search($serch_word, $wordpress_query_post)
 }
 
 add_shortcode('huge_it_slider', 'huge_it_slider_images_list_shotrcode');
+
+	
 
 function   huge_it_cat_images_list($id)
 {
@@ -164,6 +166,7 @@ function huge_it_slider_Licensing(){
 function huge_it_slider_featured_plugins()
 {
 		?>
+
 <style>
 .element {
 	position: relative;
@@ -337,22 +340,6 @@ function huge_it_slider_featured_plugins()
 <div class="element hugeitmicro-item">
 	<div class="left-block">
 		<div class="main-image-block">
-			<a href="<?php echo plugins_url( 'images/video-gallery-logo.png' , __FILE__ ); ?>" rel="content"><img src="<?php echo plugins_url( 'images/video-gallery-logo.png' , __FILE__ ); ?>"></a>
-		</div>
-	</div>
-	<div class="right-block">
-		<div class="title-block"><h3>Wordpress Video Gallery</h3></div>
-		<div class="description-block">
-			<p>Video Gallery plugin was created and specifically designed to show your video files in unusual splendid ways. It has 5 good-looking views. Each are made in different taste so that you can choose any of them, according to the style of your website.</p>
-		</div>			  				
-		<div class="button-block">
-			<a href="http://huge-it.com/video-gallery/" target="_blank">View Plugin</a>
-		</div>
-	</div>
-</div>
-<div class="element hugeitmicro-item">
-	<div class="left-block">
-		<div class="main-image-block">
 			<a href="<?php echo plugins_url( 'images/lightbox-logo.jpg' , __FILE__ ); ?>" rel="content"><img src="<?php echo plugins_url( 'images/lightbox-logo.jpg' , __FILE__ ); ?>"></a>
 		</div>
 	</div>
@@ -369,16 +356,16 @@ function huge_it_slider_featured_plugins()
 <div class="element hugeitmicro-item">
 	<div class="left-block">
 		<div class="main-image-block">
-			<a href="<?php echo plugins_url( 'images/product-catalog-logo.png' , __FILE__ ); ?>" rel="content"><img src="<?php echo plugins_url( 'images/product-catalog-logo.png' , __FILE__ ); ?>"></a>
+			<a href="<?php echo plugins_url( 'images/video-gallery-logo.png' , __FILE__ ); ?>" rel="content"><img src="<?php echo plugins_url( 'images/video-gallery-logo.png' , __FILE__ ); ?>"></a>
 		</div>
 	</div>
 	<div class="right-block">
-		<div class="title-block"><h3>WordPress Product Catalog</h3></div>
+		<div class="title-block"><h3>Wordpress Video Gallery</h3></div>
 		<div class="description-block">
-			<p>Huge-IT Product Catalog is made for demonstration, sale, advertisements for your products. Imagine a stand with a variety of catalogs with a specific product category. To imagine is not difficult, to use is even easier.</p>
+			<p>Video Gallery plugin was created and specifically designed to show your video files in unusual splendid ways. It has 5 good-looking views. Each are made in different taste so that you can choose any of them, according to the style of your website.</p>
 		</div>			  				
 		<div class="button-block">
-			<a href="http://huge-it.com/product-catalog/" target="_blank">View Plugin</a>
+			<a href="http://huge-it.com/video-gallery/" target="_blank">View Plugin</a>
 		</div>
 	</div>
 </div>
@@ -417,16 +404,16 @@ function huge_it_slider_featured_plugins()
 <div class="element hugeitmicro-item">
 	<div class="left-block">
 		<div class="main-image-block">
-			<a href="<?php echo plugins_url( 'images/video-player-logo.png' , __FILE__ ); ?>" rel="content"><img src="<?php echo plugins_url( 'images/video-player-logo.png' , __FILE__ ); ?>"></a>
+			<a href="<?php echo plugins_url( 'images/colorbox-logo.png' , __FILE__ ); ?>" rel="content"><img src="<?php echo plugins_url( 'images/colorbox-logo.png' , __FILE__ ); ?>"></a>
 		</div>
 	</div>
 	<div class="right-block">
-		<div class="title-block"><h3>Wordpress Video Player</h3></div>
-			<p>Inserting video on a page is a perfect way to supplement website with media content and expand the user’s interest in your site. Huge-IT Video Player is extremely necessary video tool for your sites, which provides a wide range of different file formats.</p>
+		<div class="title-block"><h3>Wordpress Colorbox</h3></div>
+			<p>Huge-It Colorbox is the most spellbinding plugin in WordPress that implement Lightbox-effect look of the images and videos (when you click on the thumbnail of the image/video it nicely opens and increases in the same window with a beautiful effect).</p>
 		<div class="description-block">
 		</div>			  				
 		<div class="button-block">
-			<a href="http://huge-it.com/video-player/" target="_blank">View Plugin</a>
+			<a href="http://huge-it.com/colorbox/" target="_blank">View Plugin</a>
 		</div>
 	</div>
 </div>
@@ -443,32 +430,41 @@ function huge_it_slider_admin_script()
 		}
 		
 		wp_enqueue_script("simple_slider_js",  plugins_url("js/simple-slider.js", __FILE__), FALSE);
-		wp_enqueue_style("simple_slider_css", plugins_url("style/simple-slider.css", __FILE__), FALSE);
+		wp_enqueue_style("simple_slider_css", plugins_url("style/simple-slider.css", __FILE__), FALSE);	
 		wp_enqueue_style("admin_css", plugins_url("style/admin.style.css", __FILE__), FALSE);
 		wp_enqueue_script("admin_js", plugins_url("js/admin.js", __FILE__), FALSE);
 		wp_enqueue_script('param_block2', plugins_url("elements/jscolor/jscolor.js", __FILE__));
-}
+		
 
+}
+function huge_it_enque_bx_slider (){
+	wp_register_script( 'bxSlider',plugins_url("js/jquery.bxslider.js", __FILE__) ,array ('jquery'), '1.0.0', true);
+	wp_enqueue_script('bxSlider');
+	wp_register_script( 'bxSliderSetup',plugins_url("js/bxslider.setup.js", __FILE__) ,array ('jquery'), '1.0.0', true);
+	wp_enqueue_script('bxSliderSetup');
+
+	wp_register_style( 'bxSlidercss',plugins_url("style/jquery.bxslider.css", __FILE__));
+	wp_enqueue_style('bxSlidercss');
+}
+add_action('wp_footer','huge_it_enque_bx_slider' );
 function huge_it_slider_option_admin_script()
 {
-
 		wp_enqueue_script("jquery_old", "http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js", FALSE);
+
 	if (!wp_script_is( 'jQuery.ui' )) 
 {
        // wp_enqueue_script("jquery_new", "http://code.jquery.com/jquery-1.10.2.js", FALSE);
         wp_enqueue_script("jquery_ui_new", "http://code.jquery.com/ui/1.10.4/jquery-ui.js", FALSE);
 }
 		wp_enqueue_script("simple_slider_js",  plugins_url("js/simple-slider.js", __FILE__), FALSE);
+		
 		wp_enqueue_style("simple_slider_css", plugins_url("style/simple-slider.css", __FILE__), FALSE);
 		wp_enqueue_style("admin_css", plugins_url("style/admin.style.css", __FILE__), FALSE);
 		wp_enqueue_script("admin_js", plugins_url("js/admin.js", __FILE__), FALSE);
 		wp_enqueue_script('param_block2', plugins_url("elements/jscolor/jscolor.js", __FILE__));
 	
-if (!wp_script_is( 'jQuery.ui' ))
-{
-       // wp_enqueue_script("jquery_new", "http://code.jquery.com/jquery-1.10.2.js", FALSE);
-        wp_enqueue_script("jquery_ui_new", "http://code.jquery.com/ui/1.10.4/jquery-ui.js", FALSE);
-}
+		
+	
 }
 
 function sliders_huge_it_slider()
@@ -542,9 +538,11 @@ function add_shortcode_post()
 <script type="text/javascript">
 				jQuery(document).ready(function() {
 				  jQuery('#hugeitsliderinsert').on('click', function() {
+
 					jQuery('#save-buttom').click();
+					
 					var id = jQuery('#huge_it_slider-select option:selected').val();
-					if(window.parent.tinyMCE && window.parent.tinyMCE.activeEditor)
+					if(window.parent.tinyMCE || window.parent.tinyMCE.activeEditor)
 					{
 						window.parent.send_to_editor('[huge_it_slider id="'+id+'"]');
 					}
@@ -581,20 +579,15 @@ h3 {
 <div id="huge_it_slider">
   <?php 
   	  global $wpdb;
-	  session_start();
 	  $query="SELECT * FROM ".$wpdb->prefix."huge_itslider_sliders";
 	  $firstrow=$wpdb->get_row($query);
 	  if(isset($_POST["hugeit_slider_id"])){
-		  $_POST["hugeit_slider_id"] = esc_html($_POST["hugeit_slider_id"]);
 	  $id=$_POST["hugeit_slider_id"];
 	  }
 	  else{
 	  $id=$firstrow->id;
 	  }
-	  	if(isset($_REQUEST['csrf_token_hugeit_1753'])){
-	$_REQUEST['csrf_token_hugeit_1753'] = esc_html($_REQUEST['csrf_token_hugeit_1753']);
-	if($_SESSION['csrf_token_hugeit_1753'] == $_REQUEST['csrf_token_hugeit_1753']){
-	  if(isset($_GET["htslider_id"]) && $_GET["htslider_id"] == $_POST["hugeit_slider_id"]){
+	 if(isset($_GET["htslider_id"]) && $_GET["htslider_id"] == $_POST["hugeit_slider_id"]){
               if($_GET["hugeit_save"]==1){
                   $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  sl_width = '%s'  WHERE id = %d ", $_POST["sl_width"], $id));
                   $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  sl_height = '%s'  WHERE id = %d ", $_POST["sl_height"], $id));
@@ -604,17 +597,15 @@ h3 {
                   $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  param = '%s'  WHERE id = %d ", $_POST["sl_changespeed"], $id));
                   $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  sl_position = '%s'  WHERE id = %d ", $_POST["sl_position"], $id));
 				  $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  sl_loading_icon = '%s' WHERE id = %d ", $_POST["sl_loading_icon"], $id));
+				  $wpdb->query($wpdb->prepare("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET  show_thumb = '%s' WHERE id = %d ", $_POST["show_thumb"], $id));/*add*/
 
               }
           }
-		  }
-	  }
 	  $query="SELECT * FROM ".$wpdb->prefix."huge_itslider_sliders order by id ASC";
 			   $shortcodesliders=$wpdb->get_results($query);
 		$query=$wpdb->prepare("SELECT * FROM ".$wpdb->prefix."huge_itslider_sliders WHERE id= %d", $id);
-	   $row=$wpdb->get_row($query);$container_id = 'huge_it_slider';
-	  
-			   ?>
+	   $row=$wpdb->get_row($query);
+		$container_id = 'huge_it_slider';	   ?>
 <form action="?page=sliders_huge_it_slider&task=add_shortcode_post&TB_iframe=1&width=400&inlineId=<?php echo $container_id; ?>&hugeit_save=1&htslider_id=<?php echo $id; ?>" method="post" name="adminForm" id="adminForm">
  <?php 	if (count($shortcodesliders)) {
 							echo "<select id='huge_it_slider-select' onchange='this.form.submit()' name='hugeit_slider_id'>";
@@ -646,7 +637,7 @@ h3 {
 							<input type="text" name="sl_height" id="sl_height" value="<?php echo $row->sl_height; ?>" class="text_area" />
 						</li>
 						<li>
-							<label for="pause_on_hover">Pause on hover</label>
+							<label for="pause_on_hover">Pause on Hover</label>
 							<input type="hidden" value="off" name="pause_on_hover" />					
 							<input type="checkbox" name="pause_on_hover"  value="on" id="pause_on_hover"  <?php if($row->pause_on_hover  == 'on'){ echo 'checked="checked"'; } ?> />
 						</li>
@@ -673,11 +664,11 @@ h3 {
 						</li>
 
 						<li>
-							<label for="sl_pausetime">Pause time</label>
+							<label for="sl_pausetime">Pause Time</label>
 							<input type="text" name="sl_pausetime" id="sl_pausetime" value="<?php echo $row->description; ?>" class="text_area" />
 						</li>
 						<li>
-							<label for="sl_changespeed">Change speed</label>
+							<label for="sl_changespeed">Change Speed</label>
 							<input type="text" name="sl_changespeed" id="sl_changespeed" value="<?php echo $row->param; ?>" class="text_area" />
 						</li>
 						<li>
@@ -688,13 +679,25 @@ h3 {
 									<option <?php if($row->sl_position == 'center'){ echo 'selected'; } ?>  value="center">Center</option>
 							</select>
 						</li>
+						<li>
+							<label for="sl_loading_icon">Loading Icon</label>
+							<select id="sl_loading_icon" name="sl_loading_icon">
+								  <option <?php if($row->sl_loading_icon == 'on'){ echo 'selected'; } ?> value="on">On</option>
+								  <option <?php if($row->sl_loading_icon == 'off'){ echo 'selected'; } ?> value="off">Off</option>
+							</select>
+						</li>
+						<li>
+							<label for="show_thumb">Navigate By</label>
+							<input type="hidden" value="off" name="show_thumb" />					
+							<select id="show_thumb" name="show_thumb">
+								  <option <?php if($row->show_thumb == 'dotstop'){ echo 'selected'; } ?> value="dotstop">Dots</option>
+								  <option <?php if($row->show_thumb == 'thumbnails'){ echo 'selected'; } ?> value="thumbnails">Thumbnails</option>
+								  <option <?php if($row->show_thumb == 'nonav'){ echo 'selected'; } ?> value="nonav">No Navigation</option>
+							</select>
+						</li>
 
 					</ul>
 					<input type="submit" value="Save Slider" id="save-buttom" class="button button-primary button-large">
-					<input type="hidden" name="csrf_token_hugeit_1753" value="csrf_token_hugeit_1753" />
-					 <?php			
-						$_SESSION['csrf_token_hugeit_1753'] = 'csrf_token_hugeit_1753';
-					?>
 					</div>
 				</div>
 			</form>
@@ -724,6 +727,7 @@ class Huge_it_Widget extends WP_Widget {
 	}
 
 	public function widget( $args, $instance ) {
+
 		extract($args);
 
 		if (isset($instance['slider_id'])) {
@@ -784,6 +788,7 @@ class Huge_it_Widget extends WP_Widget {
 				</select>
 
 		</p>
+
 		<?php 
 	}
 }
@@ -791,6 +796,7 @@ add_action('widgets_init', 'register_Huge_it_Widget');
 function register_Huge_it_Widget() {  
     register_widget('Huge_it_Widget'); 
 }
+
 /***<add>***/
 
 
@@ -809,20 +815,73 @@ function add_style_to_header($id) {
         $value = $rowpar->value;
         $paramssld[$key] = $value;
     }
-	$sliderID=$slider[0]->id;
-	$slidertitle=$slider[0]->name;
-	$sliderheight=$slider[0]->sl_height;
-	$sliderwidth=$slider[0]->sl_width;
-	$slidereffect=$slider[0]->slider_list_effects_s;
-	$slidepausetime=($slider[0]->description+$slider[0]->param);
-	$sliderpauseonhover=$slider[0]->pause_on_hover;
-	$sliderposition=$slider[0]->sl_position;
-	$slidechangespeed=$slider[0]->param;
-	$sliderloadingicon=$slider[0]->sl_loading_icon;
+    if(isset($slider[0]->id)){
+    	$sliderID=$slider[0]->id;
+    }else{
+    	$sliderID='';
+    }
+	if(isset($slider[0]->name)){
+    	$slidertitle=$slider[0]->name;
+    }else{
+    	$slidertitle='';
+    }
+    if(isset($slider[0]->sl_height)){
+    	$sliderheight=$slider[0]->sl_height;
+    }else{
+    	$sliderheight='';
+    }
+    if(isset($slider[0]->sl_width)){
+    	$sliderwidth=$slider[0]->sl_width;
+    }else{
+    	$sliderwidth='';
+    }
+    if(isset($slider[0]->slider_list_effects_s)){
+    	$slidereffect=$slider[0]->slider_list_effects_s;
+    }else{
+    	$slidereffect='';
+    }
+     if(isset($slidepausetime)){
+    	$slidepausetime=($slider[0]->description+$slider[0]->param);
+    }else{
+    	$slidepausetime='';
+    }
+     if(isset($slider[0]->pause_on_hover)){
+    	$sliderpauseonhover=$slider[0]->pause_on_hover;
+    }else{
+    	$sliderpauseonhover='';
+    }
+     if(isset($slider[0]->sl_position)){
+    	$sliderposition=$slider[0]->sl_position;
+    }else{
+    	$sliderposition='';
+    }
+     if(isset($slider[0]->param)){
+    	$slidechangespeed=$slider[0]->param;
+    }else{
+    	$slidechangespeed='';
+    }
+     if(isset($slider[0]->sl_loading_icon)){
+    	$sliderloadingicon=$slider[0]->sl_loading_icon;
+    }else{
+    	$sliderloadingicon='';
+    }
+     if(isset($slider[0]->show_thumb)){
+    	$sliderthumbslider=$slider[0]->show_thumb;
+    }else{
+    	$sliderthumbslider='';
+    }
+	
+		
+	
+	
+	
 	$slideshow_title_position = explode('-', trim($paramssld['slider_title_position']));
 	$slideshow_description_position = explode('-', trim($paramssld['slider_description_position']));
 	?>
-	<style>			
+	
+	<style>		
+/***<add>***/
+	
 	  #huge_it_loading_image_<?php echo $sliderID; ?> {
 		height:<?php echo $sliderheight; ?>px;
 		width:<?php  echo $sliderwidth; ?>px;
@@ -845,11 +904,13 @@ function add_style_to_header($id) {
 	 .huge_it_slideshow_image_wrap_<?php echo $sliderID; ?> {
 		height:<?php echo $sliderheight ; ?>px;
 		width:<?php  echo $sliderwidth ; ?>px;
+
 		position:relative;
 		display: block;
 		text-align: center;
 		/*HEIGHT FROM HEADER.PHP*/
 		clear:both;
+		
 		<?php if($sliderposition=="left"){ $position='float:left;';}elseif($sliderposition=="right"){$position='float:right;';}else{$position='float:none; margin:0px auto;';} ?>
 		<?php echo $position;  ?>
 		
@@ -1157,12 +1218,12 @@ function add_style_to_header($id) {
 		}
 		
 		.huge_it_slideshow_dots_thumbnails_<?php echo $sliderID; ?> {
-			<?php if($paramssld['slider_dots_position']=="bottom"){?>
+			<?php if($sliderthumbslider == "dotstop" && $sliderthumbslider != "thumbnails" && $paramssld['slider_dots_position_new']=='dotsbottom'){?>
 			bottom:0px;
-			<?php }else if($paramssld['slider_dots_position']=="none"){?>
+			<?php }else if($sliderthumbslider == "thumbnails" || $sliderthumbslider=="nonav"){?>
 			display:none;
 			<?php
-			}else{ ?>
+			}else if($sliderthumbslider == "dotstop"){ ?>
 			top:0px; <?php } ?>
 		}
 		
@@ -1173,6 +1234,113 @@ function add_style_to_header($id) {
 		.huge_it_slideshow_dots_active_<?php echo $sliderID; ?> {
 			background:#<?php echo $paramssld['slider_active_dot_color']; ?>;
 		}
+					<?php
+require_once(dirname(__FILE__) . '/slider_front_end.html.php');
+if(isset($GLOBALS['thumbnail_width'])){
+	$width_huge=$GLOBALS['thumbnail_width'];
+}else{
+	$width_huge='';
+}
+?>
+		/*//////////////////////slider thunbnail styles start///////////////////////////*/
+		
+		.bx-wrapper .bx-controls-direction a.disabled {
+		  display: <?php echo $thumb_control; ?>;
+		}
+		.bx-viewport {
+		  height: <?php echo $paramssld['slider_thumb_height']; ?>px !important;
+		  -webkit-transform: translatez(0);
+		}
+		.entry-content a{
+			border-bottom: none !important;
+		}
+		.entry-content li{
+			margin:0px !important;
+			padding: 0px !important;
+		}
+		.entry-content ul{
+			list-style-type:none !important;
+			margin: 0px !important;
+			padding: 0px !important;
+		}
+		.bx-wrapper {
+		  position: relative;
+		  margin: 0 auto 0 auto;
+		  padding: 0;
+		  max-width: <?php echo $width_huge; ?>px !important;
+		  *zoom: 1;
+		  -ms-touch-action: pan-y;
+		  touch-action: pan-y;
+		}
+		.huge_it_slideshow_thumbs_container_<?php echo $sliderID; ?>{
+				<?php if($sliderthumbslider == "dotstop" || $sliderthumbslider == "dotsbottom" || $sliderthumbslider == "nonav"){?>
+			display: none;
+			<?php }?>
+		}
+		.huge_it_slideshow_thumbs_<?php echo $sliderID; ?>{
+
+			
+		}
+		.huge_it_slideshow_thumbs_<?php echo $sliderID; ?> li{
+			display: inline-block;
+			 
+		    height: <?php echo $paramssld['slider_thumb_height']; ?>px ;
+		    
+
+			
+		}
+		.huge_it_slideshow_thumbnails_<?php echo $sliderID; ?> {
+		    display: inline-block;
+		    position: relative;
+		    cursor: pointer;
+		    background: #<?php echo $paramssld['slider_thumb_back_color']; ?>;
+		    z-index: 17;
+		}
+		.sl_thumb_img{
+		    width: 100% !important;
+		    height: 100% !important;
+		    display: block;
+		    margin: 0 auto;
+		}
+		.sl_thumb_img2{
+		    height: 100% !important;
+		    display: block;
+		    margin: 0 auto;
+		}
+		.trans_back{
+			width: 100%;
+			height: 100%;
+			top:0;
+			position: absolute;
+			background:<?php 			
+				list($ri,$gi,$bi) = array_map('hexdec',str_split($paramssld['slider_thumb_passive_color'],2));
+				$titleopacity2=$paramssld["slider_thumb_passive_color_trans"]/100;						
+				echo 'rgba('.$ri.','.$gi.','.$bi.','.$titleopacity2.')'; 		
+		?>;
+			transition: 0.3s ease;
+		}
+		.trans_back:hover{
+			background:none !important;
+		}
+		.play-icon.youtube {background:url(<?php echo plugins_url("images/play.youtube.png", __FILE__)?>) center center no-repeat;
+			width: 100%;
+			height: 100%;
+			top:0;
+			position: absolute;}
+
+		.play-icon.vimeo {background:url(<?php echo plugins_url("images/play.vimeo.png", __FILE__)?>) center center no-repeat;
+			width: 100%;
+			height: 100%;
+			top:0;
+			position: absolute;
+		}
+		.bx-wrapper {
+		  
+		  border: 0px solid #fff;
+		  background: #fff;
+		}
+		
+		/*////////////slider thunbnail styles end//////////////*/
 		
 		<?php
 		
@@ -1526,9 +1694,48 @@ function add_style_to_header($id) {
 				break;
 		}
 ?>
+/***</add>***/
+
 	</style>
+
+
+<?php 
+// if($paramssld['slider_auto_slide']=='on'){
+// 	$thumb_autoplay=1;
+// }else{
+// 	$thumb_autoplay=0;
+// }
+
+if(isset($GLOBALS['pause_time'])){
+	$time_huge=$GLOBALS['pause_time'];
+}else{
+	$time_huge='';
+}
+if(isset($GLOBALS['changespeed'])){
+	$speed_huge=$GLOBALS['changespeed'];
+}else{
+	$speed_huge='';
+}
+$width_of_thumbs=$width_huge/$paramssld['slider_thumb_count_slides'];
+$res_width_of_thumbs=intval($width_of_thumbs);
+
+		$translation_array = array( 
+			 'slideCount' => $paramssld['slider_thumb_count_slides'],		 
+			 'pauseTime' => $time_huge,
+			 'width_thumbs' => $res_width_of_thumbs,
+			 'speed' => $speed_huge	
+			 
+
+			 		 
+		);
+		wp_localize_script( 'bxSlider', 'huge_it_obj', $translation_array );
+
+		?>
+
+		
 <?php }
 /***</add>***/
+
 function huge_it_slider_activate()
 {
 global $wpdb;
@@ -1579,6 +1786,7 @@ CREATE TABLE IF NOT EXISTS `" . $wpdb->prefix . "huge_itslider_sliders` (
   UNIQUE KEY `id` (`id`)
   
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ";
+
     $table_name = $wpdb->prefix . "huge_itslider_params";
     $sql_1 = <<<query1
 INSERT INTO `$table_name` (`name`, `title`,`description`, `value`) VALUES
@@ -1631,12 +1839,13 @@ INSERT INTO `$table_name` (`id`, `name`, `sl_height`, `sl_width`, `pause_on_hove
 (1, 'My First Slider', '375', '600', 'on', 'random', '4000', '1000', '1', '300')";
 
 
-
+ 
 
     $wpdb->query($sql_huge_itslider_params);
     $wpdb->query($sql_huge_itslider_images);
     $wpdb->query($sql_huge_itslider_sliders);
-  //  $wpdb->query($sql_huge_itslider_sliders_update);
+    //$wpdb->query($sql_huge_itslider_sliders_update);
+	//$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET `sl_loading_icon` = 'off' ");
 
 
     if (!$wpdb->get_var("select count(*) from " . $wpdb->prefix . "huge_itslider_params")) {
@@ -1661,7 +1870,7 @@ INSERT INTO `$table_name` (`id`, `name`, `sl_height`, `sl_width`, `pause_on_hove
 	$wpdb->query("ALTER TABLE ".$wpdb->prefix."huge_itslider_sliders MODIFY `published` text");
 	$wpdb->query("UPDATE ".$wpdb->prefix."huge_itslider_sliders SET published = '300' WHERE id = 1 ");
 	}
-	
+   
 	$product2 = $wpdb->get_results("DESCRIBE " . $wpdb->prefix . "huge_itslider_images", ARRAY_A);
     $isUpdate2 = 0;
 	foreach ($product2 as $prod2) {
@@ -1747,7 +1956,9 @@ query1;
 		$wpdb->query("ALTER TABLE  ".$wpdb->prefix."huge_itslider_images ADD  `sl_stitle` TEXT NOT NULL AFTER  `link_target`");
 		$wpdb->query("ALTER TABLE  ".$wpdb->prefix."huge_itslider_images ADD  `sl_sdesc` TEXT NOT NULL AFTER  `sl_stitle`");
 		$wpdb->query("ALTER TABLE  ".$wpdb->prefix."huge_itslider_images ADD  `sl_postlink` TEXT NOT NULL AFTER  `sl_sdesc`");
-	}	
+	}
+
+
 $table_name = $wpdb->prefix . "huge_itslider_params";
 $sql_update4 = <<<query2
 INSERT INTO `$table_name` (`name`, `title`,`description`, `value`) VALUES
@@ -1758,5 +1969,41 @@ query2;
 	if(end($update_p3)->name=='slider_show_arrows'){
 		$wpdb->query($sql_update4);
 	}
+
+
+	///////////////
+	$table_name = $wpdb->prefix . "huge_itslider_params";
+        $sql_update_g6 = <<<query6
+INSERT INTO `$table_name` (`name`, `title`,`description`, `value`) VALUES
+('slider_thumb_count_slides', 'Slide thumbs count', 'Slide thumbs count', '3'),
+('slider_dots_position_new', 'Slide Dots Position', 'Slide Dots Position', 'dotstop'),
+('slider_thumb_back_color','Thumbnail Background Color','Thumbnail Background Color','FFFFFF'),
+('slider_thumb_passive_color','Passive Thumbnail Color','Passive Thumbnail Color','FFFFFF'),
+('slider_thumb_passive_color_trans','Passive Thumbnail Color Transparency','Passive Thumbnail Color Transparency','50'),
+('slider_thumb_height', 'Slider Thumb Height', 'Slider Thumb Height', '100');                
+query6;
+        
+        
+        $query6="SELECT name FROM ".$wpdb->prefix."huge_itslider_params";
+    $update_p6=$wpdb->get_results($query6);
+    if(end($update_p6)->name=='loading_icon_type'){
+        $wpdb->query($sql_update_g6);
+    }
+
+///////////////////////////////////////////////////////////////////////
+        $imagesAllFieldsInArray3 = $wpdb->get_results("DESCRIBE " . $wpdb->prefix . "huge_itslider_sliders", ARRAY_A);
+        $fornewUpdate2 = 0;
+        foreach ($imagesAllFieldsInArray3 as $portfoliosField3) {
+
+            if ($portfoliosField3['Field'] == 'show_thumb') {
+               $fornewUpdate2=1;
+            }
+        }
+        if($fornewUpdate2 != 1){
+            $wpdb->query("ALTER TABLE `".$wpdb->prefix."huge_itslider_sliders` ADD `show_thumb` VARCHAR(255) NOT NULL DEFAULT 'dotstop' AFTER `sl_loading_icon`");
+           
+        }  
+
+  
 }
 register_activation_hook(__FILE__, 'huge_it_slider_activate');

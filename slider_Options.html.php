@@ -3,6 +3,59 @@ function      html_showStyles($param_values, $op_type)
 {
     ?>
 	<?php $path_site = plugins_url("Front_images", __FILE__); ?>
+	<style>
+.options-block h3{
+	display: block;
+    text-align: center;
+    margin: 0px 0px 10px 0px !important;
+}
+.options-block{
+	    position: relative;
+    display: block;
+    float: left;
+    margin: 10px 1% 25px 1% !important;
+    padding: 0px 1% 10px 1% !important;
+    width: 46% !important;
+    background: #f9f9f9;
+}
+.options-block2{
+	    position: relative;
+    display: block;
+    float: left;
+    margin: 10px 1% 25px 1% !important;
+    padding: 0px 1% 10px 1% !important;
+    width: 96% !important;
+    background: #f9f9f9;
+}
+.options-block2>div{
+	position: relative;
+    padding: 10px 10px 5px 10px;
+    clear: both;
+}
+.options-block2 >div label{
+	display: inline-block;
+    width: 28%;
+    height: 35px;
+}
+.options-block2 >div label .help{
+	float: right;
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 0px 10px 0px 20px;
+    border: 1px solid #888;
+    border-radius: 20px;
+    text-indent: 7px;
+}
+.options-block2 >div input[type=checkbox]{
+	margin: -12px 4px 0 0;
+}
+#options-block-description{
+	margin-top: -177px !important
+}
+
+	</style>
 <div class="wrap">
 <?php $path_site2 = plugins_url("images", __FILE__); ?>
 	<div class="slider-options-head">
@@ -52,7 +105,134 @@ function      html_showStyles($param_values, $op_type)
 			<div id="slider-options-list">
 			<form action="admin.php?page=Options_slider_styles" method="post" id="adminForm" name="adminForm">
 		
+			<div class="options-block" id="options-block-slider">
+				<h3>Slider Styles</h3>
+				<div class="has-background">
+					<label for="slider_crop_image">Image Behaviour
+                                            <div class="help">?
+                                                <div class="help-block">
+                                                    <span class="pnt"></span>
+                                                    <p>Choose how to behave the image in slider</p>
+                                                </div>
+                                            </div>
+                                        </label>
+					<select id="slider_crop_image" name="params[slider_crop_image]">
+						  <option <?php if($param_values['slider_crop_image'] == 'crop'){ echo 'selected'; } ?> value="crop">Natural</option>
+						  <option <?php if($param_values['slider_crop_image'] == 'resize'){ echo 'selected'; } ?> value="resize">Resize</option>
+					</select>
+				</div>
+				<div >
+					<label for="slider_slider_background_color">Slider Background Color
+                                            <div class="help">?
+                                                <div class="help-block">
+                                                    <span class="pnt"></span>
+                                                    <p>Set the color for background of the slider</p>
+                                                </div>
+                                            </div>
+                                        </label>
+						<input name="params[slider_slider_background_color]" type="text" class="color" id="slider_slider_background_color" value="#<?php echo $param_values['slider_slider_background_color']; ?>" size="10">
+				</div>
+			
+				<div class="has-background">
+					<label for="slider_slideshow_border_size">Slider Border Size
+                                            <div class="help">?
+                                                <div class="help-block">
+                                                    <span class="pnt"></span>
+                                                    <p>Set the border for the slideshow</p>
+                                                </div>
+                                            </div>
+                                        </label>
+					<input type="text" name="params[slider_slideshow_border_size]" id="slider_slideshow_border_size" value="<?php echo $param_values['slider_slideshow_border_size']; ?>" class="text" />
+				</div>
+				<div>
+					<label for="slider_slideshow_border_color">Slider Border Color
+                                            <div class="help">?
+                                                <div class="help-block">
+                                                    <span class="pnt"></span>
+                                                    <p>Select the border color for the slideshow</p>
+                                                </div>
+                                            </div>
+                                        </label>
+						<input name="params[slider_slideshow_border_color]" type="text" class="color" id="slider_slideshow_border_color" value="#<?php echo $param_values['slider_slideshow_border_color']; ?>" size="10">
+				</div>
+				<div class="has-background">
+					<label for="slider_slideshow_border_radius">Slider Border radius
+                                            <div class="help">?
+                                                <div class="help-block">
+                                                    <span class="pnt"></span>
+                                                    <p>Set the border radius for the slideshow</p>
+                                                </div>
+                                            </div>
+                                        </label>
+					<input type="text" name="params[slider_slideshow_border_radius]" id="slider_slideshow_border_radius" value="<?php echo $param_values['slider_slideshow_border_radius']; ?>" class="text" />
+				</div>
+				<div>
+					<label for="slider_load_icon">Slider Loading Image
+                                           <div class="help">?
+                                                <div class="help-block">
+                                                    <span class="pnt"></span>
+                                                    <p>Set the loading icon for the slideshow</p>
+                                                </div>
+                                            </div>
+                                        </label>
+					<!--<select id="slider_load_icon" name="params[slider_load_icon]">
+						  <option <?php //if($param_values['slider_load_icon'] == 'on'){ echo 'selected'; } ?> value="on">On</option>
+						  <option <?php //if($param_values['slider_load_icon'] == 'off'){ echo 'selected'; } ?> value="off">Off</option>
+					</select>-->
+					<ul id="slider-loading-icon">
+						<li <?php if($param_values['loading_icon_type'] == 1){ echo 'class="act"'; } ?>>
+							<label for="params[loading_icon_type]_1">
+								<div class="image-block-icon">
+									<img src="<?php echo $path_site; ?>/loading/loading1.gif" alt="" />
+								</div>
+									<input type="radio" id="params[loading_icon_type]_1" name="params[loading_icon_type]" value="1" <?php if($param_values['loading_icon_type'] == 1){ echo 'checked="checked"'; } ?>>
+							</label>
+						</li>
+						<li <?php if($param_values['loading_icon_type'] == 2){ echo 'class="act"'; } ?>>
+							<label for="params[loading_icon_type]_2">
+								<div class="image-block-icon">
+									<img src="<?php echo $path_site; ?>/loading/loading2.gif" alt="" />
+								</div>
+									<input type="radio" id="params[loading_icon_type]_2" name="params[loading_icon_type]" value="2" <?php if($param_values['loading_icon_type'] == 2){ echo 'checked="checked"'; } ?>>
+							</label>
+						</li>
+						<li <?php if($param_values['loading_icon_type'] == 3){ echo 'class="act"'; } ?>>
+							<label for="params[loading_icon_type]_3">
+								<div class="image-block-icon">
+									<img src="<?php echo $path_site; ?>/loading/loading3.gif" alt="" />
+								</div>
+									<input type="radio" id="params[loading_icon_type]_3" name="params[loading_icon_type]" value="3" <?php if($param_values['loading_icon_type'] == 3){ echo 'checked="checked"'; } ?>>
+							</label>
+						</li>
+						<li <?php if($param_values['loading_icon_type'] == 4){ echo 'class="act"'; } ?>>
+							<label for="params[loading_icon_type]_4">
+								<div class="image-block-icon">
+									<img src="<?php echo $path_site; ?>/loading/loading4.gif" alt="" />
+								</div>
+									<input type="radio" id="params[loading_icon_type]_4" name="params[loading_icon_type]" value="4" <?php if($param_values['loading_icon_type'] == 4){ echo 'checked="checked"'; } ?>>
+							</label>
+						</li>
+						<li <?php if($param_values['loading_icon_type'] == 5){ echo 'class="act"'; } ?>>
+							<label for="params[loading_icon_type]_5">
+								<div class="image-block-icon">
+									<img src="<?php echo $path_site; ?>/loading/loading5.gif" alt="" />
+								</div>
+									<input type="radio" id="params[loading_icon_type]_5" name="params[loading_icon_type]" value="5" <?php if($param_values['loading_icon_type'] == 5){ echo 'checked="checked"'; } ?>>
+							</label>
+						</li>
+						<li <?php if($param_values['loading_icon_type'] == 6){ echo 'class="act"'; } ?>>
+							<label for="params[loading_icon_type]_6">
+								<div class="image-block-icon">
+									<img src="<?php echo $path_site; ?>/loading/loading6.gif" alt="" />
+								</div>
+									<input type="radio" id="params[loading_icon_type]_6" name="params[loading_icon_type]" value="6" <?php if($param_values['loading_icon_type'] == 6){ echo 'checked="checked"'; } ?>>
+							</label>
+						</li>
+					</ul>
+				</div>
+			</div>
 			<div class="options-block" id="options-block-title">
+				<h3>Title Styles</h3>
 				<div class="has-background">
 					<label for="title-container-width">Title Width
                                             <div class="help">?
@@ -219,6 +399,7 @@ function      html_showStyles($param_values, $op_type)
 				</div>
 			</div>
 			<div class="options-block" id="options-block-description">
+				<h3>Description Styles</h3>
 				<div class="has-background">
 					<label for="description-container-width">Description Width
                                             <div class="help">?
@@ -286,10 +467,10 @@ function      html_showStyles($param_values, $op_type)
                                             </div>
                                         </label>
 					<select id="slider_description_text_align" name="params[slider_description_text_align]">	
-					  <option <?php if($param_values['slider_description_text_align'] == 'justify'){ echo 'justify'; } ?> value="justify">Full width</option>
-					  <option <?php if($param_values['slider_description_text_align'] == 'center'){ echo 'center'; } ?> value="center">Center</option>
-					  <option <?php if($param_values['slider_description_text_align'] == 'left'){ echo 'left'; } ?> value="left">Left</option>
-					  <option <?php if($param_values['slider_description_text_align'] == 'right'){ echo 'right'; } ?> value="right">Right</option>
+					  <option <?php if($param_values['slider_description_text_align'] == 'justify'){ echo 'selected'; } ?> value="justify">Full width</option>
+					  <option <?php if($param_values['slider_description_text_align'] == 'center'){ echo 'selected'; } ?> value="center">Center</option>
+					  <option <?php if($param_values['slider_description_text_align'] == 'left'){ echo 'selected'; } ?> value="left">Left</option>
+					  <option <?php if($param_values['slider_description_text_align'] == 'right'){ echo 'selected'; } ?> value="right">Right</option>
 					</select>
 				</div>
 				<div>
@@ -384,98 +565,90 @@ function      html_showStyles($param_values, $op_type)
 						</div>
 				</div>
 			</div>
-			<div class="options-block" id="options-block-slider">
-				<div>
-					<label for="slider_crop_image">Image Behaviour
-                                            <div class="help">?
-                                                <div class="help-block">
-                                                    <span class="pnt"></span>
-                                                    <p>Choose how to behave the image in slider</p>
-                                                </div>
-                                            </div>
-                                        </label>
-					<select id="slider_crop_image" name="params[slider_crop_image]">
-						  <option <?php if($param_values['slider_crop_image'] == 'crop'){ echo 'selected'; } ?> value="crop">Natural</option>
-						  <option <?php if($param_values['slider_crop_image'] == 'resize'){ echo 'selected'; } ?> value="resize">Resize</option>
-					</select>
-				</div>
-				<div class="has-background">
-					<label for="slider_slider_background_color">Slider Background Color
-                                            <div class="help">?
-                                                <div class="help-block">
-                                                    <span class="pnt"></span>
-                                                    <p>Set the color for background of the slider</p>
-                                                </div>
-                                            </div>
-                                        </label>
-						<input name="params[slider_slider_background_color]" type="text" class="color" id="slider_slider_background_color" value="#<?php echo $param_values['slider_slider_background_color']; ?>" size="10">
-				</div>
 			
-				<div>
-					<label for="slider_slideshow_border_size">Slideshow Border Size
+			<div class="options-block" id="options-block-thumbnail">
+				<h3>Navigation Thumbnails Styles</h3>
+				<div class="has-background">
+					<label for="slider_thumb_count_slides">Count of Thumbs Slides
                                             <div class="help">?
                                                 <div class="help-block">
                                                     <span class="pnt"></span>
-                                                    <p>Set the border for the slideshow</p>
+                                                    <p>Set the count of slides in thumbnail slider</p>
                                                 </div>
                                             </div>
                                         </label>
-					<input type="text" name="params[slider_slideshow_border_size]" id="slider_slideshow_border_size" value="<?php echo $param_values['slider_slideshow_border_size']; ?>" class="text" />
+					<input type="text" name="params[slider_thumb_count_slides]" id="slider_thumb_count_slides" value="<?php echo $param_values['slider_thumb_count_slides']; ?>" class="text" />
+				</div>				
+				<div >
+					<label for="slider_thumb_height">Slider Thumb Height
+                                            <div class="help">?
+                                                <div class="help-block">
+                                                    <span class="pnt"></span>
+                                                    <p>Set the thumbnail height</p>
+                                                </div>
+                                            </div>
+                                        </label>
+					<input type="text" name="params[slider_thumb_height]" id="slider_thumb_height" value="<?php echo $param_values['slider_thumb_height']; ?>" class="text" />
+					<span>px</span>
 				</div>
 				<div class="has-background">
-					<label for="slider_slideshow_border_color">Slideshow Border Color
+					<label for="slider_thumb_back_color">Thumbnails Background Color
                                             <div class="help">?
                                                 <div class="help-block">
                                                     <span class="pnt"></span>
-                                                    <p>Select the border color for the slideshow</p>
+                                                    <p>Select the background color for the thumbnails</p>
                                                 </div>
                                             </div>
                                         </label>
-						<input name="params[slider_slideshow_border_color]" type="text" class="color" id="slider_slideshow_border_color" value="#<?php echo $param_values['slider_slideshow_border_color']; ?>" size="10">
+						<input name="params[slider_thumb_back_color]" type="text" class="color" id="slider_thumb_back_color" value="#<?php echo $param_values['slider_thumb_back_color']; ?>" size="10">
 				</div>
 				<div>
-					<label for="slider_slideshow_border_radius">Slideshow Border radius
+					<label for="slider_thumb_passive_color">Passive Thumbnail Overlay Color
                                             <div class="help">?
                                                 <div class="help-block">
                                                     <span class="pnt"></span>
-                                                    <p>Set the border radius for the slideshow</p>
+                                                    <p>Select the background color for the thumbnails</p>
                                                 </div>
                                             </div>
                                         </label>
-					<input type="text" name="params[slider_slideshow_border_radius]" id="slider_slideshow_border_radius" value="<?php echo $param_values['slider_slideshow_border_radius']; ?>" class="text" />
+						<input name="params[slider_thumb_passive_color]" type="text" class="color" id="slider_thumb_passive_color" value="#<?php echo $param_values['slider_thumb_passive_color']; ?>" size="10">
 				</div>
-
+				<div>
+					<label for="slider_thumb_passive_color_trans">Title Background Transparency
+                                            <div class="help">?
+                                                <div class="help-block">
+                                                    <span class="pnt"></span>
+                                                    <p>Set the level of transparency for the title</p>
+                                                </div>
+                                            </div>
+                                        </label>
+					<div class="slider-container">
+						<input name="params[slider_thumb_passive_color_trans]" id="slider_thumb_passive_color_trans" data-slider-highlight="true"  data-slider-values="0,10,20,30,40,50,60,70,80,90,100" type="text" data-slider="true" value="<?php echo $param_values['slider_thumb_passive_color_trans']; ?>" />
+						<span><?php echo $param_values['slider_thumb_passive_color_trans']; ?>%</span>
+					</div>
+				</div>
+				
+				
 
 			</div>
-			<div class="options-block" id="options-block-navigation">
-				<div>
-					<label for="slider_show_arrows">Show Navigation Arrows
-                                            <div class="help">?
-                                                <div class="help-block">
-                                                    <span class="pnt"></span>
-                                                    <p>Choose whether to show navigation arrows</p>
-                                                </div>
-                                            </div>
-                                        </label>
-					<input type="hidden" value="off" name="params[slider_show_arrows]" />		
-					<input type="checkbox" id="slider_show_arrows" <?php if($param_values['slider_show_arrows']  == 'on'){ echo 'checked="checked"'; } ?> name="params[slider_show_arrows]" value="on" />
-				</div>
+				<div class="options-block" id="options-block-navigation">
+					<h3>Navigation Dots Styles</h3>
+				
 				<div class="has-background">
-					<label for="slider_dots_position">Navigation Dots Position / Hide Dots
+					<label for="slider_dots_position_new">Navigation Dots Position
                                             <div class="help">?
                                                 <div class="help-block">
                                                     <span class="pnt"></span>
-                                                    <p>Set the position for the navigation arrows</p>
+                                                    <p>Choose the navigation dots position</p>
                                                 </div>
                                             </div>
                                         </label>
-					<select id="slider_dots_position" name="params[slider_dots_position]">
-						  <option <?php if($param_values['slider_dots_position'] == 'none'){ echo 'selected'; } ?> value="none">Dont Show</option>
-						  <option <?php if($param_values['slider_dots_position'] == 'top'){ echo 'selected'; } ?> value="top">Top</option>
-						  <option <?php if($param_values['slider_dots_position'] == 'bottom'){ echo 'selected'; } ?> value="bottom">Bottom</option>
+					<select id="slider_dots_position_new" name="params[slider_dots_position_new]">
+						  <option <?php if($param_values['slider_dots_position_new'] == 'dotstop'){ echo 'selected'; } ?> value="dotstop">Top</option>
+						  <option <?php if($param_values['slider_dots_position_new'] == 'dotsbottom'){ echo 'selected'; } ?> value="dotsbottom">Bottom</option>
 					</select>
 				</div>
-				<div>
+				<div >
 					<label for="slider_dots_color">Navigation Dots Color
                                             <div class="help">?
                                                 <div class="help-block">
@@ -497,84 +670,37 @@ function      html_showStyles($param_values, $op_type)
                                         </label>
 					<input type="text" class="color" name="params[slider_active_dot_color]" id="slider_active_dot_color" value="<?php echo $param_values['slider_active_dot_color']; ?>" class="text" />
 				</div>
+				
+				
 
-				<div class="has-background">
-					<label for="slider_load_icon">Slider loading image
-                                           <div class="help">?
-                                                <div class="help-block">
-                                                    <span class="pnt"></span>
-                                                    <p>Set the loading icon for the slideshow</p>
-                                                </div>
-                                            </div>
-                                        </label>
-					<!--<select id="slider_load_icon" name="params[slider_load_icon]">
-						  <option <?php //if($param_values['slider_load_icon'] == 'on'){ echo 'selected'; } ?> value="on">On</option>
-						  <option <?php //if($param_values['slider_load_icon'] == 'off'){ echo 'selected'; } ?> value="off">Off</option>
-					</select>-->
-					<ul id="slider-loading-icon">
-						<li <?php if($param_values['loading_icon_type'] == 1){ echo 'class="act"'; } ?>>
-							<label for="params[loading_icon_type]_1">
-								<div class="image-block-icon">
-									<img src="<?php echo $path_site; ?>/loading/loading1.gif" alt="" />
-								</div>
-									<input type="radio" id="params[loading_icon_type]_1" name="params[loading_icon_type]" value="1" <?php if($param_values['loading_icon_type'] == 1){ echo 'checked="checked"'; } ?>>
-							</label>
-						</li>
-						<li <?php if($param_values['loading_icon_type'] == 2){ echo 'class="act"'; } ?>>
-							<label for="params[loading_icon_type]_2">
-								<div class="image-block-icon">
-									<img src="<?php echo $path_site; ?>/loading/loading2.gif" alt="" />
-								</div>
-									<input type="radio" id="params[loading_icon_type]_2" name="params[loading_icon_type]" value="2" <?php if($param_values['loading_icon_type'] == 2){ echo 'checked="checked"'; } ?>>
-							</label>
-						</li>
-						<li <?php if($param_values['loading_icon_type'] == 3){ echo 'class="act"'; } ?>>
-							<label for="params[loading_icon_type]_3">
-								<div class="image-block-icon">
-									<img src="<?php echo $path_site; ?>/loading/loading3.gif" alt="" />
-								</div>
-									<input type="radio" id="params[loading_icon_type]_3" name="params[loading_icon_type]" value="3" <?php if($param_values['loading_icon_type'] == 3){ echo 'checked="checked"'; } ?>>
-							</label>
-						</li>
-						<li <?php if($param_values['loading_icon_type'] == 4){ echo 'class="act"'; } ?>>
-							<label for="params[loading_icon_type]_4">
-								<div class="image-block-icon">
-									<img src="<?php echo $path_site; ?>/loading/loading4.gif" alt="" />
-								</div>
-									<input type="radio" id="params[loading_icon_type]_4" name="params[loading_icon_type]" value="4" <?php if($param_values['loading_icon_type'] == 4){ echo 'checked="checked"'; } ?>>
-							</label>
-						</li>
-						<li <?php if($param_values['loading_icon_type'] == 5){ echo 'class="act"'; } ?>>
-							<label for="params[loading_icon_type]_5">
-								<div class="image-block-icon">
-									<img src="<?php echo $path_site; ?>/loading/loading5.gif" alt="" />
-								</div>
-									<input type="radio" id="params[loading_icon_type]_5" name="params[loading_icon_type]" value="5" <?php if($param_values['loading_icon_type'] == 5){ echo 'checked="checked"'; } ?>>
-							</label>
-						</li>
-						<li <?php if($param_values['loading_icon_type'] == 6){ echo 'class="act"'; } ?>>
-							<label for="params[loading_icon_type]_6">
-								<div class="image-block-icon">
-									<img src="<?php echo $path_site; ?>/loading/loading6.gif"  alt="" />
-								</div>
-									<input type="radio" id="params[loading_icon_type]_6" name="params[loading_icon_type]" value="6" <?php if($param_values['loading_icon_type'] == 6){ echo 'checked="checked"'; } ?>>
-							</label>
-						</li>
-					</ul>
-				</div>
-				<div class="has-height" style="padding-top:20px;">
-					<label for="">Navigation Type
-                                            <div class="help">?
-                                                <div class="help-block">
-                                                    <span class="pnt"></span>
-                                                    <p>Select the type of the navigation arrows to be used for the website</p>
-                                                </div>
-                                            </div>
-                                        </label>
-				</div>
 			</div>
-				<div class="has-height" style="clear:both;padding:10px 0px 0px 80px;">
+			
+			<!-- /////////// -->
+				<div class="options-block2" id="options-block-thumbnail"><!-- <div class="options-block" id="options-block-title"> -->
 					<div>
+						<div>
+							<label for="slider_show_arrows">Show Navigation Arrows
+		                                            <div class="help">?
+		                                                <div class="help-block">
+		                                                    <span class="pnt"></span>
+		                                                    <p>Choose whether to show navigation arrows</p>
+		                                                </div>
+		                                            </div>
+		                                        </label>
+							<input type="hidden" value="off" name="params[slider_show_arrows]" />		
+							<input type="checkbox" id="slider_show_arrows" <?php if($param_values['slider_show_arrows']  == 'on'){ echo 'checked="checked"'; } ?> name="params[slider_show_arrows]" value="on" />
+						</div>
+						<div class="has-height " style="padding-top:20px;">
+							<label for="">Navigation Arrows Style
+                                <div class="help">?
+                                    <div class="help-block">
+                                        <span class="pnt"></span>
+                                        <p>Select the type of the navigation arrows to be used for the website</p>
+                                    </div>
+                                </div>
+                            </label>
+						</div>
+
 					<ul id="arrows-type">
 						<li <?php if($param_values['slider_navigation_type'] == 1){ echo 'class="active"'; } ?>>
 							<div class="image-block">
@@ -647,44 +773,44 @@ function      html_showStyles($param_values, $op_type)
 							<div class="image-block">
 								<img src="<?php echo $path_site; ?>/arrows/arrows.green.retro.png" alt="" />
 							</div>
-							<input type="radio" style="margin-top: -15px; !important;" name="params[slider_navigation_type]" value="12" <?php if($param_values['slider_navigation_type'] == 12){ echo 'checked="checked"'; } ?>>
+							<input type="radio" name="params[slider_navigation_type]" value="12" <?php if($param_values['slider_navigation_type'] == 12){ echo 'checked="checked"'; } ?>>
 						</li>	
 						<li <?php if($param_values['slider_navigation_type'] == 13){ echo 'class="active"'; } ?>>
 								<div class="image-block">
 									<img src="<?php echo $path_site; ?>/arrows/arrows.red.circle.png" alt="" />
 								</div>
-								<input type="radio" style="margin-top: -15px;" name="params[slider_navigation_type]" value="13" <?php if($param_values['slider_navigation_type'] == 13){ echo 'checked="checked"'; } ?>>
+								<input type="radio" name="params[slider_navigation_type]" value="13" <?php if($param_values['slider_navigation_type'] == 13){ echo 'checked="checked"'; } ?>>
 						</li>	
 						<li class="color" <?php if($param_values['slider_navigation_type'] == 14){ echo 'class="active"'; } ?>>
 								<div class="image-block">
 									<img src="<?php echo $path_site; ?>/arrows/arrows.triangle.white.png" alt="" />
 								</div>
-								<input type="radio" style="margin-top: -15px;" name="params[slider_navigation_type]" value="14" <?php if($param_values['slider_navigation_type'] == 14){ echo 'checked="checked"'; } ?>>
+								<input type="radio" name="params[slider_navigation_type]" value="14" <?php if($param_values['slider_navigation_type'] == 14){ echo 'checked="checked"'; } ?>>
 						</li>	
 						<li <?php if($param_values['slider_navigation_type'] == 15){ echo 'class="active"'; } ?>>
 								<div class="image-block">
 									<img src="<?php echo $path_site; ?>/arrows/arrows.ancient.png" alt="" />
 								</div>
-								<input type="radio" style="margin-top: -15px;" name="params[slider_navigation_type]" value="15" <?php if($param_values['slider_navigation_type'] == 15){ echo 'checked="checked"'; } ?>>
+								<input type="radio" name="params[slider_navigation_type]" value="15" <?php if($param_values['slider_navigation_type'] == 15){ echo 'checked="checked"'; } ?>>
 						</li>
 						<li <?php if($param_values['slider_navigation_type'] == 16){ echo 'class="active"'; } ?>>
 								<div class="image-block">
 									<img src="<?php echo $path_site; ?>/arrows/arrows.black.out.png" alt="" />
-									<input type="radio" style="margin-top: -15px;" name="params[slider_navigation_type]" value="16" <?php if($param_values['slider_navigation_type'] == 16){ echo 'checked="checked"'; } ?>>
 								</div>
+								<input type="radio" name="params[slider_navigation_type]" value="16" <?php if($param_values['slider_navigation_type'] == 16){ echo 'checked="checked"'; } ?>>
 						</li>							
 					</ul>
 					</div>
 				</div>
-<!--icon-->
+
 			<div id="post-body-footer">
 				
-				<a class="save-slider-options button-primary">Save</a>
+				<a onclick="document.getElementById('adminForm').submit()" class="save-slider-options button-primary">Save</a>
 				<div class="clear"></div>
 				<script>
 						jQuery(document).ready(function ($) {
 								
-								jQuery("#slideup<?php  echo isset($key)?$key:''; ?>").click(function () {
+								jQuery("#slideup<?php echo isset($key)?$key:''; ?>").click(function () {
 									window.parent.uploadID = jQuery(this).prev('input');
 									formfield = jQuery('.upload').attr('name');
 									tb_show('', 'media-upload.php?type=image&amp;TB_iframe=true');
