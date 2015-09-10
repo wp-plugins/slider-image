@@ -2007,3 +2007,35 @@ query6;
   
 }
 register_activation_hook(__FILE__, 'huge_it_slider_activate');
+do_action( 'upgrader_process_complete', $this, array(
+			'action' => 'update',
+			'type' => 'plugin',
+			'bulk' => true,
+			'plugins' => $plugins,
+		) );
+add_action('upgrader_process_complete', 'my_plugin_update', 10, 2);
+if(!function_exists('my_plugin_update')) {
+function my_plugin_update( $this, $array ){
+	if( $array['type'] != 'plugin' ) return;
+	// if( $array['plugins'] ) дополнительная проверка, точно не знаю как тут проверять.
+	global $wpdb;
+	$table_name = $wpdb->prefix . "huge_itslider_params";
+        $sql_update_g6 = <<<query6
+INSERT INTO `$table_name` (`name`, `title`,`description`, `value`) VALUES
+('slider_thumb_count_slides', 'Slide thumbs count', 'Slide thumbs count', '3'),
+('slider_dots_position_new', 'Slide Dots Position', 'Slide Dots Position', 'dotstop'),
+('slider_thumb_back_color','Thumbnail Background Color','Thumbnail Background Color','FFFFFF'),
+('slider_thumb_passive_color','Passive Thumbnail Color','Passive Thumbnail Color','FFFFFF'),
+('slider_thumb_passive_color_trans','Passive Thumbnail Color Transparency','Passive Thumbnail Color Transparency','50'),
+('slider_thumb_height', 'Slider Thumb Height', 'Slider Thumb Height', '100');                
+query6;
+        
+        
+        $query6="SELECT name FROM ".$wpdb->prefix."huge_itslider_params";
+    $update_p6=$wpdb->get_results($query6);
+    if(end($update_p6)->name=='loading_icon_type'){
+        $wpdb->query($sql_update_g6);
+    }
+	// делаем что нужно после обновления плагина
+}
+}
