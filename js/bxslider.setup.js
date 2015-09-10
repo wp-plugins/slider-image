@@ -8,8 +8,9 @@ jQuery(document).ready(function() {
 				if (window.huge_video_playing == undefined) {
  					huge_video_playing='';
 				}
-				
-
+				if (window.huge_interval == undefined) {
+ 					huge_interval='';
+				}
 			  	var _this = jQuery("ul[class^='huge_it_slideshow_thumbs_"+sliderID+"']").bxSlider({
 
 			    	slideWidth: huge_it_obj.width_thumbs,
