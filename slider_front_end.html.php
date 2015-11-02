@@ -949,7 +949,7 @@ jQuery(function(){
       });
       jQuery(window).blur(function() {
         event_stack_<?php echo $sliderID; ?> = [];
-        window.clearInterval(huge_interval['huge_it_playInterval_'+<?php echo $sliderID; ?>]);
+     //   window.clearInterval(huge_interval['huge_it_playInterval_'+<?php echo $sliderID; ?>]);
       });      
     </script>
 <style>
@@ -1134,7 +1134,7 @@ jQuery(function(){
 							if ($image_row->link_target=="on"){$target='target="_blank"';}
 							echo '<a href="'.$image_row->sl_url.'" '.$target.'>';
 						} ?>
-						<img id="huge_it_slideshow_image_<?php echo $sliderID; ?>_<?php echo $key ;?>" class="huge_it_slideshow_image_<?php echo $sliderID; ?>" src="<?php echo $image_row->image_url; ?>"  alt="" data-image_id="<?php echo $image_row->id; ?>" />
+						<img id="huge_it_slideshow_image_<?php echo $sliderID; ?>_<?php echo $key ;?>" class="huge_it_slideshow_image_<?php echo $sliderID; ?>" src="<?php echo $image_row->image_url; ?>"  alt="<?php echo $image_row->name; ?>" data-image_id="<?php echo $image_row->id; ?>" />
 						<?php if($image_row->sl_url!=""){ echo '</a>'; }?>		
 						<div class="huge_it_slideshow_title_text_<?php echo $sliderID; ?> <?php if(trim($image_row->name)=="") echo "none"; ?>">
 							<?php echo $image_row->name; ?>
@@ -1163,7 +1163,7 @@ jQuery(function(){
                                                                             if ($image_row->link_target=="on"){$target='target="_blank"';}
                                                                             echo '<a href="'.$last_posts["guid"].'" '.$target.'>';
                                                             } ?>
-                                                            <img id="huge_it_slideshow_image_<?php echo $sliderID; ?>_<?php echo $key ;?>" class="huge_it_slideshow_image_<?php echo $sliderID; ?>" src="<?php echo $imagethumb[0]; ?>"  alt="" data-image_id="<?php echo $image_row->id; ?>" />
+                                                            <img id="huge_it_slideshow_image_<?php echo $sliderID; ?>_<?php echo $key ;?>" class="huge_it_slideshow_image_<?php echo $sliderID; ?>" src="<?php echo $imagethumb[0]; ?>"  alt=" <?php echo $last_posts["post_title"]; ?>" data-image_id="<?php echo $image_row->id; ?>" />
                                                             <?php if($image_row->sl_postlink=="1"){ echo '</a>'; }?>		
                                                             <div class="huge_it_slideshow_title_text_<?php echo $sliderID; ?> <?php if(trim($last_posts["post_title"])=="") echo "none";  if($image_row->sl_stitle!="1") echo " hidden"; ?>">
                                                                             <?php echo $last_posts["post_title"]; ?>
@@ -1193,7 +1193,7 @@ jQuery(function(){
                                                                                 if ($image_row->link_target=="on"){$target='target="_blank"';}
                                                                                 echo '<a href="'.$last_posts["guid"].'" '.$target.'>';
                                                                 } ?>
-                                                                <img id="huge_it_slideshow_image_<?php echo $sliderID; ?>" class="huge_it_slideshow_image_<?php echo $sliderID; ?>" src="<?php echo $imagethumb[0]; ?>"  alt="" data-image_id="<?php echo $image_row->id; ?>" />
+                                                                <img id="huge_it_slideshow_image_<?php echo $sliderID; ?>" class="huge_it_slideshow_image_<?php echo $sliderID; ?>" src="<?php echo $imagethumb[0]; ?>"  alt="<?php echo $last_posts["post_title"]; ?>" data-image_id="<?php echo $image_row->id; ?>" />
                                                                 <?php if($image_row->sl_postlink=="1"){ echo '</a>'; }?>		
                                                                 <div class="huge_it_slideshow_title_text_<?php echo $sliderID; ?> <?php if(trim($last_posts["post_title"])=="") echo "none";  if($image_row->sl_stitle!="1") echo " hidden"; ?>">
                                                                                 <?php echo $last_posts["post_title"]; ?>

@@ -4,7 +4,7 @@
 Plugin Name: Huge IT Slider
 Plugin URI: http://huge-it.com/slider
 Description: Huge IT slider is a convenient tool for organizing the images represented on your website into sliders. Each product on the slider is assigned with a relevant slider, which makes it easier for the customers to search and identify the needed images within the slider.
-Version: 2.9.6
+Version: 2.9.9
 Author: http://huge-it.com/
 License: GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -365,7 +365,7 @@ function huge_it_slider_featured_plugins()
 			<p>Video Gallery plugin was created and specifically designed to show your video files in unusual splendid ways. It has 5 good-looking views. Each are made in different taste so that you can choose any of them, according to the style of your website.</p>
 		</div>			  				
 		<div class="button-block">
-			<a href="http://huge-it.com/video-gallery/" target="_blank">View Plugin</a>
+			<a href="http://huge-it.com/wordpress-video-gallery/" target="_blank">View Plugin</a>
 		</div>
 	</div>
 </div>
@@ -881,6 +881,8 @@ function add_style_to_header($id) {
 	
 	<style>		
 /***<add>***/
+ 
+ ?>
 	
 	  #huge_it_loading_image_<?php echo $sliderID; ?> {
 		height:<?php echo $sliderheight; ?>px;
@@ -888,6 +890,8 @@ function add_style_to_header($id) {
 		display: table-cell;
 		text-align: center;
 		vertical-align: middle;
+		font-size: <?php echo $descValue?>px;
+		font-weight: <?php echo $titleValue?>px;
 	 }
 	  #huge_it_loading_image_<?php echo $sliderID; ?>.display {
 		display: table-cell;
@@ -1128,6 +1132,7 @@ function add_style_to_header($id) {
 		z-index: 1;
 		margin:0px !important;
 		padding:0px  !important;
+		overflow: hidden !important;
 		border-radius: <?php echo $paramssld['slider_slideshow_border_radius']; ?>px !important;
 	  }
 	  .huge_it_slideshow_image_second_item_<?php echo $sliderID; ?> {
@@ -1147,8 +1152,7 @@ function add_style_to_header($id) {
 		visibility:visible !important;
 		padding:0px  !important;
 		border-radius: <?php echo $paramssld['slider_slideshow_border_radius']; ?>px !important;
-	  }
-	  
+	  }  
 	   .huge_it_slideshow_image_second_item_<?php echo $sliderID; ?> a, .huge_it_slideshow_image_item_<?php echo $sliderID; ?> a {
 			display:block;
 			width:100%;
@@ -1243,7 +1247,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 }
 ?>
 		/*//////////////////////slider thunbnail styles start///////////////////////////*/
-		
+
 		.bx-wrapper .bx-controls-direction a.disabled {
 		  display: <?php echo $thumb_control; ?>;
 		}
@@ -1354,6 +1358,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:43px;
 						width:29px;
 						background:url(<?php echo $arrowfolder;?>/arrows.simple.png) left  top no-repeat; 
+						background-size: 200%;
 					}
 					
 					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
@@ -1362,6 +1367,8 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:43px;
 						width:29px;
 						background:url(<?php echo $arrowfolder;?>/arrows.simple.png) right top no-repeat; 
+						background-size: 200%;
+
 					}
 				<?php
 				break;
@@ -1373,6 +1380,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:50px;
 						width:50px;
 						background:url(<?php echo $arrowfolder;?>/arrows.circle.shadow.png) left  top no-repeat; 
+						background-size: 200%;
 					}
 					
 					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
@@ -1381,6 +1389,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:50px;
 						width:50px;
 						background:url(<?php echo $arrowfolder;?>/arrows.circle.shadow.png) right top no-repeat; 
+						background-size: 200%;
 					}
 
 					#huge_it_slideshow_left_<?php echo $sliderID; ?>:hover {
@@ -1399,7 +1408,8 @@ if(isset($GLOBALS['thumbnail_width'])){
 						margin-top:-22px;
 						height:44px;
 						width:44px;
-						background:url(<?php echo $arrowfolder;?>/arrows.circle.simple.dark.png) left  top no-repeat; 
+						background:url(<?php echo $arrowfolder;?>/arrows.circle.simple.dark.png) left  top no-repeat;
+						background-size: 200%;						
 					}
 					
 					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
@@ -1408,6 +1418,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:44px;
 						width:44px;
 						background:url(<?php echo $arrowfolder;?>/arrows.circle.simple.dark.png) right top no-repeat; 
+						background-size: 200%;
 					}
 
 					#huge_it_slideshow_left_<?php echo $sliderID; ?>:hover {
@@ -1427,6 +1438,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:65px;
 						width:59px;
 						background:url(<?php echo $arrowfolder;?>/arrows.cube.dark.png) left  top no-repeat; 
+						background-size: 200%;
 					}
 					
 					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
@@ -1435,6 +1447,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:65px;
 						width:59px;
 						background:url(<?php echo $arrowfolder;?>/arrows.cube.dark.png) right top no-repeat; 
+						background-size: 200%;
 					}
 
 					#huge_it_slideshow_left_<?php echo $sliderID; ?>:hover {
@@ -1454,6 +1467,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:37px;
 						width:40px;
 						background:url(<?php echo $arrowfolder;?>/arrows.light.blue.png) left  top no-repeat; 
+						background-size: 200%;
 					}
 					
 					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
@@ -1462,6 +1476,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:37px;
 						width:40px;
 						background:url(<?php echo $arrowfolder;?>/arrows.light.blue.png) right top no-repeat; 
+						background-size: 200%;
 					}
 
 				<?php
@@ -1474,6 +1489,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:50px;
 						width:50px;
 						background:url(<?php echo $arrowfolder;?>/arrows.light.cube.png) left  top no-repeat; 
+						background-size: 200%;
 					}
 					
 					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
@@ -1482,6 +1498,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:50px;
 						width:50px;
 						background:url(<?php echo $arrowfolder;?>/arrows.light.cube.png) right top no-repeat; 
+						background-size: 200%;
 					}
 
 					#huge_it_slideshow_left_<?php echo $sliderID; ?>:hover {
@@ -1502,6 +1519,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:38px;
 						width:38px;
 						background:url(<?php echo $arrowfolder;?>/arrows.light.transparent.circle.png) left  top no-repeat; 
+						background-size: 200%;
 					}
 					
 					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
@@ -1509,7 +1527,8 @@ if(isset($GLOBALS['thumbnail_width'])){
 						margin-top:-19px;
 						height:38px;
 						width:38px;
-						background:url(<?php echo $arrowfolder;?>/arrows.light.transparent.circle.png) right top no-repeat; 
+						background:url(<?php echo $arrowfolder;?>/arrows.light.transparent.circle.png) right top no-repeat;
+						background-size: 200%;						
 					}
 				<?php
 				break;
@@ -1521,6 +1540,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:45px;
 						width:45px;
 						background:url(<?php echo $arrowfolder;?>/arrows.png) left  top no-repeat; 
+						background-size: 200%;
 					}
 					
 					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
@@ -1529,6 +1549,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:45px;
 						width:45px;
 						background:url(<?php echo $arrowfolder;?>/arrows.png) right top no-repeat; 
+						background-size: 200%;
 					}
 				<?php
 				break;
@@ -1540,6 +1561,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:45px;
 						width:45px;
 						background:url(<?php echo $arrowfolder;?>/arrows.circle.blue.png) left  top no-repeat; 
+						background-size: 200%;
 					}
 					
 					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
@@ -1548,6 +1570,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:45px;
 						width:45px;
 						background:url(<?php echo $arrowfolder;?>/arrows.circle.blue.png) right top no-repeat; 
+						background-size: 200%;
 					}
 				<?php
 				break;
@@ -1559,6 +1582,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:48px;
 						width:48px;
 						background:url(<?php echo $arrowfolder;?>/arrows.circle.green.png) left  top no-repeat; 
+						background-size: 200%;
 					}
 					
 					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
@@ -1567,6 +1591,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:48px;
 						width:48px;
 						background:url(<?php echo $arrowfolder;?>/arrows.circle.green.png) right top no-repeat; 
+						background-size: 200%;
 					}
 
 					#huge_it_slideshow_left_<?php echo $sliderID; ?>:hover {
@@ -1586,6 +1611,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:58px;
 						width:55px;
 						background:url(<?php echo $arrowfolder;?>/arrows.blue.retro.png) left  top no-repeat; 
+						background-size: 200%;
 					}
 					
 					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
@@ -1594,6 +1620,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:58px;
 						width:55px;
 						background:url(<?php echo $arrowfolder;?>/arrows.blue.retro.png) right top no-repeat; 
+						background-size: 200%;
 					}
 				<?php
 				break;
@@ -1605,6 +1632,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:74px;
 						width:74px;
 						background:url(<?php echo $arrowfolder;?>/arrows.green.retro.png) left  top no-repeat; 
+						background-size: 200%;
 					}
 					
 					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
@@ -1613,6 +1641,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:74px;
 						width:74px;
 						background:url(<?php echo $arrowfolder;?>/arrows.green.retro.png) right top no-repeat; 
+						background-size: 200%;
 					}
 				<?php
 				break;
@@ -1624,6 +1653,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:33px;
 						width:33px;
 						background:url(<?php echo $arrowfolder;?>/arrows.red.circle.png) left  top no-repeat; 
+						background-size: 200%;
 					}
 					
 					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
@@ -1632,6 +1662,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:33px;
 						width:33px;
 						background:url(<?php echo $arrowfolder;?>/arrows.red.circle.png) right top no-repeat; 
+						background-size: 200%;
 					}
 				<?php
 				break;
@@ -1643,6 +1674,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:102px;
 						width:52px;
 						background:url(<?php echo $arrowfolder;?>/arrows.triangle.white.png) left  top no-repeat; 
+						background-size: 200%;
 					}
 					
 					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
@@ -1651,6 +1683,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:102px;
 						width:52px;
 						background:url(<?php echo $arrowfolder;?>/arrows.triangle.white.png) right top no-repeat; 
+						background-size: 200%;
 					}
 				<?php
 				break;
@@ -1662,6 +1695,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:39px;
 						width:70px;
 						background:url(<?php echo $arrowfolder;?>/arrows.ancient.png) left  top no-repeat; 
+						background-size: 200%;
 					}
 					
 					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
@@ -1670,6 +1704,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:39px;
 						width:70px;
 						background:url(<?php echo $arrowfolder;?>/arrows.ancient.png) right top no-repeat; 
+						background-size: 200%;
 					}
 				<?php
 				break;
@@ -1681,6 +1716,7 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:40px;
 						width:37px;
 						background:url(<?php echo $arrowfolder;?>/arrows.black.out.png) left  top no-repeat; 
+						background-size: 200%;
 					}
 					
 					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
@@ -1689,11 +1725,435 @@ if(isset($GLOBALS['thumbnail_width'])){
 						height:40px;
 						width:37px;
 						background:url(<?php echo $arrowfolder;?>/arrows.black.out.png) right top no-repeat; 
+						background-size: 200%;
 					}
 				<?php
 				break;
 		}
 ?>
+<?php 
+/***<For Responsive slider>***/
+$titleValue = (int)$paramssld['slider_title_font_size']/(int)$sliderwidth;
+$descValue = (int)$paramssld['slider_description_font_size']/(int)$sliderwidth;
+$dotsValue = 10/(int)$sliderwidth;
+ 
+for($i=$sliderwidth; $i>148; $i = $i-28) { 
+?>
+
+	@media screen and (max-width: <?php echo $i;?>px) {
+		
+		.huge_it_slideshow_title_text_<?php echo $sliderID; ?> { 
+			
+			font-size: <?php echo  $titleValue*$i;?>px !important;
+		 
+		 }
+	    .huge_it_slideshow_description_text_<?php echo $sliderID; ?> {
+			
+			font-size: <?php echo  $descValue*$i;?>px !important;		
+		
+		}
+	   .huge_it_slideshow_dots_thumbnails_<?php echo $sliderID; ?> .huge_it_slideshow_dots_<?php echo $sliderID; ?> {
+			
+			width:<?php echo $dotsValue*$i; ?>px;
+			height:<?php echo $dotsValue*$i; ?>px;
+			border-radius:<?php echo $dotsValue*$i; ?>px;
+			margin: <?php echo $dotsValue*$i; ?>px;
+			
+	   }
+<?php
+		
+		$arrowfolder=plugins_url('slider-image/Front_images/arrows');
+		$arrowValue = $i/$sliderwidth;
+		switch ($paramssld['slider_navigation_type']) {
+			case 1:
+				?>
+				#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:<?php echo -21*$arrowValue;?>px;
+						height:<?php echo 43*$arrowValue;?>43px;
+						width:<?php echo 29*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.simple.png) left  top no-repeat; 
+						background-size: 200%;
+					}
+					
+				#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:<?php echo -21*$arrowValue;?>px;
+						height:<?php echo 43*$arrowValue;?>px;
+						width:<?php echo 29*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.simple.png) right top no-repeat; 
+						background-size: 200%;
+
+					}
+				<?php
+				break;
+			case 2:
+				?>
+				#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:<?php echo -25*$arrowValue;?>px;
+						height:<?php echo 50*$arrowValue;?>px;
+						width:<?php echo 50*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.circle.shadow.png) left  top no-repeat; 
+						background-size: 200%;
+					}
+					
+				#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:<?php echo -25*$arrowValue;?>px;
+						height:<?php echo 50*$arrowValue;?>px;
+						width:<?php echo 50*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.circle.shadow.png) right top no-repeat; 
+						background-size: 200%;
+					}
+
+					#huge_it_slideshow_left_<?php echo $sliderID; ?>:hover {
+						background-position:left <?php echo -50*$arrowValue;?>px;
+					}
+
+					#huge_it_slideshow_right_<?php echo $sliderID; ?>:hover {
+						background-position:right <?php echo -50*$arrowValue;?>px;
+					}
+				<?php
+				break;
+			case 3:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:<?php echo -22*$arrowValue;?>px;
+						height:<?php echo 44*$arrowValue;?>px;
+						width:<?php echo 44*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.circle.simple.dark.png) left  top no-repeat;
+						background-size: 200%;						
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:<?php echo -22*$arrowValue;?>px;
+						height:<?php echo 44*$arrowValue;?>px;
+						width:<?php echo 44*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.circle.simple.dark.png) right top no-repeat; 
+						background-size: 200%;
+					}
+
+					#huge_it_slideshow_left_<?php echo $sliderID; ?>:hover {
+						background-position:left <?php echo -44*$arrowValue;?>px;
+					}
+
+					#huge_it_slideshow_right_<?php echo $sliderID; ?>:hover {
+						background-position:right <?php echo -44*$arrowValue;?>px;
+					}
+				<?php
+				break;
+			case 4:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:<?php echo -33*$arrowValue;?>px;
+						height:<?php echo 65*$arrowValue;?>px;
+						width:<?php echo 59*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.cube.dark.png) left  top no-repeat; 
+						background-size: 200%;
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:<?php echo -33*$arrowValue;?>px;
+						height:<?php echo 65*$arrowValue;?>px;
+						width:<?php echo 59*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.cube.dark.png) right top no-repeat; 
+						background-size: 200%;
+					}
+
+					#huge_it_slideshow_left_<?php echo $sliderID; ?>:hover {
+						background-position:left <?php echo 66*$arrowValue;?>px;
+					}
+
+					#huge_it_slideshow_right_<?php echo $sliderID; ?>:hover {
+						background-position:right <?php echo 66*$arrowValue;?>px;
+					}
+				<?php
+				break;
+			case 5:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:<?php echo -18*$arrowValue;?>px;
+						height:<?php echo 37*$arrowValue;?>px;
+						width:<?php echo 40*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.light.blue.png) left  top no-repeat; 
+						background-size: 200%;
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:<?php echo -18*$arrowValue;?>px;
+						height:<?php echo 37*$arrowValue;?>px;
+						width:<?php echo 40*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.light.blue.png) right top no-repeat; 
+						background-size: 200%;
+					}
+
+				<?php
+				break;
+			case 6:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:<?php echo -25*$arrowValue;?>px;
+						height:<?php echo 50*$arrowValue;?>px;
+						width:<?php echo 50*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.light.cube.png) left  top no-repeat; 
+						background-size: 200%;
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:<?php echo -25*$arrowValue;?>px;
+						height:<?php echo 50*$arrowValue;?>px;
+						width:<?php echo 50*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.light.cube.png) right top no-repeat; 
+						background-size: 200%;
+					}
+
+					#huge_it_slideshow_left_<?php echo $sliderID; ?>:hover {
+						background-position:left <?php echo -50*$arrowValue;?>px;
+					}
+
+					#huge_it_slideshow_right_<?php echo $sliderID; ?>:hover {
+						background-position:right <?php echo -50*$arrowValue;?>px;
+					}
+				<?php
+				break;
+			case 7:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						right:0px;
+						margin-top:<?php echo -19*$arrowValue;?>px;
+						height:<?php echo 38*$arrowValue;?>px;
+						width:<?php echo 38*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.light.transparent.circle.png) left  top no-repeat; 
+						background-size: 200%;
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:<?php echo -19*$arrowValue;?>px;
+						height:<?php echo 38*$arrowValue;?>px;
+						width:<?php echo 38*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.light.transparent.circle.png) right top no-repeat;
+						background-size: 200%;						
+					}
+				<?php
+				break;
+			case 8:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:<?php echo -22*$arrowValue;?>px;
+						height:<?php echo 45*$arrowValue;?>px;
+						width:<?php echo 45*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.png) left  top no-repeat; 
+						background-size: 200%;
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:<?php echo -22*$arrowValue;?>px;
+						height:<?php echo 45*$arrowValue;?>px;
+						width:<?php echo 45*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.png) right top no-repeat; 
+						background-size: 200%;
+					}
+				<?php
+				break;
+			case 9:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:-<?php echo 22*$arrowValue;?>px;
+						height:<?php echo 45*$arrowValue;?>px;
+						width:<?php echo 45*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.circle.blue.png) left  top no-repeat; 
+						background-size: 200%;
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:-<?php echo 22*$arrowValue;?>px;
+						height:<?php echo 45*$arrowValue;?>px;
+						width:<?php echo 45*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.circle.blue.png) right top no-repeat; 
+						background-size: 200%;
+					}
+				<?php
+				break;
+			case 10:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:-<?php echo 24*$arrowValue;?>px;
+						height:<?php echo 48*$arrowValue;?>px;
+						width:<?php echo 48*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.circle.green.png) left  top no-repeat; 
+						background-size: 200%;
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:-<?php echo 24*$arrowValue;?>px;
+						height:<?php echo 48*$arrowValue;?>px;
+						width:<?php echo 48*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.circle.green.png) right top no-repeat; 
+						background-size: 200%;
+					}
+
+					#huge_it_slideshow_left_<?php echo $sliderID; ?>:hover {
+						background-position:left -<?php echo 48*$arrowValue;?>px;
+					}
+
+					#huge_it_slideshow_right_<?php echo $sliderID; ?>:hover {
+						background-position:right -<?php echo 48*$arrowValue;?>px;
+					}
+				<?php
+				break;
+			case 11:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:-<?php echo 29*$arrowValue;?>px;
+						height:<?php echo 58*$arrowValue;?>px;
+						width:<?php echo 55*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.blue.retro.png) left  top no-repeat; 
+						background-size: 200%;
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:-<?php echo 29*$arrowValue;?>px;
+						height:<?php echo 58*$arrowValue;?>px;
+						width:<?php echo 55*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.blue.retro.png) right top no-repeat; 
+						background-size: 200%;
+					}
+				<?php
+				break;
+			case 12:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:<?php echo (-37*$arrowValue);?>px;
+						height:<?php echo (74*$arrowValue);?>px;
+						width:<?php echo (74*$arrowValue);?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.green.retro.png) left  top no-repeat; 
+						background-size: 200%;
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:-<?php echo 37*$arrowValue;?>px;
+						height:<?php echo 74*$arrowValue;?>px;
+						width:<?php echo 74*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.green.retro.png) right top no-repeat; 
+						background-size: 200%;
+					}
+				<?php
+				break;
+			case 13:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:-<?php echo 16*$arrowValue;?>px;
+						height:<?php echo 33*$arrowValue;?>px;
+						width:<?php echo 33*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.red.circle.png) left  top no-repeat; 
+						background-size: 200%;
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:-<?php echo 16*$arrowValue;?>px;
+						height:<?php echo 33*$arrowValue;?>px;
+						width:<?php echo 33*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.red.circle.png) right top no-repeat; 
+						background-size: 200%;
+					}
+				<?php
+				break;
+			case 14:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:-<?php echo 51*$arrowValue;?>px;
+						height:<?php echo 102*$arrowValue;?>px;
+						width:<?php echo 52*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.triangle.white.png) left  top no-repeat; 
+						background-size: 200%;
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:-<?php echo 51*$arrowValue;?>px;
+						height:<?php echo 102*$arrowValue;?>px;
+						width:<?php echo 52*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.triangle.white.png) right top no-repeat; 
+						background-size: 200%;
+					}
+				<?php
+				break;
+			case 15:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:0px;
+						margin-top:-<?php echo 19*$arrowValue;?>px;
+						height:<?php echo 39*$arrowValue;?>px;
+						width:<?php echo 70*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.ancient.png) left  top no-repeat; 
+						background-size: 200%;
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:0px;
+						margin-top:-<?php echo 19*$arrowValue;?>px;
+						height:<?php echo 39*$arrowValue;?>px;
+						width:<?php echo 70*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.ancient.png) right top no-repeat; 
+						background-size: 200%;
+					}
+				<?php
+				break;
+			case 16:
+				?>
+					#huge_it_slideshow_left_<?php echo $sliderID; ?> {	
+						left:-<?php echo 21*$arrowValue;?>px;
+						margin-top:-<?php echo 20*$arrowValue;?>px;
+						height:<?php echo 40*$arrowValue;?>px;
+						width:<?php echo 37*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.black.out.png) left  top no-repeat; 
+						background-size: 200%;
+					}
+					
+					#huge_it_slideshow_right_<?php echo $sliderID; ?> {
+						right:-<?php echo 21*$arrowValue;?>px;
+						margin-top:-<?php echo 20*$arrowValue;?>px;
+						height:<?php echo 40*$arrowValue;?>px;
+						width:<?php echo 37*$arrowValue;?>px;
+						background:url(<?php echo $arrowfolder;?>/arrows.black.out.png) right top no-repeat; 
+						background-size: 200%;
+					}
+				<?php
+				break;
+		}
+		?>
+	}
+	
+<?php
+ }
+ /***</For Responsive slider>***/
+
+ ?>
+
 /***</add>***/
 
 	</style>
