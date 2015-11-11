@@ -1,7 +1,7 @@
 === Slider ===
 Contributors: Huge-IT
 Donate link: http://huge-it.com/slider/
-Tags: slider, slideshow, wordpress slider, content slider, posts slider, image slider, responsive slideshow, image Rotator, jquery slider, Photo Slider, nivo slider, slider plugin, javascript slider, coin slider, responsive slider, featured-content-slider, Horizontal slider, carousel slider, wp slider, vertical slider, best slider plugin, content slideshow, javascript slideshow, slideshow manager, slideshow plugin, image slideshow, jquery slideshow, wordpress slideshow, vertical slides, responsive, nivoslider, flex slider, coinslider, carousel, post, posts, plugin, slider widget, widget slider, widget slideshow, widget, widgets, seo, wordpress seo, media, page, slide, slides, image, images, slide show,  video slider, free video slider, custom video slider, video slideshow, free video slideshow, youtube slider, vimeo  slider, vimeo  slideshow, youtube slideshow, HTML5 slider, recent post slider, 3D slider, slider shortcode, picture slider, responsive image slider, revolution slider, wordpress picture slider, touch slider, post slider, fullscreen slider, picture, pictures,swipe slider, swipe, mobile slider, fast slide, fast slider, wordpress responsive slider, pages, page slider, css3 slider, plugins, free plugin, free slider, best slider, jquery, fullwidth slider, post slider, slider image,
+Tags: slider, slideshow, wordpress slider, content slider, posts slider, image slider, responsive slideshow, image Rotator, jquery slider, Photo Slider, nivo slider, slider plugin, javascript slider, coin slider, responsive slider, featured-content-slider, Horizontal slider, carousel slider, wp slider, vertical slider, rotate, sidebar, best slider plugin, content slideshow, javascript slideshow, slideshow manager, slideshow plugin, image slideshow, jquery slideshow, wordpress slideshow, vertical slides, responsive, nivoslider, flex slider, coinslider, carousel, post, posts, plugin, slider widget, widget slider, widget slideshow, widget, widgets, seo, wordpress seo, media, page, slide, slides, image, images, slide show,  video slider, free video slider, custom video slider, video slideshow, rotator, free video slideshow, youtube slider, vimeo  slider, vimeo  slideshow, youtube slideshow, HTML5 slider, recent post slider, 3D slider, slider shortcode, picture slider, responsive image slider, revolution slider, wordpress picture slider, touch slider, post slider, fullscreen slider, picture, pictures,swipe slider, swipe, mobile slider, fast slide, fast slider, wordpress responsive slider, pages, page slider, css3 slider, plugins, free plugin, free slider, best slider, jquery, fullwidth slider, post slider, slider image, link, links, shortcode,
 Requires at least: 3.0.1
 Tested up to: 4.3.1
 Stable tag: 2.9.9
@@ -74,6 +74,21 @@ Now you can set your slider options, images and use our slider.
 5.  [WordPress Slider](http://huge-it.com/slider) - Sliders admin page. 
 6.  WordPress slider - Post Slider.    
 7.  WordPress slider - Widget Slider.  
+
+== Frequently Asked Questions ==
+
+**Is it possible to show portrate and landscape images with correct proportions?**
+Yes in pro version of slider there is a function called Image Behavior. This option can make images in natural size with background . the color of background is also adjustable
+
+
+**Can I stop auto slide?**
+Auto slide is not stoppable,  but putting a huge number on "pause time" option will force visitors slide manually
+
+
+**Can I have full width slider?**
+If you put size on slider it won't be more than your entry-content size. make sure that your entry-content is also full-width.
+
+### If you think, that you found a bug in our [WordPress Slider](http://huge-it.com/slider/) plugin or have any question contact us at [info@huge-it.com](mailto:info@huge-it.com).
 
 == Changelog ==
 
