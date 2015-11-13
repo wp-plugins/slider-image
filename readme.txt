@@ -19,6 +19,8 @@ Huge-IT slider is an awesome WordPress slider plugin with a lot of nice features
 * [FAQ Slider](http://huge-it.com/wordpress-slider-faq/)
 * [User Slider Manual](http://huge-it.com/wordpress-slider-user-manual/)
 
+https://www.youtube.com/watch?v=oIcsrVHNDWo
+
 Huge-IT Slider is a quick and easy way to add custom sliders to the WordPress websites (both to templates and posts/pages).
 The slider allows having unlimited amount of images with their titles and descriptions.
 
@@ -49,7 +51,19 @@ Upgrade to [WordPress Slider Pro](http://huge-it.com/slider) to add some feature
 * Full Design Management 
 * Support upon request in 24 hours
 
-https://www.youtube.com/watch?v=oIcsrVHNDWo
+> #### Image Slider Demos 
+>
+>[Mixed Slider](http://huge-it.com/wordpress-slider-demo-1-mixed-slider/#plugin_demo_wrapper)
+>
+>[Youtube Slider](http://huge-it.com/wordpress-slider-demo-2-youtube-slider/#plugin_demo_wrapper)
+>
+>[Vimeo Slider](http://huge-it.com/wordpress-slider-demo-3-vimeo-slider/#plugin_demo_wrapper)
+
+> #### Slider FAQ & User Manual 
+>
+>[FAQ Slider](http://huge-it.com/wordpress-slider-faq/)
+>
+>[Slider User Manual](http://huge-it.com/wordpress-slider-user-manual/)
 
 ### If you think, that you found a bug in our [WordPress Slider](http://huge-it.com/slider) plugin or have any question contact us at [info@huge-it.com](mailto:info@huge-it.com).
 
